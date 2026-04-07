@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>White Pyramid Academy — KS2 Diagnostic Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { 950:'#060D1A', 900:'#0B1929', 800:'#0B2545', 700:'#0D3060', 600:'#1B4080', 500:'#2456AA' },
+        gold: { 200:'#FAF0C0', 300:'#F5E49A', 400:'#F0CB5A', 500:'#C9A227', 600:'#A8841F' }
+      },
+      fontFamily: { sans:['DM Sans','sans-serif'], display:['Playfair Display','serif'] }
+    }
+  }
+}
+</script>
+<style>
+  /* ── Base ── */
+  *, *::before, *::after { box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* ── Animated background ── */
+  .bg-scene {
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 15% 40%, #0f3060 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 15%, #1a1040 0%, transparent 50%),
+                radial-gradient(ellipse at 55% 85%, #071828 0%, transparent 55%),
+                #060D1A;
+  }
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(80px);
+    animation: blobmove 12s ease-in-out infinite alternate;
+  }
+  .blob-1 { width:420px; height:420px; top:-10%; left:-8%; background:rgba(201,162,39,.09); animation-delay:0s; }
+  .blob-2 { width:350px; height:350px; top:30%; right:-5%; background:rgba(27,64,128,.18); animation-delay:-4s; }
+  .blob-3 { width:300px; height:300px; bottom:-5%; left:25%; background:rgba(201,162,39,.06); animation-delay:-8s; }
+  @keyframes blobmove {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(30px,-25px) scale(1.08); }
+    100% { transform: translate(-20px,15px) scale(.95); }
+  }
+
+  /* Floating pyramids */
+  .pyramid-deco {
+    position: absolute; opacity: .04; animation: floatpyr 14s ease-in-out infinite alternate;
+  }
+  .pyramid-deco:nth-child(2) { animation-delay:-5s; opacity:.03; }
+  .pyramid-deco:nth-child(3) { animation-delay:-9s; opacity:.025; }
+  @keyframes floatpyr {
+    0%   { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-30px) rotate(4deg); }
+  }
+
+  /* ── Glass variants ── */
+  .glass {
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255,255,255,.13);
+  }
+  .glass-card {
+    background: rgba(255,255,255,.09);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border: 1px solid rgba(255,255,255,.16);
+    box-shadow: 0 24px 64px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .glass-input {
+    background: rgba(255,255,255,.06);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255,255,255,.12);
+    transition: border-color .2s, background .2s;
+  }
+  .glass-input:focus { border-color: #C9A227; background: rgba(255,255,255,.1); outline: none; }
+  .glass-input::placeholder { color: rgba(255,255,255,.3); }
+  .glass-option {
+    background: rgba(255,255,255,.06);
+    border: 1.5px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(12px);
+    transition: all .2s cubic-bezier(.4,0,.2,1);
+  }
+  .glass-option:hover { background: rgba(201,162,39,.12); border-color: rgba(201,162,39,.4); transform: translateX(4px); }
+  .glass-option.selected {
+    background: rgba(201,162,39,.18);
+    border-color: #C9A227;
+    box-shadow: 0 0 0 3px rgba(201,162,39,.15), inset 0 1px 0 rgba(255,255,255,.1);
+  }
+  .glass-option.selected .opt-letter { background: #C9A227; color: #0B2545; }
+
+  /* ── Buttons ── */
+  .btn-gold {
+    background: linear-gradient(135deg, #F0CB5A 0%, #C9A227 100%);
+    color: #0B2545; font-weight: 800;
+    box-shadow: 0 6px 24px rgba(201,162,39,.35), inset 0 1px 0 rgba(255,255,255,.3);
+    transition: all .2s cubic-bezier(.4,0,.2,1);
+  }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,162,39,.45), inset 0 1px 0 rgba(255,255,255,.3); }
+  .btn-gold:active { transform: translateY(0); }
+  .btn-glass {
+    background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(12px); color: rgba(255,255,255,.7);
+    transition: all .2s;
+  }
+  .btn-glass:hover { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.2); }
+  .btn-glass:disabled { opacity: .3; cursor: not-allowed; transform: none !important; }
+
+  /* ── Screens ── */
+  .screen { display: none; min-height: 100dvh; position: relative; z-index: 1; }
+  .screen.active { display: flex; flex-direction: column; animation: screenIn .35s ease; }
+  @keyframes screenIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── Timer ring ── */
+  .timer-ring-fg { transition: stroke-dashoffset .9s linear, stroke .4s; }
+  .timer-warn .timer-ring-fg { stroke: #F5A623 !important; }
+  .timer-danger .timer-ring-fg { stroke: #FF4B4B !important; animation: timerPulse .8s infinite; }
+  .timer-danger .timer-num { color: #FF7B7B; }
+  @keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ── Subject card ── */
+  .subj-card {
+    background: rgba(255,255,255,.07);
+    border: 1.5px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(20px);
+    transition: all .25s cubic-bezier(.4,0,.2,1);
+    cursor: pointer;
+  }
+  .subj-card:hover:not(.locked) { background: rgba(255,255,255,.12); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+  .subj-card.locked { opacity: .45; cursor: not-allowed; }
+  .subj-card.completed { border-color: rgba(74,222,128,.3); background: rgba(74,222,128,.07); }
+  .subj-card .top-stripe { height: 3px; border-radius: 2px 2px 0 0; }
+
+  /* ── Nav dots ── */
+  .nav-dot {
+    width: 32px; height: 32px; border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.05);
+    color: rgba(255,255,255,.4); font-size: 11px; font-weight: 700;
+    cursor: pointer; transition: all .15s; display:flex; align-items:center; justify-content:center;
+    flex-shrink: 0;
+  }
+  .nav-dot:hover { border-color: rgba(201,162,39,.5); color: #F0CB5A; }
+  .nav-dot.answered { background: rgba(201,162,39,.15); border-color: rgba(201,162,39,.4); color: #F0CB5A; }
+  .nav-dot.current { background: #C9A227; border-color: #C9A227; color: #0B2545; }
+
+  /* ── Progress bar ── */
+  .progress-bar-fill { transition: width .4s ease; }
+
+  /* ── Score counter ── */
+  @keyframes countUp { from { opacity:0; transform:scale(.5); } to { opacity:1; transform:scale(1); } }
+  .count-animate { animation: countUp .6s cubic-bezier(.34,1.56,.64,1) forwards; }
+
+  /* ── Review screen ── */
+  .review-item { border: 1.5px solid rgba(255,255,255,.08); background: rgba(255,255,255,.05); }
+  .review-item.answered { border-color: rgba(201,162,39,.25); background: rgba(201,162,39,.06); }
+
+  /* ── Passage ── */
+  .passage-scroll::-webkit-scrollbar { width: 4px; }
+  .passage-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,.05); border-radius:2px; }
+  .passage-scroll::-webkit-scrollbar-thumb { background: rgba(201,162,39,.4); border-radius:2px; }
+
+  /* ── Confetti ── */
+  .confetti-piece {
+    position: fixed; width: 10px; height: 10px; top: -20px;
+    animation: confettiFall linear forwards;
+    z-index: 9999;
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(0) rotate(0deg); opacity:1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity:0; }
+  }
+
+  /* ── Responsive passage ── */
+  @media (max-width: 767px) {
+    .test-grid { display: flex; flex-direction: column; }
+    .blob { width: 280px; height: 280px; }
+  }
+</style>
+</head>
+<body class="text-white">
+
+<!-- ░░ BACKGROUND ░░ -->
+<div class="bg-scene" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <!-- Pyramid decorations -->
+  <svg class="pyramid-deco" style="width:360px;top:5%;right:8%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
+  <svg class="pyramid-deco" style="width:220px;bottom:10%;left:5%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
+  <svg class="pyramid-deco" style="width:160px;top:50%;right:30%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
+</div>
+
+<!-- ░░ SCREEN: WELCOME ░░ -->
+<div id="screen-welcome" class="screen active items-center justify-center px-4 py-8">
+  <div class="glass-card rounded-3xl p-8 sm:p-10 w-full max-w-md">
+    <!-- Logo -->
+    <div class="flex items-center gap-4 mb-8">
+      <div class="relative flex-shrink-0">
+        <svg width="52" height="52" viewBox="0 0 52 52">
+          <polygon points="26,4 50,48 2,48" fill="#C9A227"/>
+          <polygon points="26,14 42,44 10,44" fill="#F0CB5A" opacity=".45"/>
+          <line x1="26" y1="4" x2="26" y2="48" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        </svg>
+        <div class="absolute inset-0 rounded-full" style="box-shadow:0 0 24px rgba(201,162,39,.5)"></div>
+      </div>
+      <div>
+        <h1 class="font-display text-xl font-bold text-white leading-tight">White Pyramid Academy</h1>
+        <p class="text-gold-400 text-xs font-semibold tracking-widest uppercase mt-0.5">KS2 Diagnostic Assessment</p>
+      </div>
+    </div>
+
+    <div class="mb-7">
+      <h2 class="font-display text-2xl sm:text-3xl text-white font-bold mb-2">Welcome, Pupil! 👋</h2>
+      <p class="text-white/50 text-sm leading-relaxed">This test will help your teacher understand what you already know. Take your time, read each question, and do your best.</p>
+    </div>
+
+    <!-- Stats pills -->
+    <div class="flex flex-wrap gap-2 mb-7">
+      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📋 57 Questions</span>
+      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">⏱ ~1h 40min</span>
+      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📚 4 Subjects</span>
+    </div>
+
+    <div class="mb-6">
+      <label class="block text-xs font-bold text-white/50 uppercase tracking-widest mb-2">Your Full Name</label>
+      <input id="inp-name" type="text" placeholder="e.g. Sophie Johnson"
+        class="glass-input w-full rounded-xl px-4 py-3.5 text-white text-base font-medium"
+        autocomplete="off" onkeydown="if(event.key==='Enter')startJourney()"/>
+    </div>
+
+    <button class="btn-gold w-full rounded-2xl py-4 text-navy-800 text-base font-black tracking-wide" onclick="startJourney()">
+      Begin Assessment →
+    </button>
+
+    <p class="text-white/25 text-xs text-center mt-5">Keyboard tip: Press Enter to start • Use 1–4 during the test to select answers</p>
+  </div>
+</div>
+
+<!-- ░░ SCREEN: HUB ░░ -->
+<div id="screen-hub" class="screen flex-col">
+  <!-- Top nav -->
+  <nav class="glass sticky top-0 z-50 px-4 sm:px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg width="30" height="30" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/><polygon points="26,14 42,44 10,44" fill="#F0CB5A" opacity=".45"/></svg>
+      <div>
+        <div class="text-white font-bold text-sm">White Pyramid Academy</div>
+        <div class="text-gold-400 text-xs">KS2 Diagnostic Assessment</div>
+      </div>
+    </div>
+    <div class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-white/70 truncate max-w-[140px] sm:max-w-none">
+      👤 <span id="hub-student-name">—</span>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="flex-1 px-4 sm:px-6 py-6 max-w-3xl mx-auto w-full">
+    <div class="mb-6">
+      <h2 class="font-display text-2xl sm:text-3xl text-white font-bold">Choose Your Subject</h2>
+      <p class="text-white/45 text-sm mt-1.5">Complete each section in order. Finish one to unlock the next.</p>
+    </div>
+
+    <!-- Overall progress bar -->
+    <div class="glass rounded-2xl p-4 mb-6">
+      <div class="flex justify-between text-xs font-semibold text-white/50 mb-2">
+        <span>Overall Progress</span>
+        <span id="hub-progress-text">0 of 4 complete</span>
+      </div>
+      <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+        <div id="hub-progress-bar" class="progress-bar-fill h-full rounded-full bg-gradient-to-r from-gold-500 to-gold-400" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+
+    <div class="glass rounded-2xl p-4 mt-5 flex gap-3 items-start text-sm text-white/45">
+      <span class="text-lg flex-shrink-0">💡</span>
+      <span>Your timer starts only when you click "Begin Section" — take your time reading the rules first.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ SCREEN: BRIEFING ░░ -->
+<div id="screen-briefing" class="screen items-center justify-center px-4 py-8">
+  <div class="glass-card rounded-3xl p-8 sm:p-10 w-full max-w-lg">
+    <div id="brief-badge" class="inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full mb-5 glass uppercase tracking-wider"></div>
+    <h2 id="brief-title" class="font-display text-2xl sm:text-3xl text-white font-bold mb-2"></h2>
+    <div id="brief-meta" class="flex flex-wrap gap-3 mb-6 text-sm text-white/50"></div>
+
+    <ul class="space-y-3 mb-8">
+      <li class="flex gap-3 items-start">
+        <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+        <span class="text-white/70 text-sm">Read every question carefully before choosing your answer.</span>
+      </li>
+      <li class="flex gap-3 items-start">
+        <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+        <span class="text-white/70 text-sm">Select your answer — you can change it any time before submitting. Keyboard: press <kbd class="glass rounded px-1.5 py-0.5 text-xs text-gold-400">1</kbd>–<kbd class="glass rounded px-1.5 py-0.5 text-xs text-gold-400">4</kbd></span>
+      </li>
+      <li class="flex gap-3 items-start">
+        <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+        <span class="text-white/70 text-sm">Keep an eye on the timer — the section will auto-submit when time is up.</span>
+      </li>
+      <li class="flex gap-3 items-start">
+        <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+        <span class="text-white/70 text-sm">Use the question navigator to skip and return to any question.</span>
+      </li>
+    </ul>
+
+    <div class="flex gap-3">
+      <button class="btn-glass rounded-xl py-3.5 px-5 text-sm font-bold flex-1" onclick="goToHub()">← Back</button>
+      <button id="btn-begin-section" class="btn-gold rounded-xl py-3.5 px-6 text-sm font-black flex-[2]" onclick="beginSection()">Begin Section →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ SCREEN: TEST ░░ -->
+<div id="screen-test" class="screen flex-col">
+  <!-- Progress bar (very top) -->
+  <div class="h-1 w-full bg-white/10">
+    <div id="test-progress-bar" class="progress-bar-fill h-full bg-gradient-to-r from-gold-600 to-gold-400" style="width:0%"></div>
+  </div>
+
+  <!-- Header -->
+  <div class="glass px-4 sm:px-6 py-3 flex items-center justify-between gap-4 sticky top-0 z-50">
+    <div class="flex items-center gap-3 min-w-0">
+      <svg width="26" height="26" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/></svg>
+      <div class="min-w-0">
+        <div id="test-subject-label" class="text-white font-bold text-sm truncate"></div>
+        <div id="test-paper-label" class="text-gold-400 text-xs"></div>
+      </div>
+    </div>
+
+    <!-- Timer -->
+    <div class="flex items-center gap-2.5 flex-shrink-0" id="timer-wrap">
+      <div class="relative w-12 h-12">
+        <svg width="48" height="48" viewBox="0 0 48 48" style="transform:rotate(-90deg)">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/>
+          <circle id="timer-ring-fg" cx="24" cy="24" r="20" fill="none" stroke="#C9A227" stroke-width="4"
+            stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="0" class="timer-ring-fg"/>
+        </svg>
+        <div id="timer-num" class="absolute inset-0 flex items-center justify-center text-xs font-black text-white"></div>
+      </div>
+      <span class="text-white/40 text-xs hidden sm:block">left</span>
+    </div>
+  </div>
+
+  <!-- Main body -->
+  <div id="test-body" class="test-grid flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-5 gap-5">
+
+    <!-- Passage panel (reading only) -->
+    <div id="passage-panel" class="hidden glass-card rounded-2xl p-5 sm:p-6 passage-scroll md:overflow-y-auto md:max-h-[calc(100vh-140px)] md:sticky md:top-20">
+      <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+        <span class="text-gold-400">📄</span>
+        <h3 id="passage-title-el" class="font-display text-base sm:text-lg text-white font-bold"></h3>
+      </div>
+      <div id="passage-content-el" class="text-white/70 text-sm leading-relaxed space-y-3"></div>
+    </div>
+
+    <!-- Question + nav panel -->
+    <div class="flex flex-col gap-4">
+      <!-- Question card -->
+      <div class="glass-card rounded-2xl p-5 sm:p-7">
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-white/35 text-xs font-bold uppercase tracking-widest">
+            Question <span id="q-num" class="text-gold-400">1</span> <span class="text-white/20">of</span> <span id="q-total">20</span>
+          </div>
+          <div id="q-answered-badge" class="glass rounded-full px-2.5 py-1 text-xs font-semibold text-white/40"></div>
+        </div>
+        <p id="q-text" class="text-white font-semibold text-base sm:text-lg leading-relaxed mb-6 whitespace-pre-wrap"></p>
+
+        <div id="options-grid" class="space-y-2.5"></div>
+      </div>
+
+      <!-- Nav card -->
+      <div class="glass-card rounded-2xl p-4 sm:p-5">
+        <div class="text-white/30 text-xs font-bold uppercase tracking-widest mb-3">Navigator</div>
+        <div id="q-nav-dots" class="flex flex-wrap gap-1.5 mb-4"></div>
+        <div class="flex gap-2.5 pt-3 border-t border-white/10">
+          <button id="btn-prev" class="btn-glass rounded-xl py-3 flex-1 text-sm font-bold" onclick="prevQ()">← Prev</button>
+          <button id="btn-next" class="btn-glass rounded-xl py-3 flex-1 text-sm font-bold" onclick="nextQ()">Next →</button>
+          <button class="btn-gold rounded-xl py-3 px-4 text-xs sm:text-sm font-black flex-[1.5]" onclick="openReview()">Review & Submit ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ SCREEN: REVIEW ░░ -->
+<div id="screen-review" class="screen flex-col">
+  <nav class="glass sticky top-0 z-50 px-4 sm:px-6 py-3.5 flex items-center justify-between">
+    <div>
+      <div id="review-subject-name" class="text-white font-bold text-sm"></div>
+      <div class="text-gold-400 text-xs">Review your answers before submitting</div>
+    </div>
+    <div id="review-timer-badge" class="glass rounded-full px-3 py-1.5 text-xs font-bold text-gold-400"></div>
+  </nav>
+  <div class="flex-1 px-4 sm:px-6 py-6 max-w-2xl mx-auto w-full">
+    <div class="glass-card rounded-2xl p-5 mb-4">
+      <div id="review-summary" class="text-sm text-white/60 mb-0"></div>
+    </div>
+    <div id="review-list" class="space-y-2 mb-6"></div>
+    <div class="flex gap-3">
+      <button class="btn-glass rounded-xl py-3.5 px-5 text-sm font-bold flex-1" onclick="closeReview()">← Continue Answering</button>
+      <button class="btn-gold rounded-xl py-3.5 px-5 text-sm font-black flex-[1.5]" onclick="confirmSubmit()">Submit Section ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ SCREEN: SECTION DONE ░░ -->
+<div id="screen-section-done" class="screen items-center justify-center px-4 py-8">
+  <div class="glass-card rounded-3xl p-8 sm:p-10 w-full max-w-md text-center">
+    <div id="done-emoji" class="text-6xl mb-4"></div>
+    <h2 id="done-title" class="font-display text-2xl sm:text-3xl text-white font-bold mb-2"></h2>
+    <p id="done-msg" class="text-white/50 text-sm mb-7 leading-relaxed"></p>
+
+    <!-- Score ring -->
+    <div class="relative w-36 h-36 mx-auto mb-5">
+      <svg width="144" height="144" viewBox="0 0 144 144" class="absolute inset-0" style="transform:rotate(-90deg)">
+        <circle cx="72" cy="72" r="60" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/>
+        <circle id="done-ring" cx="72" cy="72" r="60" fill="none" stroke="#C9A227" stroke-width="10"
+          stroke-linecap="round" stroke-dasharray="376.8" stroke-dashoffset="376.8" class="timer-ring-fg" style="transition:stroke-dashoffset 1.2s ease"/>
+      </svg>
+      <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <div id="done-score" class="font-display text-3xl font-black text-white count-animate"></div>
+        <div id="done-pct" class="text-gold-400 text-sm font-bold"></div>
+      </div>
+    </div>
+
+    <div id="done-band" class="inline-block rounded-full px-4 py-1.5 text-sm font-bold mb-7"></div>
+
+    <button id="btn-continue" class="btn-gold w-full rounded-2xl py-4 text-base font-black" onclick="goToHub()">Return to Hub →</button>
+  </div>
+</div>
+
+<!-- ░░ SCREEN: RESULTS ░░ -->
+<div id="screen-results" class="screen flex-col">
+  <nav class="glass sticky top-0 z-50 px-4 sm:px-6 py-3.5 flex items-center gap-3">
+    <svg width="26" height="26" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/></svg>
+    <div>
+      <div class="text-white font-bold text-sm">Assessment Complete</div>
+      <div id="results-student-info" class="text-gold-400 text-xs"></div>
+    </div>
+  </nav>
+  <div class="flex-1 px-4 sm:px-6 py-6 max-w-3xl mx-auto w-full">
+    <!-- Overall -->
+    <div class="glass-card rounded-3xl p-7 sm:p-9 text-center mb-6 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10" style="background:radial-gradient(ellipse at center, #C9A227 0%, transparent 70%)"></div>
+      <div class="relative z-10">
+        <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-2">Overall Score</div>
+        <div id="ov-pct" class="font-display text-6xl sm:text-7xl font-black text-gold-400 mb-1 count-animate">—</div>
+        <div id="ov-raw" class="text-white/40 text-sm font-semibold mb-4">— / —</div>
+        <div id="ov-band" class="inline-block rounded-full px-5 py-2 text-sm font-black"></div>
+      </div>
+    </div>
+
+    <!-- Subject grid -->
+    <div id="results-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6"></div>
+
+    <!-- Breakdown bars -->
+    <div class="glass-card rounded-2xl p-5 sm:p-6 mb-6">
+      <h3 class="text-white font-bold text-sm mb-5 uppercase tracking-widest text-white/50">Subject Breakdown</h3>
+      <div id="results-bars" class="space-y-4"></div>
+    </div>
+
+    <!-- Submit to Sheets -->
+    <div class="glass-card rounded-2xl p-5 sm:p-6 mb-6">
+      <h3 class="text-white font-bold text-base mb-1">📤 Save to Google Sheets</h3>
+      <p class="text-white/40 text-xs mb-4">Paste your Google Apps Script Web App URL below to save these results.</p>
+      <div class="flex flex-col sm:flex-row gap-2.5">
+        <input id="sheets-url" type="url" placeholder="https://script.google.com/macros/s/…/exec"
+          class="glass-input flex-1 rounded-xl px-4 py-3 text-white text-sm font-medium"/>
+        <button class="btn-gold rounded-xl px-5 py-3 text-sm font-black whitespace-nowrap" onclick="submitToSheets()">Submit Results</button>
+      </div>
+      <p id="submit-status" class="mt-2.5 text-sm font-semibold hidden"></p>
+    </div>
+
+    <button class="btn-glass w-full rounded-xl py-3.5 text-sm font-bold" onclick="window.print()">🖨 Print Results Report</button>
+  </div>
+</div>
+
+<!-- ░░ JAVASCRIPT ░░ -->
+<script>
+// ═══════════════════════════════════════════════════════
+// QUESTION DATA
+// ═══════════════════════════════════════════════════════
+const READING_PASSAGE = {
+  title: 'The Arctic Fox',
+  html: `
+    <p><em>Read the following passage, then answer the questions on the right.</em></p>
+    <p>The Arctic fox (<em>Vulpes lagopus</em>) is one of nature's most remarkable survivors. Found across the Arctic tundra, this small but resilient creature has evolved extraordinary adaptations to endure temperatures as low as −50°C.</p>
+    <p>Perhaps the most striking feature of the Arctic fox is its seasonal coat. In winter, the fox wears a thick, brilliant-white fur that provides exceptional insulation and camouflage against the snow. As summer arrives and the snow retreats, this white coat is shed and replaced with a shorter, brownish-grey fur that blends seamlessly with the tundra's rocky landscape.</p>
+    <p>The Arctic fox is an opportunistic omnivore. Its diet shifts dramatically with the seasons. In summer, it feasts on birds, eggs, berries and small rodents. In the harsh winter months, when prey is scarce, the fox often follows polar bears, scavenging the remains of seal carcasses left behind after a kill. This resourceful behaviour is critical to its winter survival.</p>
+    <p>Despite its many adaptations, the Arctic fox faces increasing threats from climate change. As temperatures rise, the red fox — a larger and more dominant species — is moving further north into Arctic territories, directly competing with the Arctic fox for food and space. Conservation scientists warn that without intervention, some Arctic fox populations could face serious decline within decades.</p>`
+};
+
+const SUBJECTS = [
+  { id:'arithmetic', name:'Maths Arithmetic', paper:'Paper 1', time:25*60, icon:'🔢', color:'#3B82F6',
+    questions:[
+      {t:"456 + 289 = ?", o:["745","635","755","735"], a:0},
+      {t:"1,000 − 437 = ?", o:["563","573","463","543"], a:0},
+      {t:"27 × 6 = ?", o:["152","162","172","142"], a:1},
+      {t:"196 ÷ 4 = ?", o:["47","48","49","50"], a:2},
+      {t:"4.7 + 3.8 = ?", o:["7.5","8.4","8.5","9.5"], a:2},
+      {t:"9.3 − 4.6 = ?", o:["5.7","4.7","4.3","5.3"], a:1},
+      {t:"38 × 25 = ?", o:["850","900","950","1,000"], a:2},
+      {t:"504 ÷ 9 = ?", o:["55","56","57","54"], a:1},
+      {t:"¼ of 360 = ?", o:["80","85","90","95"], a:2},
+      {t:"⅔ × 18 = ?", o:["10","11","12","13"], a:2},
+      {t:"20% of 150 = ?", o:["25","28","30","35"], a:2},
+      {t:"6.4 × 5 = ?", o:["30","31","32","33"], a:2},
+      {t:"½ + ¼ = ?", o:["¾","⅔","¼","⅔"], a:0},
+      {t:"3 − 1¾ = ?", o:["1¼","1½","¾","2¼"], a:0},
+      {t:"237 × 14 = ?", o:["3,218","3,318","3,328","3,418"], a:1},
+      {t:"8² = ?", o:["16","48","64","72"], a:2},
+      {t:"√81 = ?", o:["7","8","9","10"], a:2},
+      {t:"3.6 ÷ 0.4 = ?", o:["8","9","10","12"], a:1},
+      {t:"⅗ of 55 = ?", o:["30","31","32","33"], a:3},
+      {t:"35.4 + 17.86 = ?", o:["52.26","53.26","53.16","52.36"], a:1},
+    ]},
+  { id:'reasoning', name:'Maths Reasoning', paper:'Paper 2', time:30*60, icon:'📐', color:'#10B981',
+    questions:[
+      {t:"A rectangle has a length of 12 cm and a width of 7 cm. What is its area?", o:["38 cm²","72 cm²","84 cm²","168 cm²"], a:2},
+      {t:"There are 24 children in a class. ⅜ of them have a pet. How many children have a pet?", o:["6","7","8","9"], a:3},
+      {t:"A bag of flour weighs 1.5 kg. A baker uses ⅗ of it. How many grams does he use?", o:["600 g","750 g","900 g","1,000 g"], a:2},
+      {t:"The ratio of boys to girls in a school is 3:4. There are 84 girls. How many boys?", o:["56","63","72","112"], a:1},
+      {t:"A train leaves at 09:45 and arrives at 11:20. How long is the journey?", o:["1 h 25 min","1 h 35 min","1 h 45 min","2 h 5 min"], a:1},
+      {t:"What is the value of 3n + 5 when n = 7?", o:["15","21","26","29"], a:2},
+      {t:"A shop sells pencils for 35p each. Sam buys 8 pencils and pays with a £5 note. How much change?", o:["£2.20","£2.40","£2.60","£2.80"], a:0},
+      {t:"The mean of five numbers is 14. Four of the numbers are 12, 16, 9 and 18. What is the fifth?", o:["13","14","15","17"], a:2},
+      {t:"A square has a perimeter of 36 cm. What is its area?", o:["36 cm²","72 cm²","81 cm²","144 cm²"], a:2},
+      {t:"A coat costing £80 is reduced by 15% in a sale. What is the sale price?", o:["£12","£65","£68","£72"], a:2},
+      {t:"A sequence follows: add 7 each time. The third term is 23. What is the first term?", o:["7","9","11","16"], a:1},
+      {t:"4 litres of paint covers 20 m². How many litres to cover 45 m²?", o:["7 L","8 L","9 L","10 L"], a:2},
+    ]},
+  { id:'reading', name:'Reading', paper:'Reading Paper', time:25*60, icon:'📖', color:'#8B5CF6',
+    hasPassage:true, passage: READING_PASSAGE,
+    questions:[
+      {t:"What is the lowest temperature an Arctic fox can endure?", o:["−30°C","−40°C","−50°C","−60°C"], a:2},
+      {t:"What does the word 'resilient' most closely mean in paragraph 1?", o:["Delicate and fragile","Able to recover from difficulties","Dangerous to other animals","Rare and unusual"], a:1},
+      {t:"Why does the Arctic fox's coat change colour in summer?", o:["To stay warm in the sun","To attract a mate","To blend in with the rocky landscape","To prepare for migration"], a:2},
+      {t:"What does 'opportunistic omnivore' tell us about the Arctic fox?", o:["It only eats plants","It eats whatever food is available","It hunts other predators","It stores food underground"], a:1},
+      {t:"In winter, what does the Arctic fox eat when prey is scarce?", o:["Arctic moss and berries","Fish from frozen rivers","Remains of seal carcasses left by polar bears","Insects under the snow"], a:2},
+      {t:"Which word from paragraph 3 shows the fox eats more than one type of food?", o:["opportunistic","omnivore","scavenging","resourceful"], a:1},
+      {t:"Why does the fox follow polar bears in winter?", o:["Polar bears protect the fox","Polar bears lead foxes to warmth","Polar bears leave food the fox can eat","Polar bears teach the fox to hunt"], a:2},
+      {t:"What specific threat does climate change pose to the Arctic fox?", o:["Its coat no longer changes colour","The red fox moves north and competes for food","The tundra becomes too wet","The fox loses its hunting instinct"], a:1},
+      {t:"What does 'seamlessly' suggest about the fox's summer coat?", o:["The match is almost perfect with no visible difference","The coat has visible seams","The colour is slightly different","The coat glows in sunlight"], a:0},
+      {t:"Based on the whole passage, which best describes the Arctic fox?", o:["A powerful predator dominating the Arctic","A vulnerable animal with no natural defences","A highly adaptable animal facing new challenges","A species already extinct in many regions"], a:2},
+    ]},
+  { id:'gps', name:'Grammar & Punctuation', paper:'GPS Paper 1', time:20*60, icon:'✏️', color:'#F59E0B',
+    questions:[
+      {t:"Which sentence uses a comma correctly after a fronted adverbial?", o:["After the match, we went home.","After, the match we went home.","After the match we, went home.","After the match we went, home."], a:0},
+      {t:"'She quickly ran to the door.' — What word class is 'quickly'?", o:["Adjective","Noun","Adverb","Verb"], a:2},
+      {t:"Which sentence is written in the passive voice?", o:["The dog chased the cat.","The cat was chased by the dog.","The cat ran away quickly.","The dog barked loudly."], a:1},
+      {t:"Choose the correct word: 'Neither the teacher nor the students _____ ready.'", o:["was","were","is","are"], a:1},
+      {t:"Which sentence uses an apostrophe correctly for multiple boys?", o:["The boys' coats were wet.","The boys's coats were wet.","The boys coats' were wet.","The boy's coats were wet."], a:0},
+      {t:"Which option correctly uses a semicolon?", o:["She was tired; but she kept going.","She was tired; she kept going.","She; was tired but kept going.","She was; tired but kept going."], a:1},
+      {t:"What word class is 'beneath' in: 'She hid the letter beneath the floorboard'?", o:["Adverb","Conjunction","Preposition","Determiner"], a:2},
+      {t:"Which sentence contains a relative clause?", o:["The book was long and difficult.","She read it carefully.","The book, which was very old, told of ancient times.","She put the book on the shelf."], a:2},
+      {t:"Choose the correct form: 'If I _____ you, I would apologise.'", o:["am","was","were","be"], a:2},
+      {t:"What is the function of the dashes in: 'My sister — the one in London — called yesterday'?", o:["To show a list","To add parenthetical information","To show a pause at the end","To show direct speech"], a:1},
+      {t:"Which sentence uses a fronted adverbial?", o:["She walked slowly through the park.","Through the park, she walked slowly.","She slowly walked through the park.","Walking quickly through the park."], a:1},
+      {t:"Which word is a modal verb?", o:["run","could","happy","quickly"], a:1},
+      {t:"Which spelling is correct?", o:["Accomodation","Accommadation","Accommodation","Accomodation"], a:2},
+      {t:"Which sentence correctly uses a colon to introduce a list?", o:["She had many hobbies: reading, painting, and singing.","She had many hobbies, reading: painting and singing.","She had: many hobbies reading painting and singing.","She had many hobbies reading, painting: and singing."], a:0},
+      {t:"Which sentence uses an ellipsis to build suspense correctly?", o:["She opened the door...and screamed.","She...opened the door and screamed.","She opened...the door and screamed.","She opened the door and...screamed."], a:0},
+    ]}
+];
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+const S = {
+  student: { name:'' },
+  subjectIdx: 0, qIdx: 0,
+  prog: SUBJECTS.map((_,i)=>({ status: i===0?'available':'locked', ans:{}, score:null, timeUsed:0 })),
+  timer: null, timeLeft: 0, totalTime: 0,
+};
+
+// ═══════════════════════════════════════════════════════
+// SCREENS
+// ═══════════════════════════════════════════════════════
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════════════════════════
+// WELCOME
+// ═══════════════════════════════════════════════════════
+function startJourney() {
+  const name = document.getElementById('inp-name').value.trim();
+  if (!name) { document.getElementById('inp-name').focus(); return; }
+  S.student.name = name;
+  document.getElementById('hub-student-name').textContent = name;
+  show('hub'); renderHub();
+}
+
+// ═══════════════════════════════════════════════════════
+// HUB
+// ═══════════════════════════════════════════════════════
+function renderHub() {
+  const done = S.prog.filter(p=>p.status==='completed').length;
+  document.getElementById('hub-progress-text').textContent = done + ' of 4 complete';
+  document.getElementById('hub-progress-bar').style.width = (done/4*100)+'%';
+
+  const grid = document.getElementById('hub-grid');
+  grid.innerHTML = '';
+  SUBJECTS.forEach((subj,i)=>{
+    const sp = S.prog[i];
+    const card = document.createElement('div');
+    card.className = 'subj-card rounded-2xl overflow-hidden ' + sp.status;
+    const statusMap = { available:'Ready to Start', locked:'🔒 Locked', completed:'✓ Complete', 'in-progress':'▶ In Progress' };
+    const scoreHTML = sp.score!==null
+      ? `<div class="mt-2 text-xs text-white/40">Score: <span class="text-gold-400 font-bold">${sp.score}/${subj.questions.length}</span></div>` : '';
+    card.innerHTML = `
+      <div class="top-stripe" style="background:${subj.color}"></div>
+      <div class="p-5">
+        <div class="text-3xl mb-3">${subj.icon}</div>
+        <div class="text-white font-bold text-sm mb-0.5">${subj.name}</div>
+        <div class="text-white/35 text-xs mb-3">${subj.paper}</div>
+        <div class="flex gap-1.5 flex-wrap mb-3">
+          <span class="glass rounded-full px-2 py-0.5 text-xs text-white/50 font-semibold">⏱ ${Math.floor(subj.time/60)}min</span>
+          <span class="glass rounded-full px-2 py-0.5 text-xs text-white/50 font-semibold">${subj.questions.length}Q</span>
+        </div>
+        ${scoreHTML}
+        <div class="flex items-center gap-1.5 mt-3">
+          <div class="w-2 h-2 rounded-full" style="background:${sp.status==='completed'?'#4ADE80':sp.status==='available'?subj.color:'#555'}"></div>
+          <span class="text-xs font-bold" style="color:${sp.status==='completed'?'#4ADE80':sp.status==='available'?subj.color:'rgba(255,255,255,.3)'}">${statusMap[sp.status]}</span>
+        </div>
+      </div>`;
+    if (sp.status==='available'||sp.status==='in-progress') card.onclick=()=>openBriefing(i);
+    grid.appendChild(card);
+  });
+
+  if (S.prog.every(p=>p.status==='completed')) {
+    const btn = document.createElement('button');
+    btn.className = 'btn-gold col-span-1 sm:col-span-2 rounded-2xl py-4 text-base font-black';
+    btn.style.cssText = 'grid-column:1/-1;';
+    btn.textContent = '🏆 View Full Results';
+    btn.onclick = showResults;
+    grid.appendChild(btn);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// BRIEFING
+// ═══════════════════════════════════════════════════════
+function openBriefing(idx) {
+  S.subjectIdx = idx;
+  const s = SUBJECTS[idx];
+  const badge = document.getElementById('brief-badge');
+  badge.textContent = s.icon+' '+s.name;
+  badge.style.cssText = `color:${s.color};border:1px solid ${s.color}33;background:${s.color}15;`;
+  document.getElementById('brief-title').textContent = 'Ready for '+s.name+'?';
+  document.getElementById('brief-meta').innerHTML = `
+    <span class="glass rounded-full px-3 py-1 text-xs text-white/60 font-semibold">⏱ ${Math.floor(s.time/60)} minutes</span>
+    <span class="glass rounded-full px-3 py-1 text-xs text-white/60 font-semibold">${s.questions.length} questions</span>
+    <span class="glass rounded-full px-3 py-1 text-xs text-white/60 font-semibold">${s.paper}</span>`;
+  document.getElementById('btn-begin-section').style.background = `linear-gradient(135deg,${s.color}cc,${s.color})`;
+  show('briefing');
+}
+
+function goToHub() { clearTimer(); show('hub'); renderHub(); }
+
+// ═══════════════════════════════════════════════════════
+// TEST
+// ═══════════════════════════════════════════════════════
+function beginSection() {
+  const subj = SUBJECTS[S.subjectIdx];
+  S.qIdx = 0;
+  S.timeLeft = subj.time;
+  S.totalTime = subj.time;
+  S.prog[S.subjectIdx].status = 'in-progress';
+
+  document.getElementById('test-subject-label').textContent = subj.name;
+  document.getElementById('test-paper-label').textContent = subj.paper;
+
+  // Passage setup
+  const passPanel = document.getElementById('passage-panel');
+  const testBody  = document.getElementById('test-body');
+  if (subj.hasPassage) {
+    passPanel.classList.remove('hidden');
+    testBody.classList.add('md:grid','md:grid-cols-2');
+    document.getElementById('passage-title-el').textContent = subj.passage.title;
+    document.getElementById('passage-content-el').innerHTML = subj.passage.html;
+  } else {
+    passPanel.classList.add('hidden');
+    testBody.classList.remove('md:grid','md:grid-cols-2');
+  }
+
+  renderQ(); renderDots(); startTimer();
+  show('test');
+}
+
+function renderQ() {
+  const subj = SUBJECTS[S.subjectIdx];
+  const q    = subj.questions[S.qIdx];
+  const ans  = S.prog[S.subjectIdx].ans;
+  const answered = Object.keys(ans).length;
+
+  document.getElementById('q-num').textContent   = S.qIdx+1;
+  document.getElementById('q-total').textContent = subj.questions.length;
+  document.getElementById('q-text').textContent  = q.t;
+  document.getElementById('q-answered-badge').textContent = answered+'/'+subj.questions.length+' answered';
+  document.getElementById('test-progress-bar').style.width = ((S.qIdx+1)/subj.questions.length*100)+'%';
+  document.getElementById('btn-prev').disabled = S.qIdx===0;
+  document.getElementById('btn-next').disabled = S.qIdx===subj.questions.length-1;
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  ['A','B','C','D'].forEach((ltr,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'glass-option rounded-xl p-3.5 sm:p-4 flex items-center gap-3 text-left w-full'+(ans[S.qIdx]===i?' selected':'');
+    btn.innerHTML = `<span class="opt-letter w-7 h-7 rounded-lg glass text-xs font-black flex items-center justify-center flex-shrink-0 ${ans[S.qIdx]===i?'bg-gold-500 text-navy-800':'text-white/40'}">${ltr}</span>
+      <span class="text-white/80 text-sm font-medium leading-snug">${q.o[i]}</span>`;
+    btn.onclick=()=>pick(i);
+    grid.appendChild(btn);
+  });
+  renderDots();
+}
+
+function pick(i) {
+  S.prog[S.subjectIdx].ans[S.qIdx] = i;
+  renderQ();
+  // Auto-advance after short delay if not last question
+  const subj = SUBJECTS[S.subjectIdx];
+  if (S.qIdx < subj.questions.length-1) {
+    setTimeout(()=>{ if(S.prog[S.subjectIdx].ans[S.qIdx]===i){ S.qIdx++; renderQ(); }}, 400);
+  }
+}
+
+function prevQ() { if(S.qIdx>0){ S.qIdx--; renderQ(); } }
+function nextQ() { const n=SUBJECTS[S.subjectIdx].questions.length; if(S.qIdx<n-1){ S.qIdx++; renderQ(); } }
+
+function renderDots() {
+  const ans  = S.prog[S.subjectIdx].ans;
+  const wrap = document.getElementById('q-nav-dots');
+  wrap.innerHTML = '';
+  SUBJECTS[S.subjectIdx].questions.forEach((_,i)=>{
+    const d = document.createElement('button');
+    d.className = 'nav-dot'+(i===S.qIdx?' current':ans[i]!==undefined?' answered':'');
+    d.textContent = i+1;
+    d.onclick=()=>{ S.qIdx=i; renderQ(); };
+    wrap.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════════════════════
+function startTimer() {
+  clearTimer();
+  updateTimer();
+  S.timer = setInterval(()=>{
+    S.timeLeft--;
+    if (S.timeLeft<=0) { S.timeLeft=0; updateTimer(); clearTimer(); autoSubmit(); }
+    else updateTimer();
+  },1000);
+}
+
+function clearTimer() { if(S.timer){ clearInterval(S.timer); S.timer=null; } }
+
+function updateTimer() {
+  const m = Math.floor(S.timeLeft/60), s = S.timeLeft%60;
+  document.getElementById('timer-num').textContent = m+':'+ String(s).padStart(2,'0');
+  const pct = S.timeLeft/S.totalTime;
+  document.getElementById('timer-ring-fg').style.strokeDashoffset = 125.6*(1-pct);
+  const wrap = document.getElementById('timer-wrap');
+  wrap.className = 'flex items-center gap-2.5 flex-shrink-0'+(S.timeLeft<=60?' timer-danger':S.timeLeft<=300?' timer-warn':'');
+  // Also update review badge if open
+  const rb = document.getElementById('review-timer-badge');
+  if (rb) rb.textContent = '⏱ '+m+':'+String(s).padStart(2,'0')+' left';
+}
+
+// ═══════════════════════════════════════════════════════
+// REVIEW SCREEN
+// ═══════════════════════════════════════════════════════
+function openReview() {
+  const subj = SUBJECTS[S.subjectIdx];
+  const ans  = S.prog[S.subjectIdx].ans;
+  const answered = Object.keys(ans).length;
+  const unanswered = subj.questions.length - answered;
+
+  document.getElementById('review-subject-name').textContent = subj.name;
+  document.getElementById('review-timer-badge').textContent = '⏱ '+Math.floor(S.timeLeft/60)+':'+String(S.timeLeft%60).padStart(2,'0')+' left';
+  document.getElementById('review-summary').innerHTML =
+    `<span class="text-green-400 font-bold">${answered} answered</span> &nbsp;·&nbsp; `+
+    `<span class="${unanswered>0?'text-orange-400 font-bold':'text-white/40'}">${unanswered} unanswered</span>`;
+
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  subj.questions.forEach((q,i)=>{
+    const isAns = ans[i]!==undefined;
+    const item = document.createElement('div');
+    item.className = 'review-item rounded-xl p-3.5 flex items-center gap-3 cursor-pointer transition-all hover:border-gold-500/40'+(isAns?' answered':'');
+    item.innerHTML = `
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black flex-shrink-0 ${isAns?'bg-gold-500/20 text-gold-400':'glass text-white/30'}">${i+1}</div>
+      <div class="flex-1 min-w-0">
+        <div class="text-white/70 text-xs font-medium truncate">${q.t.substring(0,60)}${q.t.length>60?'…':''}</div>
+        <div class="text-xs mt-0.5 ${isAns?'text-gold-400':'text-white/25'}">${isAns?'Selected: '+['A','B','C','D'][ans[i]]:'Not answered'}</div>
+      </div>
+      <div class="text-white/20 text-xs">→</div>`;
+    item.onclick=()=>{ closeReview(); S.qIdx=i; renderQ(); };
+    list.appendChild(item);
+  });
+  show('review');
+}
+
+function closeReview() { show('test'); }
+
+// ═══════════════════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════════════════
+function confirmSubmit() {
+  const subj = SUBJECTS[S.subjectIdx];
+  const unanswered = subj.questions.length - Object.keys(S.prog[S.subjectIdx].ans).length;
+  if (unanswered>0 && !confirm(`${unanswered} question${unanswered>1?'s are':' is'} unanswered. Submit anyway?`)) return;
+  submitSection();
+}
+function autoSubmit() { submitSection(); }
+
+function submitSection() {
+  clearTimer();
+  const idx  = S.subjectIdx;
+  const subj = SUBJECTS[idx];
+  const ans  = S.prog[idx].ans;
+  let score  = 0;
+  subj.questions.forEach((q,i)=>{ if(ans[i]===q.a) score++; });
+  S.prog[idx].score    = score;
+  S.prog[idx].status   = 'completed';
+  S.prog[idx].timeUsed = S.totalTime - S.timeLeft;
+  if (idx+1<SUBJECTS.length) S.prog[idx+1].status = 'available';
+
+  const pct = Math.round(score/subj.questions.length*100);
+  const [emoji,msg] = pct>=75 ? ['🌟','Outstanding performance!'] : pct>=55 ? ['✅','Good effort!'] : ['💪','Keep going — every question is a lesson.'];
+
+  document.getElementById('done-emoji').textContent = emoji;
+  document.getElementById('done-title').textContent = subj.name+' Complete!';
+  document.getElementById('done-msg').textContent   = msg;
+  document.getElementById('done-score').textContent = score+'/'+subj.questions.length;
+  document.getElementById('done-pct').textContent   = pct+'%';
+
+  const circ = 376.8;
+  setTimeout(()=>{ document.getElementById('done-ring').style.strokeDashoffset = circ*(1-pct/100); },100);
+  const bandEl = document.getElementById('done-band');
+  if (pct>=75) { bandEl.textContent='⭐ Greater Depth'; bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-gold-500/20 text-gold-400'; }
+  else if (pct>=55) { bandEl.textContent='✓ Expected Standard'; bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-green-500/20 text-green-400'; }
+  else { bandEl.textContent='📚 Working Towards'; bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-orange-500/20 text-orange-400'; }
+
+  const allDone = S.prog.every(p=>p.status==='completed');
+  const btn = document.getElementById('btn-continue');
+  if (allDone) { btn.textContent='🏆 View Full Results'; btn.onclick=()=>{ launchConfetti(); showResults(); }; }
+  else { btn.textContent='Return to Hub →'; btn.onclick=goToHub; }
+
+  show('section-done');
+}
+
+// ═══════════════════════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════════════════════
+function showResults() {
+  let total=0, possible=0;
+  SUBJECTS.forEach((s,i)=>{ total+=S.prog[i].score||0; possible+=s.questions.length; });
+  const pct = Math.round(total/possible*100);
+
+  document.getElementById('ov-pct').textContent = pct+'%';
+  document.getElementById('ov-raw').textContent = total+' / '+possible;
+  document.getElementById('results-student-info').textContent = S.student.name+' · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+
+  const band = document.getElementById('ov-band');
+  if (pct>=75){ band.textContent='⭐ Greater Depth'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-gold-500/25 text-gold-400'; }
+  else if (pct>=55){ band.textContent='✓ Expected Standard'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-green-500/20 text-green-400'; }
+  else { band.textContent='📚 Working Towards Expected'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-orange-500/20 text-orange-400'; }
+
+  // Subject cards
+  const grid = document.getElementById('results-grid');
+  grid.innerHTML = '';
+  SUBJECTS.forEach((s,i)=>{
+    const sc = S.prog[i].score||0;
+    const p  = Math.round(sc/s.questions.length*100);
+    const card = document.createElement('div');
+    card.className = 'glass-card rounded-2xl p-4 text-center';
+    card.innerHTML = `<div class="text-2xl mb-2">${s.icon}</div>
+      <div class="text-white/50 text-xs font-semibold mb-1 truncate">${s.name}</div>
+      <div class="font-display text-2xl font-black text-white">${sc}<span class="text-sm text-white/30">/${s.questions.length}</span></div>
+      <div class="text-xs font-bold mt-1" style="color:${p>=75?'#F0CB5A':p>=55?'#4ADE80':'#FCA5A5'}">${p}%</div>`;
+    grid.appendChild(card);
+  });
+
+  // Breakdown bars
+  const bars = document.getElementById('results-bars');
+  bars.innerHTML = '';
+  SUBJECTS.forEach((s,i)=>{
+    const sc = S.prog[i].score||0;
+    const p  = Math.round(sc/s.questions.length*100);
+    const color = p>=75?'#C9A227':p>=55?'#4ADE80':'#F87171';
+    bars.innerHTML += `
+      <div>
+        <div class="flex justify-between text-xs font-semibold text-white/50 mb-1.5">
+          <span>${s.icon} ${s.name}</span>
+          <span style="color:${color}">${sc}/${s.questions.length} &nbsp; ${p}%</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+          <div class="progress-bar-fill h-full rounded-full" style="width:${p}%;background:${color}"></div>
+        </div>
+      </div>`;
+  });
+
+  show('results');
+}
+
+// ═══════════════════════════════════════════════════════
+// SHEETS SUBMIT
+// ═══════════════════════════════════════════════════════
+async function submitToSheets() {
+  const url = document.getElementById('sheets-url').value.trim();
+  const el  = document.getElementById('submit-status');
+  if (!url) { el.textContent='⚠ Please enter your Google Apps Script URL.'; el.className='mt-2.5 text-sm font-semibold text-orange-400'; el.classList.remove('hidden'); return; }
+  el.textContent='⏳ Submitting…'; el.className='mt-2.5 text-sm font-semibold text-white/60'; el.classList.remove('hidden');
+  const payload = {
+    timestamp: new Date().toISOString(),
+    studentName: S.student.name,
+    studentClass: 'N/A',
+    subjects: SUBJECTS.map((s,i)=>({
+      name:s.name, paper:s.paper,
+      score:S.prog[i].score, total:s.questions.length,
+      pct:Math.round((S.prog[i].score/s.questions.length)*100),
+      timeUsed:S.prog[i].timeUsed, answers:S.prog[i].ans,
+    }))
+  };
+  try {
+    const res  = await fetch(url,{ method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(payload) });
+    const data = await res.json();
+    if (data.success) { el.textContent='✅ Saved to Google Sheets!'; el.className='mt-2.5 text-sm font-semibold text-green-400'; }
+    else throw new Error(data.error||'Server error');
+  } catch(err) {
+    el.textContent='❌ '+err.message; el.className='mt-2.5 text-sm font-semibold text-red-400';
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// CONFETTI
+// ═══════════════════════════════════════════════════════
+function launchConfetti() {
+  const colors=['#C9A227','#F0CB5A','#FFFFFF','#3B82F6','#10B981','#8B5CF6'];
+  for(let i=0;i<80;i++) {
+    setTimeout(()=>{
+      const el = document.createElement('div');
+      el.className='confetti-piece';
+      el.style.cssText = `left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};
+        width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};
+        animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;
+        transform:rotate(${Math.random()*360}deg)`;
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(), 3000);
+    }, i*25);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// KEYBOARD
+// ═══════════════════════════════════════════════════════
+document.addEventListener('keydown', e=>{
+  const active = document.querySelector('.screen.active')?.id;
+  if (active==='screen-welcome' && e.key==='Enter') { startJourney(); return; }
+  if (active!=='screen-test') return;
+  if (e.key==='ArrowLeft'||e.key==='ArrowUp') { prevQ(); }
+  else if (e.key==='ArrowRight'||e.key==='ArrowDown') { nextQ(); }
+  else if (['1','2','3','4'].includes(e.key)) { pick(parseInt(e.key)-1); }
+});
+</script>
+</body>
+</html>
