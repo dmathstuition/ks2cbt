@@ -21,11 +21,9 @@ tailwind.config = {
 }
 </script>
 <style>
-  /* ── Base ── */
   *, *::before, *::after { box-sizing: border-box; }
   body { font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
-  /* ── Animated background ── */
   .bg-scene {
     position: fixed; inset: 0; z-index: 0;
     background: radial-gradient(ellipse at 15% 40%, #0f3060 0%, transparent 55%),
@@ -33,163 +31,83 @@ tailwind.config = {
                 radial-gradient(ellipse at 55% 85%, #071828 0%, transparent 55%),
                 #060D1A;
   }
-  .blob {
-    position: absolute; border-radius: 50%; filter: blur(80px);
-    animation: blobmove 12s ease-in-out infinite alternate;
-  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); animation: blobmove 12s ease-in-out infinite alternate; }
   .blob-1 { width:420px; height:420px; top:-10%; left:-8%; background:rgba(201,162,39,.09); animation-delay:0s; }
   .blob-2 { width:350px; height:350px; top:30%; right:-5%; background:rgba(27,64,128,.18); animation-delay:-4s; }
   .blob-3 { width:300px; height:300px; bottom:-5%; left:25%; background:rgba(201,162,39,.06); animation-delay:-8s; }
-  @keyframes blobmove {
-    0%   { transform: translate(0,0) scale(1); }
-    50%  { transform: translate(30px,-25px) scale(1.08); }
-    100% { transform: translate(-20px,15px) scale(.95); }
-  }
+  @keyframes blobmove { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-25px) scale(1.08)} 100%{transform:translate(-20px,15px) scale(.95)} }
 
-  /* Floating pyramids */
-  .pyramid-deco {
-    position: absolute; opacity: .04; animation: floatpyr 14s ease-in-out infinite alternate;
-  }
+  .pyramid-deco { position: absolute; opacity: .04; animation: floatpyr 14s ease-in-out infinite alternate; }
   .pyramid-deco:nth-child(2) { animation-delay:-5s; opacity:.03; }
   .pyramid-deco:nth-child(3) { animation-delay:-9s; opacity:.025; }
-  @keyframes floatpyr {
-    0%   { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-30px) rotate(4deg); }
-  }
+  @keyframes floatpyr { 0%{transform:translateY(0) rotate(0deg)} 100%{transform:translateY(-30px) rotate(4deg)} }
 
-  /* ── Glass variants ── */
-  .glass {
-    background: rgba(255,255,255,.07);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255,255,255,.13);
-  }
-  .glass-card {
-    background: rgba(255,255,255,.09);
-    backdrop-filter: blur(28px) saturate(200%);
-    -webkit-backdrop-filter: blur(28px) saturate(200%);
-    border: 1px solid rgba(255,255,255,.16);
-    box-shadow: 0 24px 64px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.12);
-  }
-  .glass-input {
-    background: rgba(255,255,255,.06);
-    backdrop-filter: blur(12px);
-    border: 1.5px solid rgba(255,255,255,.12);
-    transition: border-color .2s, background .2s;
-  }
-  .glass-input:focus { border-color: #C9A227; background: rgba(255,255,255,.1); outline: none; }
-  .glass-input::placeholder { color: rgba(255,255,255,.3); }
-  .glass-option {
-    background: rgba(255,255,255,.06);
-    border: 1.5px solid rgba(255,255,255,.1);
-    backdrop-filter: blur(12px);
-    transition: all .2s cubic-bezier(.4,0,.2,1);
-  }
-  .glass-option:hover { background: rgba(201,162,39,.12); border-color: rgba(201,162,39,.4); transform: translateX(4px); }
-  .glass-option.selected {
-    background: rgba(201,162,39,.18);
-    border-color: #C9A227;
-    box-shadow: 0 0 0 3px rgba(201,162,39,.15), inset 0 1px 0 rgba(255,255,255,.1);
-  }
-  .glass-option.selected .opt-letter { background: #C9A227; color: #0B2545; }
+  .glass { background:rgba(255,255,255,.07); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid rgba(255,255,255,.13); }
+  .glass-card { background:rgba(255,255,255,.09); backdrop-filter:blur(28px) saturate(200%); -webkit-backdrop-filter:blur(28px) saturate(200%); border:1px solid rgba(255,255,255,.16); box-shadow:0 24px 64px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.12); }
+  .glass-input { background:rgba(255,255,255,.06); backdrop-filter:blur(12px); border:1.5px solid rgba(255,255,255,.12); transition:border-color .2s,background .2s; }
+  .glass-input:focus { border-color:#C9A227; background:rgba(255,255,255,.1); outline:none; }
+  .glass-input::placeholder { color:rgba(255,255,255,.3); }
+  .glass-option { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); backdrop-filter:blur(12px); transition:all .2s cubic-bezier(.4,0,.2,1); }
+  .glass-option:hover { background:rgba(201,162,39,.12); border-color:rgba(201,162,39,.4); transform:translateX(4px); }
+  .glass-option.selected { background:rgba(201,162,39,.18); border-color:#C9A227; box-shadow:0 0 0 3px rgba(201,162,39,.15),inset 0 1px 0 rgba(255,255,255,.1); }
+  .glass-option.selected .opt-letter { background:#C9A227; color:#0B2545; }
 
-  /* ── Buttons ── */
-  .btn-gold {
-    background: linear-gradient(135deg, #F0CB5A 0%, #C9A227 100%);
-    color: #0B2545; font-weight: 800;
-    box-shadow: 0 6px 24px rgba(201,162,39,.35), inset 0 1px 0 rgba(255,255,255,.3);
-    transition: all .2s cubic-bezier(.4,0,.2,1);
-  }
-  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,162,39,.45), inset 0 1px 0 rgba(255,255,255,.3); }
-  .btn-gold:active { transform: translateY(0); }
-  .btn-glass {
-    background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.12);
-    backdrop-filter: blur(12px); color: rgba(255,255,255,.7);
-    transition: all .2s;
-  }
-  .btn-glass:hover { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(255,255,255,.2); }
-  .btn-glass:disabled { opacity: .3; cursor: not-allowed; transform: none !important; }
+  .btn-gold { background:linear-gradient(135deg,#F0CB5A 0%,#C9A227 100%); color:#0B2545; font-weight:800; box-shadow:0 6px 24px rgba(201,162,39,.35),inset 0 1px 0 rgba(255,255,255,.3); transition:all .2s cubic-bezier(.4,0,.2,1); }
+  .btn-gold:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(201,162,39,.45),inset 0 1px 0 rgba(255,255,255,.3); }
+  .btn-gold:active { transform:translateY(0); }
+  .btn-glass { background:rgba(255,255,255,.07); border:1.5px solid rgba(255,255,255,.12); backdrop-filter:blur(12px); color:rgba(255,255,255,.7); transition:all .2s; }
+  .btn-glass:hover { background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.2); }
+  .btn-glass:disabled { opacity:.3; cursor:not-allowed; transform:none !important; }
+  .btn-teal { background:linear-gradient(135deg,#2DD4BF 0%,#0D9488 100%); color:#fff; font-weight:800; box-shadow:0 6px 24px rgba(13,148,136,.35); transition:all .2s cubic-bezier(.4,0,.2,1); }
+  .btn-teal:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(13,148,136,.45); }
 
-  /* ── Screens ── */
-  .screen { display: none; min-height: 100dvh; position: relative; z-index: 1; }
-  .screen.active { display: flex; flex-direction: column; animation: screenIn .35s ease; }
-  @keyframes screenIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .screen { display:none; min-height:100dvh; position:relative; z-index:1; }
+  .screen.active { display:flex; flex-direction:column; animation:screenIn .35s ease; }
+  @keyframes screenIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ── Timer ring ── */
-  .timer-ring-fg { transition: stroke-dashoffset .9s linear, stroke .4s; }
-  .timer-warn .timer-ring-fg { stroke: #F5A623 !important; }
-  .timer-danger .timer-ring-fg { stroke: #FF4B4B !important; animation: timerPulse .8s infinite; }
-  .timer-danger .timer-num { color: #FF7B7B; }
+  .timer-ring-fg { transition:stroke-dashoffset .9s linear,stroke .4s; }
+  .timer-warn .timer-ring-fg { stroke:#F5A623 !important; }
+  .timer-danger .timer-ring-fg { stroke:#FF4B4B !important; animation:timerPulse .8s infinite; }
+  .timer-danger .timer-num { color:#FF7B7B; }
   @keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-  /* ── Subject card ── */
-  .subj-card {
-    background: rgba(255,255,255,.07);
-    border: 1.5px solid rgba(255,255,255,.1);
-    backdrop-filter: blur(20px);
-    transition: all .25s cubic-bezier(.4,0,.2,1);
-    cursor: pointer;
-  }
-  .subj-card:hover:not(.locked) { background: rgba(255,255,255,.12); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.3); }
-  .subj-card.locked { opacity: .45; cursor: not-allowed; }
-  .subj-card.completed { border-color: rgba(74,222,128,.3); background: rgba(74,222,128,.07); }
-  .subj-card .top-stripe { height: 3px; border-radius: 2px 2px 0 0; }
+  .subj-card { background:rgba(255,255,255,.07); border:1.5px solid rgba(255,255,255,.1); backdrop-filter:blur(20px); transition:all .25s cubic-bezier(.4,0,.2,1); cursor:pointer; }
+  .subj-card:hover:not(.locked) { background:rgba(255,255,255,.12); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,.3); }
+  .subj-card.locked { opacity:.45; cursor:not-allowed; }
+  .subj-card.completed { border-color:rgba(74,222,128,.3); background:rgba(74,222,128,.07); }
+  .subj-card .top-stripe { height:3px; border-radius:2px 2px 0 0; }
 
-  /* ── Nav dots ── */
-  .nav-dot {
-    width: 32px; height: 32px; border-radius: 8px;
-    border: 1.5px solid rgba(255,255,255,.12);
-    background: rgba(255,255,255,.05);
-    color: rgba(255,255,255,.4); font-size: 11px; font-weight: 700;
-    cursor: pointer; transition: all .15s; display:flex; align-items:center; justify-content:center;
-    flex-shrink: 0;
-  }
-  .nav-dot:hover { border-color: rgba(201,162,39,.5); color: #F0CB5A; }
-  .nav-dot.answered { background: rgba(201,162,39,.15); border-color: rgba(201,162,39,.4); color: #F0CB5A; }
-  .nav-dot.current { background: #C9A227; border-color: #C9A227; color: #0B2545; }
+  .nav-dot { width:32px; height:32px; border-radius:8px; border:1.5px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); color:rgba(255,255,255,.4); font-size:11px; font-weight:700; cursor:pointer; transition:all .15s; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .nav-dot:hover { border-color:rgba(201,162,39,.5); color:#F0CB5A; }
+  .nav-dot.answered { background:rgba(201,162,39,.15); border-color:rgba(201,162,39,.4); color:#F0CB5A; }
+  .nav-dot.current { background:#C9A227; border-color:#C9A227; color:#0B2545; }
 
-  /* ── Progress bar ── */
-  .progress-bar-fill { transition: width .4s ease; }
+  .progress-bar-fill { transition:width .4s ease; }
+  @keyframes countUp { from{opacity:0;transform:scale(.5)} to{opacity:1;transform:scale(1)} }
+  .count-animate { animation:countUp .6s cubic-bezier(.34,1.56,.64,1) forwards; }
 
-  /* ── Score counter ── */
-  @keyframes countUp { from { opacity:0; transform:scale(.5); } to { opacity:1; transform:scale(1); } }
-  .count-animate { animation: countUp .6s cubic-bezier(.34,1.56,.64,1) forwards; }
+  .review-item { border:1.5px solid rgba(255,255,255,.08); background:rgba(255,255,255,.05); }
+  .review-item.answered { border-color:rgba(201,162,39,.25); background:rgba(201,162,39,.06); }
 
-  /* ── Review screen ── */
-  .review-item { border: 1.5px solid rgba(255,255,255,.08); background: rgba(255,255,255,.05); }
-  .review-item.answered { border-color: rgba(201,162,39,.25); background: rgba(201,162,39,.06); }
+  .passage-scroll::-webkit-scrollbar { width:4px; }
+  .passage-scroll::-webkit-scrollbar-track { background:rgba(255,255,255,.05); border-radius:2px; }
+  .passage-scroll::-webkit-scrollbar-thumb { background:rgba(201,162,39,.4); border-radius:2px; }
 
-  /* ── Passage ── */
-  .passage-scroll::-webkit-scrollbar { width: 4px; }
-  .passage-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,.05); border-radius:2px; }
-  .passage-scroll::-webkit-scrollbar-thumb { background: rgba(201,162,39,.4); border-radius:2px; }
+  .confetti-piece { position:fixed; width:10px; height:10px; top:-20px; animation:confettiFall linear forwards; z-index:9999; }
+  @keyframes confettiFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
 
-  /* ── Confetti ── */
-  .confetti-piece {
-    position: fixed; width: 10px; height: 10px; top: -20px;
-    animation: confettiFall linear forwards;
-    z-index: 9999;
-  }
-  @keyframes confettiFall {
-    0%   { transform: translateY(0) rotate(0deg); opacity:1; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity:0; }
-  }
-
-  /* ── Responsive passage ── */
-  @media (max-width: 767px) {
-    .test-grid { display: flex; flex-direction: column; }
-    .blob { width: 280px; height: 280px; }
+  @media (max-width:767px) {
+    .test-grid { display:flex; flex-direction:column; }
+    .blob { width:280px; height:280px; }
   }
 </style>
 </head>
 <body class="text-white">
 
-<!-- ░░ BACKGROUND ░░ -->
 <div class="bg-scene" aria-hidden="true">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
-  <!-- Pyramid decorations -->
   <svg class="pyramid-deco" style="width:360px;top:5%;right:8%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
   <svg class="pyramid-deco" style="width:220px;bottom:10%;left:5%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
   <svg class="pyramid-deco" style="width:160px;top:50%;right:30%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
@@ -198,7 +116,6 @@ tailwind.config = {
 <!-- ░░ SCREEN: WELCOME ░░ -->
 <div id="screen-welcome" class="screen active items-center justify-center px-4 py-8">
   <div class="glass-card rounded-3xl p-8 sm:p-10 w-full max-w-md">
-    <!-- Logo -->
     <div class="flex items-center gap-4 mb-8">
       <div class="relative flex-shrink-0">
         <svg width="52" height="52" viewBox="0 0 52 52">
@@ -213,37 +130,30 @@ tailwind.config = {
         <p class="text-gold-400 text-xs font-semibold tracking-widest uppercase mt-0.5">KS2 Diagnostic Assessment</p>
       </div>
     </div>
-
     <div class="mb-7">
       <h2 class="font-display text-2xl sm:text-3xl text-white font-bold mb-2">Welcome, Pupil! 👋</h2>
       <p class="text-white/50 text-sm leading-relaxed">This test will help your teacher understand what you already know. Take your time, read each question, and do your best.</p>
     </div>
-
-    <!-- Stats pills -->
     <div class="flex flex-wrap gap-2 mb-7">
       <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📋 57 Questions</span>
       <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">⏱ ~1h 40min</span>
       <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📚 4 Subjects</span>
     </div>
-
     <div class="mb-6">
       <label class="block text-xs font-bold text-white/50 uppercase tracking-widest mb-2">Your Full Name</label>
       <input id="inp-name" type="text" placeholder="e.g. Sophie Johnson"
         class="glass-input w-full rounded-xl px-4 py-3.5 text-white text-base font-medium"
         autocomplete="off" onkeydown="if(event.key==='Enter')startJourney()"/>
     </div>
-
     <button class="btn-gold w-full rounded-2xl py-4 text-navy-800 text-base font-black tracking-wide" onclick="startJourney()">
       Begin Assessment →
     </button>
-
     <p class="text-white/25 text-xs text-center mt-5">Keyboard tip: Press Enter to start • Use 1–4 during the test to select answers</p>
   </div>
 </div>
 
 <!-- ░░ SCREEN: HUB ░░ -->
 <div id="screen-hub" class="screen flex-col">
-  <!-- Top nav -->
   <nav class="glass sticky top-0 z-50 px-4 sm:px-6 py-3.5 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <svg width="30" height="30" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/><polygon points="26,14 42,44 10,44" fill="#F0CB5A" opacity=".45"/></svg>
@@ -256,15 +166,11 @@ tailwind.config = {
       👤 <span id="hub-student-name">—</span>
     </div>
   </nav>
-
-  <!-- Content -->
   <div class="flex-1 px-4 sm:px-6 py-6 max-w-3xl mx-auto w-full">
     <div class="mb-6">
       <h2 class="font-display text-2xl sm:text-3xl text-white font-bold">Choose Your Subject</h2>
       <p class="text-white/45 text-sm mt-1.5">Complete each section in order. Finish one to unlock the next.</p>
     </div>
-
-    <!-- Overall progress bar -->
     <div class="glass rounded-2xl p-4 mb-6">
       <div class="flex justify-between text-xs font-semibold text-white/50 mb-2">
         <span>Overall Progress</span>
@@ -274,9 +180,7 @@ tailwind.config = {
         <div id="hub-progress-bar" class="progress-bar-fill h-full rounded-full bg-gradient-to-r from-gold-500 to-gold-400" style="width:0%"></div>
       </div>
     </div>
-
     <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-
     <div class="glass rounded-2xl p-4 mt-5 flex gap-3 items-start text-sm text-white/45">
       <span class="text-lg flex-shrink-0">💡</span>
       <span>Your timer starts only when you click "Begin Section" — take your time reading the rules first.</span>
@@ -290,7 +194,6 @@ tailwind.config = {
     <div id="brief-badge" class="inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full mb-5 glass uppercase tracking-wider"></div>
     <h2 id="brief-title" class="font-display text-2xl sm:text-3xl text-white font-bold mb-2"></h2>
     <div id="brief-meta" class="flex flex-wrap gap-3 mb-6 text-sm text-white/50"></div>
-
     <ul class="space-y-3 mb-8">
       <li class="flex gap-3 items-start">
         <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
@@ -309,7 +212,6 @@ tailwind.config = {
         <span class="text-white/70 text-sm">Use the question navigator to skip and return to any question.</span>
       </li>
     </ul>
-
     <div class="flex gap-3">
       <button class="btn-glass rounded-xl py-3.5 px-5 text-sm font-bold flex-1" onclick="goToHub()">← Back</button>
       <button id="btn-begin-section" class="btn-gold rounded-xl py-3.5 px-6 text-sm font-black flex-[2]" onclick="beginSection()">Begin Section →</button>
@@ -319,12 +221,9 @@ tailwind.config = {
 
 <!-- ░░ SCREEN: TEST ░░ -->
 <div id="screen-test" class="screen flex-col">
-  <!-- Progress bar (very top) -->
   <div class="h-1 w-full bg-white/10">
     <div id="test-progress-bar" class="progress-bar-fill h-full bg-gradient-to-r from-gold-600 to-gold-400" style="width:0%"></div>
   </div>
-
-  <!-- Header -->
   <div class="glass px-4 sm:px-6 py-3 flex items-center justify-between gap-4 sticky top-0 z-50">
     <div class="flex items-center gap-3 min-w-0">
       <svg width="26" height="26" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/></svg>
@@ -333,8 +232,6 @@ tailwind.config = {
         <div id="test-paper-label" class="text-gold-400 text-xs"></div>
       </div>
     </div>
-
-    <!-- Timer -->
     <div class="flex items-center gap-2.5 flex-shrink-0" id="timer-wrap">
       <div class="relative w-12 h-12">
         <svg width="48" height="48" viewBox="0 0 48 48" style="transform:rotate(-90deg)">
@@ -347,11 +244,7 @@ tailwind.config = {
       <span class="text-white/40 text-xs hidden sm:block">left</span>
     </div>
   </div>
-
-  <!-- Main body -->
   <div id="test-body" class="test-grid flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-5 gap-5">
-
-    <!-- Passage panel (reading only) -->
     <div id="passage-panel" class="hidden glass-card rounded-2xl p-5 sm:p-6 passage-scroll md:overflow-y-auto md:max-h-[calc(100vh-140px)] md:sticky md:top-20">
       <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
         <span class="text-gold-400">📄</span>
@@ -359,10 +252,7 @@ tailwind.config = {
       </div>
       <div id="passage-content-el" class="text-white/70 text-sm leading-relaxed space-y-3"></div>
     </div>
-
-    <!-- Question + nav panel -->
     <div class="flex flex-col gap-4">
-      <!-- Question card -->
       <div class="glass-card rounded-2xl p-5 sm:p-7">
         <div class="flex items-center justify-between mb-4">
           <div class="text-white/35 text-xs font-bold uppercase tracking-widest">
@@ -371,11 +261,8 @@ tailwind.config = {
           <div id="q-answered-badge" class="glass rounded-full px-2.5 py-1 text-xs font-semibold text-white/40"></div>
         </div>
         <p id="q-text" class="text-white font-semibold text-base sm:text-lg leading-relaxed mb-6 whitespace-pre-wrap"></p>
-
         <div id="options-grid" class="space-y-2.5"></div>
       </div>
-
-      <!-- Nav card -->
       <div class="glass-card rounded-2xl p-4 sm:p-5">
         <div class="text-white/30 text-xs font-bold uppercase tracking-widest mb-3">Navigator</div>
         <div id="q-nav-dots" class="flex flex-wrap gap-1.5 mb-4"></div>
@@ -416,8 +303,6 @@ tailwind.config = {
     <div id="done-emoji" class="text-6xl mb-4"></div>
     <h2 id="done-title" class="font-display text-2xl sm:text-3xl text-white font-bold mb-2"></h2>
     <p id="done-msg" class="text-white/50 text-sm mb-7 leading-relaxed"></p>
-
-    <!-- Score ring -->
     <div class="relative w-36 h-36 mx-auto mb-5">
       <svg width="144" height="144" viewBox="0 0 144 144" class="absolute inset-0" style="transform:rotate(-90deg)">
         <circle cx="72" cy="72" r="60" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/>
@@ -429,9 +314,7 @@ tailwind.config = {
         <div id="done-pct" class="text-gold-400 text-sm font-bold"></div>
       </div>
     </div>
-
     <div id="done-band" class="inline-block rounded-full px-4 py-1.5 text-sm font-bold mb-7"></div>
-
     <button id="btn-continue" class="btn-gold w-full rounded-2xl py-4 text-base font-black" onclick="goToHub()">Return to Hub →</button>
   </div>
 </div>
@@ -448,7 +331,7 @@ tailwind.config = {
   <div class="flex-1 px-4 sm:px-6 py-6 max-w-3xl mx-auto w-full">
     <!-- Overall -->
     <div class="glass-card rounded-3xl p-7 sm:p-9 text-center mb-6 relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10" style="background:radial-gradient(ellipse at center, #C9A227 0%, transparent 70%)"></div>
+      <div class="absolute inset-0 opacity-10" style="background:radial-gradient(ellipse at center,#C9A227 0%,transparent 70%)"></div>
       <div class="relative z-10">
         <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-2">Overall Score</div>
         <div id="ov-pct" class="font-display text-6xl sm:text-7xl font-black text-gold-400 mb-1 count-animate">—</div>
@@ -466,27 +349,44 @@ tailwind.config = {
       <div id="results-bars" class="space-y-4"></div>
     </div>
 
-    <!-- Submit to Sheets -->
-    <div class="glass-card rounded-2xl p-5 sm:p-6 mb-6">
-      <h3 class="text-white font-bold text-base mb-1">📤 Save to Google Sheets</h3>
-      <p class="text-white/40 text-xs mb-4">Paste your Google Apps Script Web App URL below to save these results.</p>
-      <div class="flex flex-col sm:flex-row gap-2.5">
-        <input id="sheets-url" type="url" placeholder="https://script.google.com/macros/s/…/exec"
-          class="glass-input flex-1 rounded-xl px-4 py-3 text-white text-sm font-medium"/>
-        <button class="btn-gold rounded-xl px-5 py-3 text-sm font-black whitespace-nowrap" onclick="submitToSheets()">Submit Results</button>
-      </div>
-      <p id="submit-status" class="mt-2.5 text-sm font-semibold hidden"></p>
+    <!-- Action buttons -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+      <!-- Download Report -->
+      <button class="btn-teal rounded-2xl py-4 px-5 text-sm font-black flex items-center justify-center gap-2.5" onclick="downloadReport()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 3v13m0 0l-4-4m4 4l4-4M3 21h18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download Full Report
+      </button>
+      <!-- Save to Sheets -->
+      <button id="btn-save-sheets" class="btn-gold rounded-2xl py-4 px-5 text-sm font-black flex items-center justify-center gap-2.5" onclick="submitToSheets()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m-6-8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Save to Google Sheets
+      </button>
     </div>
-
+    <p id="submit-status" class="text-sm font-semibold text-center hidden mb-4"></p>
     <button class="btn-glass w-full rounded-xl py-3.5 text-sm font-bold" onclick="window.print()">🖨 Print Results Report</button>
   </div>
 </div>
 
 <!-- ░░ JAVASCRIPT ░░ -->
 <script>
-// ═══════════════════════════════════════════════════════
-// QUESTION DATA
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════
+//  ★  ADMIN CONFIGURATION — Edit this section before deploying  ★
+// ═══════════════════════════════════════════════════════════════════════════
+const CONFIG = {
+  // Paste your Google Apps Script Web App URL here (from Deploy → New deployment)
+  // Leave empty ('') to hide the Save to Sheets button.
+  GAS_URL: 'https://script.google.com/macros/s/AKfycbxZ-un8GQAnaf9UBun_pd6CB09JchExGAEtlMZ_yR8H_ksvM6eJPph-FUDcv-7HyT2t9g/exec',
+
+  // Academy display name (used in the downloadable report)
+  ACADEMY_NAME: 'White Pyramid Academy',
+  ACADEMY_SUBTITLE: 'KS2 Diagnostic Assessment',
+
+  // Report footer note
+  REPORT_FOOTER: 'This report is generated automatically and is for diagnostic purposes only.',
+};
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── READING PASSAGE ────────────────────────────────────────────────────────
 const READING_PASSAGE = {
   title: 'The Arctic Fox',
   html: `
@@ -497,8 +397,14 @@ const READING_PASSAGE = {
     <p>Despite its many adaptations, the Arctic fox faces increasing threats from climate change. As temperatures rise, the red fox — a larger and more dominant species — is moving further north into Arctic territories, directly competing with the Arctic fox for food and space. Conservation scientists warn that without intervention, some Arctic fox populations could face serious decline within decades.</p>`
 };
 
+// ── SUBJECTS ───────────────────────────────────────────────────────────────
 const SUBJECTS = [
   { id:'arithmetic', name:'Maths Arithmetic', paper:'Paper 1', time:25*60, icon:'🔢', color:'#3B82F6',
+    recommendations: {
+      high: 'Excellent arithmetic skills. Extend with multi-step problems, negative numbers, and order of operations.',
+      mid:  'Solid foundation. Focus on decimal operations, fraction calculations, and percentage word problems for improvement.',
+      low:  'Build confidence with times tables (6–12), short multiplication/division, and fraction simplification before moving to harder topics.'
+    },
     questions:[
       {t:"456 + 289 = ?", o:["745","635","755","735"], a:0},
       {t:"1,000 − 437 = ?", o:["563","573","463","543"], a:0},
@@ -522,6 +428,11 @@ const SUBJECTS = [
       {t:"35.4 + 17.86 = ?", o:["52.26","53.26","53.16","52.36"], a:1},
     ]},
   { id:'reasoning', name:'Maths Reasoning', paper:'Paper 2', time:30*60, icon:'📐', color:'#10B981',
+    recommendations: {
+      high: 'Strong problem-solving ability. Introduce multi-step reasoning, ratio and proportion challenges, and algebraic thinking at KS3 level.',
+      mid:  'Good progress. Practice two-step word problems, ratio questions, and reading charts/graphs carefully to boost accuracy.',
+      low:  'Focus on translating word problems into calculations. Work on time problems, money, measures, and mean/average with guided examples.'
+    },
     questions:[
       {t:"A rectangle has a length of 12 cm and a width of 7 cm. What is its area?", o:["38 cm²","72 cm²","84 cm²","168 cm²"], a:2},
       {t:"There are 24 children in a class. ⅜ of them have a pet. How many children have a pet?", o:["6","7","8","9"], a:3},
@@ -538,6 +449,11 @@ const SUBJECTS = [
     ]},
   { id:'reading', name:'Reading', paper:'Reading Paper', time:25*60, icon:'📖', color:'#8B5CF6',
     hasPassage:true, passage: READING_PASSAGE,
+    recommendations: {
+      high: 'Excellent comprehension. Challenge with inference-heavy texts, poetry analysis, and author intent questions at KS3 level.',
+      mid:  'Good literal understanding. Practise explaining evidence from the text, vocabulary-in-context, and summarising passages in your own words.',
+      low:  'Build reading fluency through daily reading. Focus on re-reading questions carefully, identifying key words, and finding direct evidence in the passage before answering.'
+    },
     questions:[
       {t:"What is the lowest temperature an Arctic fox can endure?", o:["−30°C","−40°C","−50°C","−60°C"], a:2},
       {t:"What does the word 'resilient' most closely mean in paragraph 1?", o:["Delicate and fragile","Able to recover from difficulties","Dangerous to other animals","Rare and unusual"], a:1},
@@ -551,6 +467,11 @@ const SUBJECTS = [
       {t:"Based on the whole passage, which best describes the Arctic fox?", o:["A powerful predator dominating the Arctic","A vulnerable animal with no natural defences","A highly adaptable animal facing new challenges","A species already extinct in many regions"], a:2},
     ]},
   { id:'gps', name:'Grammar & Punctuation', paper:'GPS Paper 1', time:20*60, icon:'✏️', color:'#F59E0B',
+    recommendations: {
+      high: 'Strong grammatical awareness. Explore complex sentence structures, stylistic punctuation choices, and writing for different audiences at advanced level.',
+      mid:  'Comfortable with most basics. Review fronted adverbials, passive voice, relative clauses, and apostrophe rules through targeted exercises.',
+      low:  'Focus on core punctuation (commas, apostrophes, speech marks) and word classes (noun, verb, adjective, adverb) with plenty of practice sentences and games.'
+    },
     questions:[
       {t:"Which sentence uses a comma correctly after a fronted adverbial?", o:["After the match, we went home.","After, the match we went home.","After the match we, went home.","After the match we went, home."], a:0},
       {t:"'She quickly ran to the door.' — What word class is 'quickly'?", o:["Adjective","Noun","Adverb","Verb"], a:2},
@@ -570,28 +491,22 @@ const SUBJECTS = [
     ]}
 ];
 
-// ═══════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════
+// ── STATE ──────────────────────────────────────────────────────────────────
 const S = {
   student: { name:'' },
   subjectIdx: 0, qIdx: 0,
-  prog: SUBJECTS.map((_,i)=>({ status: i===0?'available':'locked', ans:{}, score:null, timeUsed:0 })),
+  prog: SUBJECTS.map((_,i)=>({ status:i===0?'available':'locked', ans:{}, score:null, timeUsed:0 })),
   timer: null, timeLeft: 0, totalTime: 0,
 };
 
-// ═══════════════════════════════════════════════════════
-// SCREENS
-// ═══════════════════════════════════════════════════════
+// ── SCREENS ────────────────────────────────────────────────────────────────
 function show(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
   window.scrollTo(0,0);
 }
 
-// ═══════════════════════════════════════════════════════
-// WELCOME
-// ═══════════════════════════════════════════════════════
+// ── WELCOME ────────────────────────────────────────────────────────────────
 function startJourney() {
   const name = document.getElementById('inp-name').value.trim();
   if (!name) { document.getElementById('inp-name').focus(); return; }
@@ -600,20 +515,17 @@ function startJourney() {
   show('hub'); renderHub();
 }
 
-// ═══════════════════════════════════════════════════════
-// HUB
-// ═══════════════════════════════════════════════════════
+// ── HUB ────────────────────────────────────────────────────────────────────
 function renderHub() {
   const done = S.prog.filter(p=>p.status==='completed').length;
   document.getElementById('hub-progress-text').textContent = done + ' of 4 complete';
   document.getElementById('hub-progress-bar').style.width = (done/4*100)+'%';
-
   const grid = document.getElementById('hub-grid');
   grid.innerHTML = '';
   SUBJECTS.forEach((subj,i)=>{
     const sp = S.prog[i];
     const card = document.createElement('div');
-    card.className = 'subj-card rounded-2xl overflow-hidden ' + sp.status;
+    card.className = 'subj-card rounded-2xl overflow-hidden '+sp.status;
     const statusMap = { available:'Ready to Start', locked:'🔒 Locked', completed:'✓ Complete', 'in-progress':'▶ In Progress' };
     const scoreHTML = sp.score!==null
       ? `<div class="mt-2 text-xs text-white/40">Score: <span class="text-gold-400 font-bold">${sp.score}/${subj.questions.length}</span></div>` : '';
@@ -636,20 +548,17 @@ function renderHub() {
     if (sp.status==='available'||sp.status==='in-progress') card.onclick=()=>openBriefing(i);
     grid.appendChild(card);
   });
-
   if (S.prog.every(p=>p.status==='completed')) {
     const btn = document.createElement('button');
     btn.className = 'btn-gold col-span-1 sm:col-span-2 rounded-2xl py-4 text-base font-black';
     btn.style.cssText = 'grid-column:1/-1;';
     btn.textContent = '🏆 View Full Results';
-    btn.onclick = showResults;
+    btn.onclick = ()=>{ launchConfetti(); showResults(); };
     grid.appendChild(btn);
   }
 }
 
-// ═══════════════════════════════════════════════════════
-// BRIEFING
-// ═══════════════════════════════════════════════════════
+// ── BRIEFING ───────────────────────────────────────────────────────────────
 function openBriefing(idx) {
   S.subjectIdx = idx;
   const s = SUBJECTS[idx];
@@ -664,35 +573,28 @@ function openBriefing(idx) {
   document.getElementById('btn-begin-section').style.background = `linear-gradient(135deg,${s.color}cc,${s.color})`;
   show('briefing');
 }
-
 function goToHub() { clearTimer(); show('hub'); renderHub(); }
 
-// ═══════════════════════════════════════════════════════
-// TEST
-// ═══════════════════════════════════════════════════════
+// ── TEST ───────────────────────────────────────────────────────────────────
 function beginSection() {
   const subj = SUBJECTS[S.subjectIdx];
   S.qIdx = 0;
   S.timeLeft = subj.time;
   S.totalTime = subj.time;
   S.prog[S.subjectIdx].status = 'in-progress';
-
   document.getElementById('test-subject-label').textContent = subj.name;
-  document.getElementById('test-paper-label').textContent = subj.paper;
-
-  // Passage setup
+  document.getElementById('test-paper-label').textContent   = subj.paper;
   const passPanel = document.getElementById('passage-panel');
   const testBody  = document.getElementById('test-body');
   if (subj.hasPassage) {
     passPanel.classList.remove('hidden');
     testBody.classList.add('md:grid','md:grid-cols-2');
     document.getElementById('passage-title-el').textContent = subj.passage.title;
-    document.getElementById('passage-content-el').innerHTML = subj.passage.html;
+    document.getElementById('passage-content-el').innerHTML  = subj.passage.html;
   } else {
     passPanel.classList.add('hidden');
     testBody.classList.remove('md:grid','md:grid-cols-2');
   }
-
   renderQ(); renderDots(); startTimer();
   show('test');
 }
@@ -702,7 +604,6 @@ function renderQ() {
   const q    = subj.questions[S.qIdx];
   const ans  = S.prog[S.subjectIdx].ans;
   const answered = Object.keys(ans).length;
-
   document.getElementById('q-num').textContent   = S.qIdx+1;
   document.getElementById('q-total').textContent = subj.questions.length;
   document.getElementById('q-text').textContent  = q.t;
@@ -710,7 +611,6 @@ function renderQ() {
   document.getElementById('test-progress-bar').style.width = ((S.qIdx+1)/subj.questions.length*100)+'%';
   document.getElementById('btn-prev').disabled = S.qIdx===0;
   document.getElementById('btn-next').disabled = S.qIdx===subj.questions.length-1;
-
   const grid = document.getElementById('options-grid');
   grid.innerHTML = '';
   ['A','B','C','D'].forEach((ltr,i)=>{
@@ -727,18 +627,16 @@ function renderQ() {
 function pick(i) {
   S.prog[S.subjectIdx].ans[S.qIdx] = i;
   renderQ();
-  // Auto-advance after short delay if not last question
   const subj = SUBJECTS[S.subjectIdx];
   if (S.qIdx < subj.questions.length-1) {
     setTimeout(()=>{ if(S.prog[S.subjectIdx].ans[S.qIdx]===i){ S.qIdx++; renderQ(); }}, 400);
   }
 }
-
 function prevQ() { if(S.qIdx>0){ S.qIdx--; renderQ(); } }
 function nextQ() { const n=SUBJECTS[S.subjectIdx].questions.length; if(S.qIdx<n-1){ S.qIdx++; renderQ(); } }
 
 function renderDots() {
-  const ans  = S.prog[S.subjectIdx].ans;
+  const ans = S.prog[S.subjectIdx].ans;
   const wrap = document.getElementById('q-nav-dots');
   wrap.innerHTML = '';
   SUBJECTS[S.subjectIdx].questions.forEach((_,i)=>{
@@ -750,48 +648,38 @@ function renderDots() {
   });
 }
 
-// ═══════════════════════════════════════════════════════
-// TIMER
-// ═══════════════════════════════════════════════════════
+// ── TIMER ──────────────────────────────────────────────────────────────────
 function startTimer() {
-  clearTimer();
-  updateTimer();
+  clearTimer(); updateTimer();
   S.timer = setInterval(()=>{
     S.timeLeft--;
-    if (S.timeLeft<=0) { S.timeLeft=0; updateTimer(); clearTimer(); autoSubmit(); }
+    if (S.timeLeft<=0){ S.timeLeft=0; updateTimer(); clearTimer(); autoSubmit(); }
     else updateTimer();
   },1000);
 }
-
 function clearTimer() { if(S.timer){ clearInterval(S.timer); S.timer=null; } }
-
 function updateTimer() {
   const m = Math.floor(S.timeLeft/60), s = S.timeLeft%60;
-  document.getElementById('timer-num').textContent = m+':'+ String(s).padStart(2,'0');
+  document.getElementById('timer-num').textContent = m+':'+String(s).padStart(2,'0');
   const pct = S.timeLeft/S.totalTime;
   document.getElementById('timer-ring-fg').style.strokeDashoffset = 125.6*(1-pct);
   const wrap = document.getElementById('timer-wrap');
   wrap.className = 'flex items-center gap-2.5 flex-shrink-0'+(S.timeLeft<=60?' timer-danger':S.timeLeft<=300?' timer-warn':'');
-  // Also update review badge if open
   const rb = document.getElementById('review-timer-badge');
   if (rb) rb.textContent = '⏱ '+m+':'+String(s).padStart(2,'0')+' left';
 }
 
-// ═══════════════════════════════════════════════════════
-// REVIEW SCREEN
-// ═══════════════════════════════════════════════════════
+// ── REVIEW ─────────────────────────────────────────────────────────────────
 function openReview() {
   const subj = SUBJECTS[S.subjectIdx];
   const ans  = S.prog[S.subjectIdx].ans;
   const answered = Object.keys(ans).length;
   const unanswered = subj.questions.length - answered;
-
   document.getElementById('review-subject-name').textContent = subj.name;
-  document.getElementById('review-timer-badge').textContent = '⏱ '+Math.floor(S.timeLeft/60)+':'+String(S.timeLeft%60).padStart(2,'0')+' left';
+  document.getElementById('review-timer-badge').textContent  = '⏱ '+Math.floor(S.timeLeft/60)+':'+String(S.timeLeft%60).padStart(2,'0')+' left';
   document.getElementById('review-summary').innerHTML =
     `<span class="text-green-400 font-bold">${answered} answered</span> &nbsp;·&nbsp; `+
     `<span class="${unanswered>0?'text-orange-400 font-bold':'text-white/40'}">${unanswered} unanswered</span>`;
-
   const list = document.getElementById('review-list');
   list.innerHTML = '';
   subj.questions.forEach((q,i)=>{
@@ -810,12 +698,9 @@ function openReview() {
   });
   show('review');
 }
-
 function closeReview() { show('test'); }
 
-// ═══════════════════════════════════════════════════════
-// SUBMIT
-// ═══════════════════════════════════════════════════════
+// ── SUBMIT ─────────────────────────────────────────────────────────────────
 function confirmSubmit() {
   const subj = SUBJECTS[S.subjectIdx];
   const unanswered = subj.questions.length - Object.keys(S.prog[S.subjectIdx].ans).length;
@@ -829,7 +714,7 @@ function submitSection() {
   const idx  = S.subjectIdx;
   const subj = SUBJECTS[idx];
   const ans  = S.prog[idx].ans;
-  let score  = 0;
+  let score = 0;
   subj.questions.forEach((q,i)=>{ if(ans[i]===q.a) score++; });
   S.prog[idx].score    = score;
   S.prog[idx].status   = 'completed';
@@ -838,51 +723,41 @@ function submitSection() {
 
   const pct = Math.round(score/subj.questions.length*100);
   const [emoji,msg] = pct>=75 ? ['🌟','Outstanding performance!'] : pct>=55 ? ['✅','Good effort!'] : ['💪','Keep going — every question is a lesson.'];
-
   document.getElementById('done-emoji').textContent = emoji;
   document.getElementById('done-title').textContent = subj.name+' Complete!';
   document.getElementById('done-msg').textContent   = msg;
   document.getElementById('done-score').textContent = score+'/'+subj.questions.length;
   document.getElementById('done-pct').textContent   = pct+'%';
-
   const circ = 376.8;
   setTimeout(()=>{ document.getElementById('done-ring').style.strokeDashoffset = circ*(1-pct/100); },100);
   const bandEl = document.getElementById('done-band');
-  if (pct>=75) { bandEl.textContent='⭐ Greater Depth'; bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-gold-500/20 text-gold-400'; }
-  else if (pct>=55) { bandEl.textContent='✓ Expected Standard'; bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-green-500/20 text-green-400'; }
-  else { bandEl.textContent='📚 Working Towards'; bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-orange-500/20 text-orange-400'; }
-
+  if (pct>=75)      { bandEl.textContent='⭐ Greater Depth';       bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-gold-500/20 text-gold-400'; }
+  else if (pct>=55) { bandEl.textContent='✓ Expected Standard';    bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-green-500/20 text-green-400'; }
+  else              { bandEl.textContent='📚 Working Towards';     bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-orange-500/20 text-orange-400'; }
   const allDone = S.prog.every(p=>p.status==='completed');
   const btn = document.getElementById('btn-continue');
-  if (allDone) { btn.textContent='🏆 View Full Results'; btn.onclick=()=>{ launchConfetti(); showResults(); }; }
-  else { btn.textContent='Return to Hub →'; btn.onclick=goToHub; }
-
+  if (allDone){ btn.textContent='🏆 View Full Results'; btn.onclick=()=>{ launchConfetti(); showResults(); }; }
+  else        { btn.textContent='Return to Hub →'; btn.onclick=goToHub; }
   show('section-done');
 }
 
-// ═══════════════════════════════════════════════════════
-// RESULTS
-// ═══════════════════════════════════════════════════════
+// ── RESULTS ────────────────────────────────────────────────────────────────
 function showResults() {
   let total=0, possible=0;
   SUBJECTS.forEach((s,i)=>{ total+=S.prog[i].score||0; possible+=s.questions.length; });
   const pct = Math.round(total/possible*100);
-
   document.getElementById('ov-pct').textContent = pct+'%';
   document.getElementById('ov-raw').textContent = total+' / '+possible;
   document.getElementById('results-student-info').textContent = S.student.name+' · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
-
   const band = document.getElementById('ov-band');
-  if (pct>=75){ band.textContent='⭐ Greater Depth'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-gold-500/25 text-gold-400'; }
-  else if (pct>=55){ band.textContent='✓ Expected Standard'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-green-500/20 text-green-400'; }
-  else { band.textContent='📚 Working Towards Expected'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-orange-500/20 text-orange-400'; }
+  if (pct>=75)      { band.textContent='⭐ Greater Depth';            band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-gold-500/25 text-gold-400'; }
+  else if (pct>=55) { band.textContent='✓ Expected Standard';         band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-green-500/20 text-green-400'; }
+  else              { band.textContent='📚 Working Towards Expected'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-orange-500/20 text-orange-400'; }
 
-  // Subject cards
   const grid = document.getElementById('results-grid');
   grid.innerHTML = '';
   SUBJECTS.forEach((s,i)=>{
-    const sc = S.prog[i].score||0;
-    const p  = Math.round(sc/s.questions.length*100);
+    const sc = S.prog[i].score||0, p = Math.round(sc/s.questions.length*100);
     const card = document.createElement('div');
     card.className = 'glass-card rounded-2xl p-4 text-center';
     card.innerHTML = `<div class="text-2xl mb-2">${s.icon}</div>
@@ -892,36 +767,39 @@ function showResults() {
     grid.appendChild(card);
   });
 
-  // Breakdown bars
   const bars = document.getElementById('results-bars');
   bars.innerHTML = '';
   SUBJECTS.forEach((s,i)=>{
-    const sc = S.prog[i].score||0;
-    const p  = Math.round(sc/s.questions.length*100);
+    const sc = S.prog[i].score||0, p = Math.round(sc/s.questions.length*100);
     const color = p>=75?'#C9A227':p>=55?'#4ADE80':'#F87171';
-    bars.innerHTML += `
-      <div>
-        <div class="flex justify-between text-xs font-semibold text-white/50 mb-1.5">
-          <span>${s.icon} ${s.name}</span>
-          <span style="color:${color}">${sc}/${s.questions.length} &nbsp; ${p}%</span>
-        </div>
-        <div class="h-2 rounded-full bg-white/10 overflow-hidden">
-          <div class="progress-bar-fill h-full rounded-full" style="width:${p}%;background:${color}"></div>
-        </div>
-      </div>`;
+    bars.innerHTML += `<div>
+      <div class="flex justify-between text-xs font-semibold text-white/50 mb-1.5">
+        <span>${s.icon} ${s.name}</span>
+        <span style="color:${color}">${sc}/${s.questions.length} &nbsp; ${p}%</span>
+      </div>
+      <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+        <div class="progress-bar-fill h-full rounded-full" style="width:${p}%;background:${color}"></div>
+      </div></div>`;
   });
+
+  // Hide sheets button if no URL configured
+  if (!CONFIG.GAS_URL) {
+    document.getElementById('btn-save-sheets').style.display = 'none';
+  }
 
   show('results');
 }
 
-// ═══════════════════════════════════════════════════════
-// SHEETS SUBMIT
-// ═══════════════════════════════════════════════════════
+// ── SHEETS SUBMIT ──────────────────────────────────────────────────────────
 async function submitToSheets() {
-  const url = document.getElementById('sheets-url').value.trim();
+  const url = CONFIG.GAS_URL;
   const el  = document.getElementById('submit-status');
-  if (!url) { el.textContent='⚠ Please enter your Google Apps Script URL.'; el.className='mt-2.5 text-sm font-semibold text-orange-400'; el.classList.remove('hidden'); return; }
-  el.textContent='⏳ Submitting…'; el.className='mt-2.5 text-sm font-semibold text-white/60'; el.classList.remove('hidden');
+  if (!url) {
+    el.textContent='⚠ No Google Apps Script URL configured. Set CONFIG.GAS_URL in the script section.';
+    el.className='mt-2.5 text-sm font-semibold text-orange-400';
+    el.classList.remove('hidden'); return;
+  }
+  el.textContent='⏳ Submitting…'; el.className='text-sm font-semibold text-white/60'; el.classList.remove('hidden');
   const payload = {
     timestamp: new Date().toISOString(),
     studentName: S.student.name,
@@ -936,42 +814,342 @@ async function submitToSheets() {
   try {
     const res  = await fetch(url,{ method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(payload) });
     const data = await res.json();
-    if (data.success) { el.textContent='✅ Saved to Google Sheets!'; el.className='mt-2.5 text-sm font-semibold text-green-400'; }
+    if (data.success){ el.textContent='✅ Saved to Google Sheets!'; el.className='text-sm font-semibold text-green-400'; }
     else throw new Error(data.error||'Server error');
   } catch(err) {
-    el.textContent='❌ '+err.message; el.className='mt-2.5 text-sm font-semibold text-red-400';
+    el.textContent='❌ '+err.message; el.className='text-sm font-semibold text-red-400';
   }
 }
 
-// ═══════════════════════════════════════════════════════
-// CONFETTI
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════
+// ★  DOWNLOAD REPORT
+// ═══════════════════════════════════════════════════════════════════════════
+function getBand(pct) {
+  if (pct>=75) return { label:'Greater Depth', color:'#A8841F', bg:'#FEF3C7', icon:'⭐' };
+  if (pct>=55) return { label:'Expected Standard', color:'#065F46', bg:'#D1FAE5', icon:'✓' };
+  return { label:'Working Towards Expected', color:'#92400E', bg:'#FEF3C7', icon:'📚' };
+}
+
+function getMissedQuestions(subjectIdx) {
+  const subj = SUBJECTS[subjectIdx];
+  const ans  = S.prog[subjectIdx].ans;
+  const missed = [];
+  subj.questions.forEach((q,i)=>{
+    const given   = ans[i];
+    const correct = q.a;
+    if (given === undefined || given !== correct) {
+      missed.push({
+        num: i+1,
+        question: q.t,
+        options: q.o,
+        correctIdx: correct,
+        givenIdx: given,
+        correctAns: q.o[correct],
+        givenAns: given !== undefined ? q.o[given] : '(not answered)',
+      });
+    }
+  });
+  return missed;
+}
+
+function downloadReport() {
+  let total=0, possible=0;
+  SUBJECTS.forEach((s,i)=>{ total+=S.prog[i].score||0; possible+=s.questions.length; });
+  const overallPct = Math.round(total/possible*100);
+  const overallBand = getBand(overallPct);
+  const dateStr = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  // ── Build subject sections ────────────────────────────────────────────────
+  let subjectSections = '';
+  SUBJECTS.forEach((subj,i)=>{
+    const sc   = S.prog[i].score||0;
+    const pct  = Math.round(sc/subj.questions.length*100);
+    const band = getBand(pct);
+    const rec  = pct>=75 ? subj.recommendations.high : pct>=55 ? subj.recommendations.mid : subj.recommendations.low;
+    const missed = getMissedQuestions(i);
+
+    let missedRows = '';
+    if (missed.length===0) {
+      missedRows = `<tr><td colspan="4" style="text-align:center;color:#065F46;font-weight:700;padding:14px;background:#D1FAE5;">🎉 All questions answered correctly!</td></tr>`;
+    } else {
+      missed.forEach(m=>{
+        const letters = ['A','B','C','D'];
+        missedRows += `
+          <tr>
+            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;font-weight:700;color:#374151;width:36px;text-align:center;">${m.num}</td>
+            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;color:#1F2937;font-size:13px;line-height:1.55;">${m.question}</td>
+            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;text-align:center;">
+              ${m.givenIdx!==undefined
+                ? `<span style="display:inline-block;background:#FEE2E2;color:#991B1B;border-radius:6px;padding:3px 10px;font-weight:700;font-size:12px;">${letters[m.givenIdx]}: ${m.givenAns}</span>`
+                : `<span style="display:inline-block;background:#F3F4F6;color:#9CA3AF;border-radius:6px;padding:3px 10px;font-weight:700;font-size:12px;">Not answered</span>`}
+            </td>
+            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;text-align:center;">
+              <span style="display:inline-block;background:#D1FAE5;color:#065F46;border-radius:6px;padding:3px 10px;font-weight:700;font-size:12px;">${letters[m.correctIdx]}: ${m.correctAns}</span>
+            </td>
+          </tr>`;
+      });
+    }
+
+    subjectSections += `
+    <!-- Subject: ${subj.name} -->
+    <div style="margin-bottom:32px;border:1.5px solid #E5E7EB;border-radius:14px;overflow:hidden;page-break-inside:avoid;">
+      <div style="background:${subj.color}18;border-bottom:3px solid ${subj.color};padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:24px;">${subj.icon}</span>
+          <div>
+            <div style="font-weight:800;font-size:16px;color:#1F2937;">${subj.name}</div>
+            <div style="font-size:12px;color:#6B7280;">${subj.paper}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-size:26px;font-weight:900;color:${subj.color};">${sc}/${subj.questions.length}</div>
+            <div style="font-size:11px;color:#9CA3AF;font-weight:600;">SCORE</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:26px;font-weight:900;color:${subj.color};">${pct}%</div>
+            <div style="font-size:11px;color:#9CA3AF;font-weight:600;">PERCENTAGE</div>
+          </div>
+          <span style="background:${band.bg};color:${band.color};border-radius:20px;padding:5px 14px;font-size:12px;font-weight:800;">${band.icon} ${band.label}</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div style="padding:0 20px;background:#fff;">
+        <div style="height:8px;background:#F3F4F6;border-radius:4px;overflow:hidden;margin:12px 0;">
+          <div style="height:100%;width:${pct}%;background:${subj.color};border-radius:4px;"></div>
+        </div>
+      </div>
+
+      <!-- Recommendation -->
+      <div style="margin:0 20px 16px;background:#F9FAFB;border-left:4px solid ${subj.color};border-radius:0 8px 8px 0;padding:12px 16px;">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:${subj.color};margin-bottom:5px;">📌 Recommendation</div>
+        <div style="font-size:13px;color:#374151;line-height:1.6;">${rec}</div>
+      </div>
+
+      <!-- Missed questions table -->
+      <div style="padding:0 20px 20px;">
+        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#6B7280;margin-bottom:10px;">
+          Questions Missed or Incorrect — ${missed.length} of ${subj.questions.length}
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;border:1px solid #E5E7EB;border-radius:8px;overflow:hidden;">
+          <thead>
+            <tr style="background:#F9FAFB;">
+              <th style="padding:9px 12px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Q#</th>
+              <th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Question</th>
+              <th style="padding:9px 12px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Pupil's Answer</th>
+              <th style="padding:9px 12px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Correct Answer</th>
+            </tr>
+          </thead>
+          <tbody>${missedRows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  });
+
+  // ── Summary for parent ────────────────────────────────────────────────────
+  const parentBand = overallBand;
+  const weakSubjects  = SUBJECTS.filter((_,i)=>Math.round((S.prog[i].score||0)/_.questions.length*100)<55).map(s=>s.name);
+  const strongSubjects= SUBJECTS.filter((_,i)=>Math.round((S.prog[i].score||0)/_.questions.length*100)>=75).map(s=>s.name);
+  let parentSummary = `${S.student.name} completed the ${CONFIG.ACADEMY_NAME} KS2 Diagnostic Assessment on ${dateStr}, achieving an overall score of <strong>${total}/${possible} (${overallPct}%)</strong>, which places them in the <strong>${parentBand.label}</strong> band. `;
+  if (strongSubjects.length>0) parentSummary += `They showed particular strength in <strong>${strongSubjects.join(' and ')}</strong>. `;
+  if (weakSubjects.length>0)   parentSummary += `Additional support is recommended in <strong>${weakSubjects.join(' and ')}</strong>, where focused revision will help consolidate key skills. `;
+  else parentSummary += `${S.student.name} demonstrated competency across all four subject areas. `;
+  parentSummary += `Please review the detailed subject sections below for specific question feedback and personalised recommendations. If you have any questions about these results, please contact the academy directly.`;
+
+  // ── Admin summary table ───────────────────────────────────────────────────
+  let adminRows = '';
+  SUBJECTS.forEach((s,i)=>{
+    const sc = S.prog[i].score||0;
+    const p  = Math.round(sc/s.questions.length*100);
+    const b  = getBand(p);
+    const mins = Math.floor((S.prog[i].timeUsed||0)/60);
+    const secs = String((S.prog[i].timeUsed||0)%60).padStart(2,'0');
+    adminRows += `<tr>
+      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;">${s.icon} ${s.name}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:700;">${sc}/${s.questions.length}</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:800;color:${s.color};">${p}%</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;"><span style="background:${b.bg};color:${b.color};border-radius:12px;padding:3px 10px;font-size:12px;font-weight:700;">${b.label}</span></td>
+      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;color:#6B7280;font-size:13px;">${mins}m ${secs}s</td>
+      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;color:#6B7280;font-size:12px;">${Object.keys(S.prog[i].ans).length}/${s.questions.length}</td>
+    </tr>`;
+  });
+
+  // ── Assemble full HTML document ───────────────────────────────────────────
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Assessment Report — ${S.student.name}</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'DM Sans',sans-serif; background:#F9FAFB; color:#1F2937; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  @media print {
+    body { background:#fff; }
+    .no-print { display:none !important; }
+    .page-break { page-break-before:always; }
+    @page { margin:15mm; }
+  }
+  h1,h2,h3 { font-family:'Playfair Display',serif; }
+</style>
+</head>
+<body>
+<div style="max-width:820px;margin:0 auto;padding:24px 16px;">
+
+  <!-- ── PRINT BUTTON ── -->
+  <div class="no-print" style="position:sticky;top:0;background:#F9FAFB;z-index:10;padding:10px 0 14px;display:flex;gap:10px;justify-content:flex-end;border-bottom:1px solid #E5E7EB;margin-bottom:24px;">
+    <button onclick="window.print()" style="background:#0B2545;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:14px;cursor:pointer;">🖨 Print / Save as PDF</button>
+    <button onclick="window.close()" style="background:#E5E7EB;color:#374151;border:none;border-radius:10px;padding:10px 16px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">✕ Close</button>
+  </div>
+
+  <!-- ── COVER HEADER ── -->
+  <div style="background:linear-gradient(135deg,#0B2545 0%,#0D3060 60%,#1B4080 100%);border-radius:18px;padding:36px 36px 28px;margin-bottom:24px;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-30px;right:-20px;opacity:.06;">
+      <svg width="220" height="200" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+      <svg width="48" height="48" viewBox="0 0 52 52">
+        <polygon points="26,4 50,48 2,48" fill="#C9A227"/>
+        <polygon points="26,14 42,44 10,44" fill="#F0CB5A" opacity=".45"/>
+      </svg>
+      <div>
+        <div style="color:#fff;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;">${CONFIG.ACADEMY_NAME}</div>
+        <div style="color:#C9A227;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">${CONFIG.ACADEMY_SUBTITLE}</div>
+      </div>
+    </div>
+    <div style="color:rgba(255,255,255,.5);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Diagnostic Assessment Report</div>
+    <div style="color:#fff;font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:4px;">${S.student.name}</div>
+    <div style="color:rgba(255,255,255,.55);font-size:13px;">${dateStr}</div>
+
+    <!-- Score chips -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
+      <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 18px;text-align:center;">
+        <div style="color:#C9A227;font-size:28px;font-weight:900;font-family:'Playfair Display',serif;">${total}/${possible}</div>
+        <div style="color:rgba(255,255,255,.5);font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px;">Total Score</div>
+      </div>
+      <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 18px;text-align:center;">
+        <div style="color:#C9A227;font-size:28px;font-weight:900;font-family:'Playfair Display',serif;">${overallPct}%</div>
+        <div style="color:rgba(255,255,255,.5);font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px;">Overall %</div>
+      </div>
+      <div style="background:${overallBand.bg};border-radius:10px;padding:10px 18px;align-self:center;">
+        <div style="color:${overallBand.color};font-size:14px;font-weight:800;">${overallBand.icon} ${overallBand.label}</div>
+        <div style="color:${overallBand.color};font-size:11px;font-weight:600;opacity:.7;margin-top:2px;">Attainment Band</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 1: SUMMARY FOR PARENT ── -->
+  <div style="border:1.5px solid #E5E7EB;border-radius:14px;overflow:hidden;margin-bottom:24px;">
+    <div style="background:#EFF6FF;border-bottom:3px solid #3B82F6;padding:14px 20px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:20px;">👨‍👩‍👧</span>
+      <div>
+        <div style="font-weight:800;font-size:15px;color:#1E3A8A;">For the Parent / Guardian</div>
+        <div style="font-size:12px;color:#3B82F6;">Plain-English summary of your child's performance</div>
+      </div>
+    </div>
+    <div style="padding:18px 20px;background:#fff;">
+      <p style="font-size:14px;line-height:1.75;color:#374151;">${parentSummary}</p>
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: ADMIN SUMMARY ── -->
+  <div style="border:1.5px solid #E5E7EB;border-radius:14px;overflow:hidden;margin-bottom:24px;">
+    <div style="background:#FDF4FF;border-bottom:3px solid #8B5CF6;padding:14px 20px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:20px;">📊</span>
+      <div>
+        <div style="font-weight:800;font-size:15px;color:#4C1D95;">For the Academy / Administrator</div>
+        <div style="font-size:12px;color:#8B5CF6;">Detailed performance data for records</div>
+      </div>
+    </div>
+    <div style="padding:18px 20px;background:#fff;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#F9FAFB;">
+            <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Subject</th>
+            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Score</th>
+            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">%</th>
+            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Band</th>
+            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Time Used</th>
+            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Attempted</th>
+          </tr>
+        </thead>
+        <tbody>${adminRows}</tbody>
+        <tfoot>
+          <tr style="background:#F9FAFB;">
+            <td style="padding:12px 14px;font-weight:800;font-size:14px;color:#1F2937;">OVERALL TOTAL</td>
+            <td style="padding:12px 14px;text-align:center;font-weight:900;font-size:16px;color:#0B2545;">${total}/${possible}</td>
+            <td style="padding:12px 14px;text-align:center;font-weight:900;font-size:16px;color:${overallBand.color};">${overallPct}%</td>
+            <td style="padding:12px 14px;text-align:center;" colspan="3"><span style="background:${overallBand.bg};color:${overallBand.color};border-radius:12px;padding:4px 14px;font-size:12px;font-weight:800;">${overallBand.icon} ${overallBand.label}</span></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: SUBJECT-BY-SUBJECT DETAIL ── -->
+  <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:#0B2545;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #E5E7EB;">
+    📋 Subject-by-Subject Analysis
+  </h2>
+  ${subjectSections}
+
+  <!-- ── FOOTER ── -->
+  <div style="border-top:1px solid #E5E7EB;padding-top:16px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="20" height="20" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/></svg>
+        <span style="font-weight:700;font-size:13px;color:#0B2545;">${CONFIG.ACADEMY_NAME}</span>
+      </div>
+      <div style="font-size:11px;color:#9CA3AF;margin-top:3px;">${CONFIG.REPORT_FOOTER}</div>
+    </div>
+    <div style="font-size:11px;color:#9CA3AF;text-align:right;">
+      Generated: ${dateStr}<br/>
+      Student: ${S.student.name}
+    </div>
+  </div>
+
+</div>
+</body>
+</html>`;
+
+  // ── Trigger download ──────────────────────────────────────────────────────
+  const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `WPA_Report_${S.student.name.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ── CONFETTI ───────────────────────────────────────────────────────────────
 function launchConfetti() {
   const colors=['#C9A227','#F0CB5A','#FFFFFF','#3B82F6','#10B981','#8B5CF6'];
-  for(let i=0;i<80;i++) {
+  for(let i=0;i<80;i++){
     setTimeout(()=>{
       const el = document.createElement('div');
-      el.className='confetti-piece';
+      el.className = 'confetti-piece';
       el.style.cssText = `left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};
         width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};
         animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;
         transform:rotate(${Math.random()*360}deg)`;
       document.body.appendChild(el);
-      setTimeout(()=>el.remove(), 3000);
-    }, i*25);
+      setTimeout(()=>el.remove(),3000);
+    },i*25);
   }
 }
 
-// ═══════════════════════════════════════════════════════
-// KEYBOARD
-// ═══════════════════════════════════════════════════════
-document.addEventListener('keydown', e=>{
+// ── KEYBOARD ───────────────────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{
   const active = document.querySelector('.screen.active')?.id;
-  if (active==='screen-welcome' && e.key==='Enter') { startJourney(); return; }
+  if (active==='screen-welcome' && e.key==='Enter'){ startJourney(); return; }
   if (active!=='screen-test') return;
-  if (e.key==='ArrowLeft'||e.key==='ArrowUp') { prevQ(); }
-  else if (e.key==='ArrowRight'||e.key==='ArrowDown') { nextQ(); }
-  else if (['1','2','3','4'].includes(e.key)) { pick(parseInt(e.key)-1); }
+  if (e.key==='ArrowLeft'||e.key==='ArrowUp')       prevQ();
+  else if (e.key==='ArrowRight'||e.key==='ArrowDown') nextQ();
+  else if (['1','2','3','4'].includes(e.key))         pick(parseInt(e.key)-1);
 });
 </script>
 </body>
