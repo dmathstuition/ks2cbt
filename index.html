@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>Whyte Pyramid Academy — KS2 Diagnostic Assessment</title>
+<title>Whyte Pyramid Academy — Year 7 English Baseline Test</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -58,8 +58,6 @@ tailwind.config = {
   .btn-glass { background:rgba(255,255,255,.07); border:1.5px solid rgba(255,255,255,.12); backdrop-filter:blur(12px); color:rgba(255,255,255,.7); transition:all .2s; }
   .btn-glass:hover { background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.2); }
   .btn-glass:disabled { opacity:.3; cursor:not-allowed; transform:none !important; }
-  .btn-teal { background:linear-gradient(135deg,#2DD4BF 0%,#0D9488 100%); color:#fff; font-weight:800; box-shadow:0 6px 24px rgba(13,148,136,.35); transition:all .2s cubic-bezier(.4,0,.2,1); }
-  .btn-teal:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(13,148,136,.45); }
 
   .screen { display:none; min-height:100dvh; position:relative; z-index:1; }
   .screen.active { display:flex; flex-direction:column; animation:screenIn .35s ease; }
@@ -83,8 +81,6 @@ tailwind.config = {
   .nav-dot.current { background:#C9A227; border-color:#C9A227; color:#0B2545; }
 
   .progress-bar-fill { transition:width .4s ease; }
-  @keyframes countUp { from{opacity:0;transform:scale(.5)} to{opacity:1;transform:scale(1)} }
-  .count-animate { animation:countUp .6s cubic-bezier(.34,1.56,.64,1) forwards; }
 
   .review-item { border:1.5px solid rgba(255,255,255,.08); background:rgba(255,255,255,.05); }
   .review-item.answered { border-color:rgba(201,162,39,.25); background:rgba(201,162,39,.06); }
@@ -96,21 +92,28 @@ tailwind.config = {
   .confetti-piece { position:fixed; width:10px; height:10px; top:-20px; animation:confettiFall linear forwards; z-index:9999; }
   @keyframes confettiFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
 
+  .score-ring-bg { transition: stroke-dashoffset 1.5s cubic-bezier(.34,1.1,.64,1); }
+
+  /* test layout */
+  .test-main { display:flex; flex-direction:column; gap:1.25rem; }
+  @media(min-width:900px){
+    .test-main.has-passage { display:grid; grid-template-columns:1fr 1.4fr; align-items:start; }
+  }
+
   @media (max-width:767px) {
-    .test-grid { display:flex; flex-direction:column; }
     .blob { width:280px; height:280px; }
   }
 </style>
 </head>
-<body class="text-Whyte">
+<body class="text-white">
 
 <div class="bg-scene" aria-hidden="true">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
-  <svg class="pyramid-deco" style="width:360px;top:5%;right:8%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="Whyte"/></svg>
-  <svg class="pyramid-deco" style="width:220px;bottom:10%;left:5%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="Whyte"/></svg>
-  <svg class="pyramid-deco" style="width:160px;top:50%;right:30%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="Whyte"/></svg>
+  <svg class="pyramid-deco" style="width:360px;top:5%;right:8%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
+  <svg class="pyramid-deco" style="width:220px;bottom:10%;left:5%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
+  <svg class="pyramid-deco" style="width:160px;top:50%;right:30%" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="white"/></svg>
 </div>
 
 <!-- ░░ SCREEN: WELCOME ░░ -->
@@ -126,29 +129,34 @@ tailwind.config = {
         <div class="absolute inset-0 rounded-full" style="box-shadow:0 0 24px rgba(201,162,39,.5)"></div>
       </div>
       <div>
-        <h1 class="font-display text-xl font-bold text-Whyte leading-tight">Whyte Pyramid Academy</h1>
-        <p class="text-gold-400 text-xs font-semibold tracking-widest uppercase mt-0.5">KS2 Diagnostic Assessment</p>
+        <h1 class="font-display text-xl font-bold text-white leading-tight">Whyte Pyramid Academy</h1>
+        <p class="text-gold-400 text-xs font-semibold tracking-widest uppercase mt-0.5">Year 7 English Baseline Test</p>
       </div>
     </div>
     <div class="mb-7">
-      <h2 class="font-display text-2xl sm:text-3xl text-Whyte font-bold mb-2">Welcome, Pupil! 👋</h2>
-      <p class="text-Whyte/50 text-sm leading-relaxed">This test will help your teacher understand what you already know. Take your time, read each question, and do your best.</p>
+      <h2 class="font-display text-2xl sm:text-3xl text-white font-bold mb-2">Welcome! 👋</h2>
+      <p class="text-white/50 text-sm leading-relaxed">This test helps your teacher understand your English skills. Read each question carefully and do your very best — there's no pass or fail.</p>
     </div>
     <div class="flex flex-wrap gap-2 mb-7">
-      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📋 57 Questions</span>
-      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">⏱ ~1h 40min</span>
-      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📚 4 Subjects</span>
+      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📋 55 Questions</span>
+      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">⏱ 60 Minutes Total</span>
+      <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">📚 3 Sections</span>
+    </div>
+    <div class="glass rounded-2xl p-4 mb-6 text-xs text-white/45 space-y-1.5">
+      <div class="flex justify-between"><span>📖 Reading Comprehension</span><span class="text-gold-400">20 questions · 25 min</span></div>
+      <div class="flex justify-between"><span>✏️ Grammar &amp; Punctuation</span><span class="text-gold-400">20 questions · 20 min</span></div>
+      <div class="flex justify-between"><span>🔤 Spelling</span><span class="text-gold-400">15 questions · 15 min</span></div>
     </div>
     <div class="mb-6">
-      <label class="block text-xs font-bold text-Whyte/50 uppercase tracking-widest mb-2">Your Full Name</label>
+      <label class="block text-xs font-bold text-white/50 uppercase tracking-widest mb-2">Your Full Name</label>
       <input id="inp-name" type="text" placeholder="e.g. Sophie Johnson"
-        class="glass-input w-full rounded-xl px-4 py-3.5 text-Whyte text-base font-medium"
+        class="glass-input w-full rounded-xl px-4 py-3.5 text-white text-base font-medium"
         autocomplete="off" onkeydown="if(event.key==='Enter')startJourney()"/>
     </div>
     <button class="btn-gold w-full rounded-2xl py-4 text-navy-800 text-base font-black tracking-wide" onclick="startJourney()">
-      Begin Assessment →
+      Begin Test →
     </button>
-    <p class="text-Whyte/25 text-xs text-center mt-5">Keyboard tip: Press Enter to start • Use 1–4 during the test to select answers</p>
+    <p class="text-white/25 text-xs text-center mt-5">Press Enter to start · Use keys 1–4 to select answers</p>
   </div>
 </div>
 
@@ -158,32 +166,32 @@ tailwind.config = {
     <div class="flex items-center gap-3">
       <svg width="30" height="30" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/><polygon points="26,14 42,44 10,44" fill="#F0CB5A" opacity=".45"/></svg>
       <div>
-        <div class="text-Whyte font-bold text-sm">Whyte Pyramid Academy</div>
-        <div class="text-gold-400 text-xs">KS2 Diagnostic Assessment</div>
+        <div class="text-white font-bold text-sm">Whyte Pyramid Academy</div>
+        <div class="text-gold-400 text-xs">Year 7 English Baseline Test</div>
       </div>
     </div>
-    <div class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-Whyte/70 truncate max-w-[140px] sm:max-w-none">
+    <div class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-white/70 truncate max-w-[150px]">
       👤 <span id="hub-student-name">—</span>
     </div>
   </nav>
   <div class="flex-1 px-4 sm:px-6 py-6 max-w-3xl mx-auto w-full">
     <div class="mb-6">
-      <h2 class="font-display text-2xl sm:text-3xl text-Whyte font-bold">Choose Your Subject</h2>
-      <p class="text-Whyte/45 text-sm mt-1.5">Complete each section in order. Finish one to unlock the next.</p>
+      <h2 class="font-display text-2xl sm:text-3xl text-white font-bold">Choose a Section</h2>
+      <p class="text-white/45 text-sm mt-1.5">Complete each section in order. Finish one to unlock the next.</p>
     </div>
     <div class="glass rounded-2xl p-4 mb-6">
-      <div class="flex justify-between text-xs font-semibold text-Whyte/50 mb-2">
+      <div class="flex justify-between text-xs font-semibold text-white/50 mb-2">
         <span>Overall Progress</span>
-        <span id="hub-progress-text">0 of 4 complete</span>
+        <span id="hub-progress-text">0 of 3 complete</span>
       </div>
-      <div class="h-2 rounded-full bg-Whyte/10 overflow-hidden">
+      <div class="h-2 rounded-full bg-white/10 overflow-hidden">
         <div id="hub-progress-bar" class="progress-bar-fill h-full rounded-full bg-gradient-to-r from-gold-500 to-gold-400" style="width:0%"></div>
       </div>
     </div>
-    <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-    <div class="glass rounded-2xl p-4 mt-5 flex gap-3 items-start text-sm text-Whyte/45">
+    <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+    <div class="glass rounded-2xl p-4 mt-5 flex gap-3 items-start text-sm text-white/45">
       <span class="text-lg flex-shrink-0">💡</span>
-      <span>Your timer starts only when you click "Begin Section" — take your time reading the rules first.</span>
+      <span>Your timer only starts when you click "Begin Section" — read the instructions first.</span>
     </div>
   </div>
 </div>
@@ -192,43 +200,43 @@ tailwind.config = {
 <div id="screen-briefing" class="screen items-center justify-center px-4 py-8">
   <div class="glass-card rounded-3xl p-8 sm:p-10 w-full max-w-lg">
     <div id="brief-badge" class="inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full mb-5 glass uppercase tracking-wider"></div>
-    <h2 id="brief-title" class="font-display text-2xl sm:text-3xl text-Whyte font-bold mb-2"></h2>
-    <div id="brief-meta" class="flex flex-wrap gap-3 mb-6 text-sm text-Whyte/50"></div>
+    <h2 id="brief-title" class="font-display text-2xl sm:text-3xl text-white font-bold mb-2"></h2>
+    <div id="brief-meta" class="flex flex-wrap gap-3 mb-6 text-sm text-white/50"></div>
     <ul class="space-y-3 mb-8">
       <li class="flex gap-3 items-start">
         <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
-        <span class="text-Whyte/70 text-sm">Read every question carefully before choosing your answer.</span>
+        <span class="text-white/70 text-sm">Read every question carefully before choosing your answer.</span>
       </li>
       <li class="flex gap-3 items-start">
         <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
-        <span class="text-Whyte/70 text-sm">Select your answer — you can change it any time before submitting. Keyboard: press <kbd class="glass rounded px-1.5 py-0.5 text-xs text-gold-400">1</kbd>–<kbd class="glass rounded px-1.5 py-0.5 text-xs text-gold-400">4</kbd></span>
+        <span class="text-white/70 text-sm">Select an answer — you can change it any time before submitting. Keyboard: press <kbd class="glass rounded px-1.5 py-0.5 text-xs text-gold-400">1</kbd>–<kbd class="glass rounded px-1.5 py-0.5 text-xs text-gold-400">4</kbd></span>
       </li>
       <li class="flex gap-3 items-start">
         <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
-        <span class="text-Whyte/70 text-sm">Keep an eye on the timer — the section will auto-submit when time is up.</span>
+        <span class="text-white/70 text-sm">The section auto-submits when time runs out — watch the timer!</span>
       </li>
       <li class="flex gap-3 items-start">
         <span class="w-6 h-6 rounded-full bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
-        <span class="text-Whyte/70 text-sm">Use the question navigator to skip and return to any question.</span>
+        <span class="text-white/70 text-sm">Use the question navigator to jump back to any question at any time.</span>
       </li>
     </ul>
     <div class="flex gap-3">
       <button class="btn-glass rounded-xl py-3.5 px-5 text-sm font-bold flex-1" onclick="goToHub()">← Back</button>
-      <button id="btn-begin-section" class="btn-gold rounded-xl py-3.5 px-6 text-sm font-black flex-[2]" onclick="beginSection()">Begin Section →</button>
+      <button class="btn-gold rounded-xl py-3.5 px-6 text-sm font-black flex-[2]" onclick="beginSection()">Begin Section →</button>
     </div>
   </div>
 </div>
 
 <!-- ░░ SCREEN: TEST ░░ -->
 <div id="screen-test" class="screen flex-col">
-  <div class="h-1 w-full bg-Whyte/10">
+  <div class="h-1 w-full bg-white/10">
     <div id="test-progress-bar" class="progress-bar-fill h-full bg-gradient-to-r from-gold-600 to-gold-400" style="width:0%"></div>
   </div>
   <div class="glass px-4 sm:px-6 py-3 flex items-center justify-between gap-4 sticky top-0 z-50">
     <div class="flex items-center gap-3 min-w-0">
       <svg width="26" height="26" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/></svg>
       <div class="min-w-0">
-        <div id="test-subject-label" class="text-Whyte font-bold text-sm truncate"></div>
+        <div id="test-subject-label" class="text-white font-bold text-sm truncate"></div>
         <div id="test-paper-label" class="text-gold-400 text-xs"></div>
       </div>
     </div>
@@ -239,37 +247,44 @@ tailwind.config = {
           <circle id="timer-ring-fg" cx="24" cy="24" r="20" fill="none" stroke="#C9A227" stroke-width="4"
             stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="0" class="timer-ring-fg"/>
         </svg>
-        <div id="timer-num" class="absolute inset-0 flex items-center justify-center text-xs font-black text-Whyte"></div>
+        <div id="timer-num" class="absolute inset-0 flex items-center justify-center text-xs font-black text-white"></div>
       </div>
-      <span class="text-Whyte/40 text-xs hidden sm:block">left</span>
+      <span class="text-white/40 text-xs hidden sm:block">left</span>
     </div>
   </div>
-  <div id="test-body" class="test-grid flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-5 gap-5">
-    <div id="passage-panel" class="hidden glass-card rounded-2xl p-5 sm:p-6 passage-scroll md:overflow-y-auto md:max-h-[calc(100vh-140px)] md:sticky md:top-20">
-      <div class="flex items-center gap-2 mb-4 pb-3 border-b border-Whyte/10">
-        <span class="text-gold-400">📄</span>
-        <h3 id="passage-title-el" class="font-display text-base sm:text-lg text-Whyte font-bold"></h3>
-      </div>
-      <div id="passage-content-el" class="text-Whyte/70 text-sm leading-relaxed space-y-3"></div>
-    </div>
-    <div class="flex flex-col gap-4">
-      <div class="glass-card rounded-2xl p-5 sm:p-7">
-        <div class="flex items-center justify-between mb-4">
-          <div class="text-Whyte/35 text-xs font-bold uppercase tracking-widest">
-            Question <span id="q-num" class="text-gold-400">1</span> <span class="text-Whyte/20">of</span> <span id="q-total">20</span>
-          </div>
-          <div id="q-answered-badge" class="glass rounded-full px-2.5 py-1 text-xs font-semibold text-Whyte/40"></div>
+
+  <div id="test-body" class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-5">
+    <div id="test-main" class="test-main gap-5">
+      <!-- passage panel injected here if needed -->
+      <div id="passage-panel" class="hidden glass-card rounded-2xl p-5 sm:p-6 passage-scroll md:overflow-y-auto" style="max-height:calc(100vh - 140px)">
+        <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
+          <span class="text-gold-400">📄</span>
+          <h3 id="passage-title-el" class="font-display text-base sm:text-lg text-white font-bold"></h3>
         </div>
-        <p id="q-text" class="text-Whyte font-semibold text-base sm:text-lg leading-relaxed mb-6 Whytespace-pre-wrap"></p>
-        <div id="options-grid" class="space-y-2.5"></div>
+        <div id="passage-content-el" class="text-white/70 text-sm leading-relaxed space-y-3"></div>
       </div>
-      <div class="glass-card rounded-2xl p-4 sm:p-5">
-        <div class="text-Whyte/30 text-xs font-bold uppercase tracking-widest mb-3">Navigator</div>
-        <div id="q-nav-dots" class="flex flex-wrap gap-1.5 mb-4"></div>
-        <div class="flex gap-2.5 pt-3 border-t border-Whyte/10">
-          <button id="btn-prev" class="btn-glass rounded-xl py-3 flex-1 text-sm font-bold" onclick="prevQ()">← Prev</button>
-          <button id="btn-next" class="btn-glass rounded-xl py-3 flex-1 text-sm font-bold" onclick="nextQ()">Next →</button>
-          <button class="btn-gold rounded-xl py-3 px-4 text-xs sm:text-sm font-black flex-[1.5]" onclick="openReview()">Review & Submit ✓</button>
+
+      <div class="flex flex-col gap-4">
+        <div class="glass-card rounded-2xl p-5 sm:p-7">
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-white/35 text-xs font-bold uppercase tracking-widest">
+              Question <span id="q-num" class="text-gold-400">1</span>
+              <span class="text-white/20"> of </span>
+              <span id="q-total">20</span>
+            </div>
+            <div id="q-answered-badge" class="glass rounded-full px-2.5 py-1 text-xs font-semibold text-white/40"></div>
+          </div>
+          <p id="q-text" class="text-white font-semibold text-base sm:text-lg leading-relaxed mb-6 whitespace-pre-wrap"></p>
+          <div id="options-grid" class="space-y-2.5"></div>
+        </div>
+        <div class="glass-card rounded-2xl p-4 sm:p-5">
+          <div class="text-white/30 text-xs font-bold uppercase tracking-widest mb-3">Navigator</div>
+          <div id="q-nav-dots" class="flex flex-wrap gap-1.5 mb-4"></div>
+          <div class="flex gap-2.5 pt-3 border-t border-white/10">
+            <button id="btn-prev" class="btn-glass rounded-xl py-3 flex-1 text-sm font-bold" onclick="prevQ()">← Prev</button>
+            <button id="btn-next" class="btn-glass rounded-xl py-3 flex-1 text-sm font-bold" onclick="nextQ()">Next →</button>
+            <button class="btn-gold rounded-xl py-3 px-4 text-xs sm:text-sm font-black flex-[1.5]" onclick="openReview()">Review &amp; Submit ✓</button>
+          </div>
         </div>
       </div>
     </div>
@@ -280,14 +295,14 @@ tailwind.config = {
 <div id="screen-review" class="screen flex-col">
   <nav class="glass sticky top-0 z-50 px-4 sm:px-6 py-3.5 flex items-center justify-between">
     <div>
-      <div id="review-subject-name" class="text-Whyte font-bold text-sm"></div>
+      <div id="review-subject-name" class="text-white font-bold text-sm"></div>
       <div class="text-gold-400 text-xs">Review your answers before submitting</div>
     </div>
     <div id="review-timer-badge" class="glass rounded-full px-3 py-1.5 text-xs font-bold text-gold-400"></div>
   </nav>
   <div class="flex-1 px-4 sm:px-6 py-6 max-w-2xl mx-auto w-full">
     <div class="glass-card rounded-2xl p-5 mb-4">
-      <div id="review-summary" class="text-sm text-Whyte/60 mb-0"></div>
+      <div id="review-summary" class="text-sm text-white/60"></div>
     </div>
     <div id="review-list" class="space-y-2 mb-6"></div>
     <div class="flex gap-3">
@@ -301,856 +316,805 @@ tailwind.config = {
 <div id="screen-section-done" class="screen items-center justify-center px-4 py-8">
   <div class="glass-card rounded-3xl p-8 sm:p-10 w-full max-w-md text-center">
     <div id="done-emoji" class="text-6xl mb-4"></div>
-    <h2 id="done-title" class="font-display text-2xl sm:text-3xl text-Whyte font-bold mb-2"></h2>
-    <p id="done-msg" class="text-Whyte/50 text-sm mb-7 leading-relaxed"></p>
-    <div class="relative w-36 h-36 mx-auto mb-5">
+    <h2 id="done-title" class="font-display text-2xl sm:text-3xl text-white font-bold mb-2"></h2>
+    <p id="done-msg" class="text-white/50 text-sm mb-7 leading-relaxed"></p>
+    <div class="relative w-36 h-36 mx-auto mb-6">
       <svg width="144" height="144" viewBox="0 0 144 144" class="absolute inset-0" style="transform:rotate(-90deg)">
         <circle cx="72" cy="72" r="60" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/>
-        <circle id="done-ring" cx="72" cy="72" r="60" fill="none" stroke="#C9A227" stroke-width="10"
-          stroke-linecap="round" stroke-dasharray="376.8" stroke-dashoffset="376.8" class="timer-ring-fg" style="transition:stroke-dashoffset 1.2s ease"/>
+        <circle id="done-score-ring" cx="72" cy="72" r="60" fill="none" stroke="#C9A227" stroke-width="10"
+          stroke-linecap="round" stroke-dasharray="376.99" stroke-dashoffset="376.99" class="score-ring-bg"/>
       </svg>
       <div class="absolute inset-0 flex flex-col items-center justify-center">
-        <div id="done-score" class="font-display text-3xl font-black text-Whyte count-animate"></div>
-        <div id="done-pct" class="text-gold-400 text-sm font-bold"></div>
+        <span id="done-score-pct" class="font-display text-3xl font-bold text-white"></span>
+        <span class="text-white/40 text-xs">score</span>
       </div>
     </div>
-    <div id="done-band" class="inline-block rounded-full px-4 py-1.5 text-sm font-bold mb-7"></div>
-    <button id="btn-continue" class="btn-gold w-full rounded-2xl py-4 text-base font-black" onclick="goToHub()">Return to Hub →</button>
+    <button id="done-next-btn" class="btn-gold w-full rounded-2xl py-4 text-sm font-black" onclick="afterSectionDone()"></button>
   </div>
 </div>
 
-<!-- ░░ SCREEN: RESULTS ░░ -->
-<div id="screen-results" class="screen flex-col">
-  <nav class="glass sticky top-0 z-50 px-4 sm:px-6 py-3.5 flex items-center gap-3">
-    <svg width="26" height="26" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/></svg>
-    <div>
-      <div class="text-Whyte font-bold text-sm">Assessment Complete</div>
-      <div id="results-student-info" class="text-gold-400 text-xs"></div>
+<!-- ░░ SCREEN: FINAL RESULTS ░░ -->
+<div id="screen-results" class="screen flex-col items-center justify-start px-4 py-8 overflow-y-auto">
+  <div class="glass-card rounded-3xl p-8 sm:p-10 w-full max-w-2xl">
+    <div class="text-center mb-8">
+      <div class="text-5xl mb-3">🎉</div>
+      <h2 class="font-display text-3xl sm:text-4xl text-white font-bold mb-2">Test Complete!</h2>
+      <p class="text-white/50 text-sm">Year 7 English Baseline Test — <span id="res-student-name" class="text-gold-400"></span></p>
+      <p id="res-date" class="text-white/30 text-xs mt-1"></p>
     </div>
-  </nav>
-  <div class="flex-1 px-4 sm:px-6 py-6 max-w-3xl mx-auto w-full">
-    <!-- Overall -->
-    <div class="glass-card rounded-3xl p-7 sm:p-9 text-center mb-6 relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10" style="background:radial-gradient(ellipse at center,#C9A227 0%,transparent 70%)"></div>
-      <div class="relative z-10">
-        <div class="text-Whyte/40 text-xs font-bold uppercase tracking-widest mb-2">Overall Score</div>
-        <div id="ov-pct" class="font-display text-6xl sm:text-7xl font-black text-gold-400 mb-1 count-animate">—</div>
-        <div id="ov-raw" class="text-Whyte/40 text-sm font-semibold mb-4">— / —</div>
-        <div id="ov-band" class="inline-block rounded-full px-5 py-2 text-sm font-black"></div>
+
+    <!-- Overall score ring -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="relative w-44 h-44 mb-4">
+        <svg width="176" height="176" viewBox="0 0 176 176" class="absolute inset-0" style="transform:rotate(-90deg)">
+          <circle cx="88" cy="88" r="74" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="12"/>
+          <circle id="res-overall-ring" cx="88" cy="88" r="74" fill="none" stroke="#C9A227" stroke-width="12"
+            stroke-linecap="round" stroke-dasharray="464.96" stroke-dashoffset="464.96" class="score-ring-bg"/>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span id="res-overall-pct" class="font-display text-4xl font-bold text-white"></span>
+          <span class="text-white/40 text-xs">Overall</span>
+        </div>
       </div>
+      <div id="res-band" class="glass rounded-full px-5 py-2 text-sm font-bold text-gold-400"></div>
     </div>
 
-    <!-- Subject grid -->
-    <div id="results-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6"></div>
+    <!-- Per-section breakdown -->
+    <div id="res-breakdown" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"></div>
 
-    <!-- Breakdown bars -->
-    <div class="glass-card rounded-2xl p-5 sm:p-6 mb-6">
-      <h3 class="text-Whyte font-bold text-sm mb-5 uppercase tracking-widest text-Whyte/50">Subject Breakdown</h3>
-      <div id="results-bars" class="space-y-4"></div>
+    <!-- Diagnostic feedback -->
+    <div id="res-diagnostics" class="glass rounded-2xl p-5 mb-6 space-y-3"></div>
+
+    <!-- Teacher note -->
+    <div class="glass rounded-2xl p-4 text-xs text-white/35 leading-relaxed mb-6">
+      📋 <strong class="text-white/50">Teacher Note:</strong> This report reflects the student's performance at entry. Results are diagnostic only and intended to inform planning — not as a formal grade.
     </div>
 
-    <!-- Action buttons -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-      <!-- Download Report -->
-      <button class="btn-teal rounded-2xl py-4 px-5 text-sm font-black flex items-center justify-center gap-2.5" onclick="downloadReport()">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 3v13m0 0l-4-4m4 4l4-4M3 21h18" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download Full Report
-      </button>
-      <!-- Save to Sheets -->
-      <button id="btn-save-sheets" class="btn-gold rounded-2xl py-4 px-5 text-sm font-black flex items-center justify-center gap-2.5" onclick="submitToSheets()">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m-6-8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Save to Google Sheets
-      </button>
-    </div>
-    <p id="submit-status" class="text-sm font-semibold text-center hidden mb-4"></p>
-    <button class="btn-glass w-full rounded-xl py-3.5 text-sm font-bold" onclick="window.print()">🖨 Print Results Report</button>
+    <button class="btn-gold w-full rounded-2xl py-4 font-black text-sm" onclick="printReport()">🖨 Print / Save Report</button>
   </div>
 </div>
 
-<!-- ░░ JAVASCRIPT ░░ -->
 <script>
-// ═══════════════════════════════════════════════════════════════════════════
-//  ★  ADMIN CONFIGURATION — Edit this section before deploying  ★
-// ═══════════════════════════════════════════════════════════════════════════
-const CONFIG = {
-  // Paste your Google Apps Script Web App URL here (from Deploy → New deployment)
-  // Leave empty ('') to hide the Save to Sheets button.
-  GAS_URL: 'https://script.google.com/macros/s/AKfycbxZ-un8GQAnaf9UBun_pd6CB09JchExGAEtlMZ_yR8H_ksvM6eJPph-FUDcv-7HyT2t9g/exec',
-
-  // Academy display name (used in the downloadable report)
-  ACADEMY_NAME: 'Whyte Pyramid Academy',
-  ACADEMY_SUBTITLE: 'KS2 Diagnostic Assessment',
-
-  // Report footer note
-  REPORT_FOOTER: 'This report is generated automatically and is for diagnostic purposes only.',
-};
-// ═══════════════════════════════════════════════════════════════════════════
-
-// ── READING PASSAGE ────────────────────────────────────────────────────────
-const READING_PASSAGE = {
-  title: 'The Arctic Fox',
-  html: `
-    <p><em>Read the following passage, then answer the questions on the right.</em></p>
-    <p>The Arctic fox (<em>Vulpes lagopus</em>) is one of nature's most remarkable survivors. Found across the Arctic tundra, this small but resilient creature has evolved extraordinary adaptations to endure temperatures as low as −50°C.</p>
-    <p>Perhaps the most striking feature of the Arctic fox is its seasonal coat. In winter, the fox wears a thick, brilliant-Whyte fur that provides exceptional insulation and camouflage against the snow. As summer arrives and the snow retreats, this Whyte coat is shed and replaced with a shorter, brownish-grey fur that blends seamlessly with the tundra's rocky landscape.</p>
-    <p>The Arctic fox is an opportunistic omnivore. Its diet shifts dramatically with the seasons. In summer, it feasts on birds, eggs, berries and small rodents. In the harsh winter months, when prey is scarce, the fox often follows polar bears, scavenging the remains of seal carcasses left behind after a kill. This resourceful behaviour is critical to its winter survival.</p>
-    <p>Despite its many adaptations, the Arctic fox faces increasing threats from climate change. As temperatures rise, the red fox — a larger and more dominant species — is moving further north into Arctic territories, directly competing with the Arctic fox for food and space. Conservation scientists warn that without intervention, some Arctic fox populations could face serious decline within decades.</p>`
+/* =============================================
+   DATA — SUBJECTS & QUESTIONS
+   ============================================= */
+const PASSAGE = {
+  title: 'The Storm Chaser',
+  content: [
+    `Maya had always been afraid of storms. As a child, she would hide beneath her duvet whenever thunder growled across the sky, pressing her hands against her ears to block out the lightning's violent companion. Yet here she was, fifteen years later, standing in the open doorway of a battered research van, watching the horizon turn the colour of a bruise.`,
+    `"Approaching shelf cloud," announced Dr Okonkwo, her supervisor, without looking up from his laptop. "ETA twelve minutes."`,
+    `Maya gripped her camera — a heavyweight beast that had survived three tornadoes — and stepped outside. The air tasted of electricity. Somewhere behind her, a crow called once and fell silent.`,
+    `She had spent six years studying meteorology at university, poring over charts and equations, but nothing had prepared her for the reality of fieldwork. The theory was clean and elegant; the truth was mud-splashed and terrifying.`,
+    `"Maya," Dr Okonkwo called. "Wind speed?"`,
+    `She checked the handheld anemometer. "Forty-three knots and climbing."`,
+    `"Perfect." He actually smiled. "This one is going to be magnificent."`,
+    `She wasn't sure magnificent was the word she would have chosen. Overwhelming, perhaps. Humbling. A reminder that human beings, for all their satellites and sensors, were still, ultimately, small.`,
+    `The shelf cloud rolled in like a grey curtain being drawn across a stage. Beneath it, the sky had turned an eerie yellow-green, a colour that experienced storm chasers called "tornado sky." Maya raised her camera, steadied her breathing, and pressed the shutter.`,
+    `She was still afraid. But she had learned, somewhere between the equations and the mud, that fear and courage were not opposites. You could hold both at once. You could be terrified and still press the shutter.`
+  ]
 };
 
-// ── SUBJECTS ───────────────────────────────────────────────────────────────
 const SUBJECTS = [
-  { id:'arithmetic', name:'Maths Arithmetic', paper:'Paper 1', time:25*60, icon:'🔢', color:'#3B82F6',
-    recommendations: {
-      high: 'Excellent arithmetic skills. Extend with multi-step problems, negative numbers, and order of operations.',
-      mid:  'Solid foundation. Focus on decimal operations, fraction calculations, and percentage word problems for improvement.',
-      low:  'Build confidence with times tables (6–12), short multiplication/division, and fraction simplification before moving to harder topics.'
-    },
-    questions:[
-      {t:"456 + 289 = ?", o:["745","635","755","735"], a:0},
-      {t:"1,000 − 437 = ?", o:["563","573","463","543"], a:0},
-      {t:"27 × 6 = ?", o:["152","162","172","142"], a:1},
-      {t:"196 ÷ 4 = ?", o:["47","48","49","50"], a:2},
-      {t:"4.7 + 3.8 = ?", o:["7.5","8.4","8.5","9.5"], a:2},
-      {t:"9.3 − 4.6 = ?", o:["5.7","4.7","4.3","5.3"], a:1},
-      {t:"38 × 25 = ?", o:["850","900","950","1,000"], a:2},
-      {t:"504 ÷ 9 = ?", o:["55","56","57","54"], a:1},
-      {t:"¼ of 360 = ?", o:["80","85","90","95"], a:2},
-      {t:"⅔ × 18 = ?", o:["10","11","12","13"], a:2},
-      {t:"20% of 150 = ?", o:["25","28","30","35"], a:2},
-      {t:"6.4 × 5 = ?", o:["30","31","32","33"], a:2},
-      {t:"½ + ¼ = ?", o:["¾","⅔","¼","⅔"], a:0},
-      {t:"3 − 1¾ = ?", o:["1¼","1½","¾","2¼"], a:0},
-      {t:"237 × 14 = ?", o:["3,218","3,318","3,328","3,418"], a:1},
-      {t:"8² = ?", o:["16","48","64","72"], a:2},
-      {t:"√81 = ?", o:["7","8","9","10"], a:2},
-      {t:"3.6 ÷ 0.4 = ?", o:["8","9","10","12"], a:1},
-      {t:"⅗ of 55 = ?", o:["30","31","32","33"], a:3},
-      {t:"35.4 + 17.86 = ?", o:["52.26","53.26","53.16","52.36"], a:1},
-    ]},
-  { id:'reasoning', name:'Maths Reasoning', paper:'Paper 2', time:30*60, icon:'📐', color:'#10B981',
-    recommendations: {
-      high: 'Strong problem-solving ability. Introduce multi-step reasoning, ratio and proportion challenges, and algebraic thinking at KS3 level.',
-      mid:  'Good progress. Practice two-step word problems, ratio questions, and reading charts/graphs carefully to boost accuracy.',
-      low:  'Focus on translating word problems into calculations. Work on time problems, money, measures, and mean/average with guided examples.'
-    },
-    questions:[
-      {t:"A rectangle has a length of 12 cm and a width of 7 cm. What is its area?", o:["38 cm²","72 cm²","84 cm²","168 cm²"], a:2},
-      {t:"There are 24 children in a class. ⅜ of them have a pet. How many children have a pet?", o:["6","7","8","9"], a:3},
-      {t:"A bag of flour weighs 1.5 kg. A baker uses ⅗ of it. How many grams does he use?", o:["600 g","750 g","900 g","1,000 g"], a:2},
-      {t:"The ratio of boys to girls in a school is 3:4. There are 84 girls. How many boys?", o:["56","63","72","112"], a:1},
-      {t:"A train leaves at 09:45 and arrives at 11:20. How long is the journey?", o:["1 h 25 min","1 h 35 min","1 h 45 min","2 h 5 min"], a:1},
-      {t:"What is the value of 3n + 5 when n = 7?", o:["15","21","26","29"], a:2},
-      {t:"A shop sells pencils for 35p each. Sam buys 8 pencils and pays with a £5 note. How much change?", o:["£2.20","£2.40","£2.60","£2.80"], a:0},
-      {t:"The mean of five numbers is 14. Four of the numbers are 12, 16, 9 and 18. What is the fifth?", o:["13","14","15","17"], a:2},
-      {t:"A square has a perimeter of 36 cm. What is its area?", o:["36 cm²","72 cm²","81 cm²","144 cm²"], a:2},
-      {t:"A coat costing £80 is reduced by 15% in a sale. What is the sale price?", o:["£12","£65","£68","£72"], a:2},
-      {t:"A sequence follows: add 7 each time. The third term is 23. What is the first term?", o:["7","9","11","16"], a:1},
-      {t:"4 litres of paint covers 20 m². How many litres to cover 45 m²?", o:["7 L","8 L","9 L","10 L"], a:2},
-    ]},
-  { id:'reading', name:'Reading', paper:'Reading Paper', time:25*60, icon:'📖', color:'#8B5CF6',
-    hasPassage:true, passage: READING_PASSAGE,
-    recommendations: {
-      high: 'Excellent comprehension. Challenge with inference-heavy texts, poetry analysis, and author intent questions at KS3 level.',
-      mid:  'Good literal understanding. Practise explaining evidence from the text, vocabulary-in-context, and summarising passages in your own words.',
-      low:  'Build reading fluency through daily reading. Focus on re-reading questions carefully, identifying key words, and finding direct evidence in the passage before answering.'
-    },
-    questions:[
-      {t:"What is the lowest temperature an Arctic fox can endure?", o:["−30°C","−40°C","−50°C","−60°C"], a:2},
-      {t:"What does the word 'resilient' most closely mean in paragraph 1?", o:["Delicate and fragile","Able to recover from difficulties","Dangerous to other animals","Rare and unusual"], a:1},
-      {t:"Why does the Arctic fox's coat change colour in summer?", o:["To stay warm in the sun","To attract a mate","To blend in with the rocky landscape","To prepare for migration"], a:2},
-      {t:"What does 'opportunistic omnivore' tell us about the Arctic fox?", o:["It only eats plants","It eats whatever food is available","It hunts other predators","It stores food underground"], a:1},
-      {t:"In winter, what does the Arctic fox eat when prey is scarce?", o:["Arctic moss and berries","Fish from frozen rivers","Remains of seal carcasses left by polar bears","Insects under the snow"], a:2},
-      {t:"Which word from paragraph 3 shows the fox eats more than one type of food?", o:["opportunistic","omnivore","scavenging","resourceful"], a:1},
-      {t:"Why does the fox follow polar bears in winter?", o:["Polar bears protect the fox","Polar bears lead foxes to warmth","Polar bears leave food the fox can eat","Polar bears teach the fox to hunt"], a:2},
-      {t:"What specific threat does climate change pose to the Arctic fox?", o:["Its coat no longer changes colour","The red fox moves north and competes for food","The tundra becomes too wet","The fox loses its hunting instinct"], a:1},
-      {t:"What does 'seamlessly' suggest about the fox's summer coat?", o:["The match is almost perfect with no visible difference","The coat has visible seams","The colour is slightly different","The coat glows in sunlight"], a:0},
-      {t:"Based on the whole passage, which best describes the Arctic fox?", o:["A powerful predator dominating the Arctic","A vulnerable animal with no natural defences","A highly adaptable animal facing new challenges","A species already extinct in many regions"], a:2},
-    ]},
-  { id:'gps', name:'Grammar & Punctuation', paper:'GPS Paper 1', time:20*60, icon:'✏️', color:'#F59E0B',
-    recommendations: {
-      high: 'Strong grammatical awareness. Explore complex sentence structures, stylistic punctuation choices, and writing for different audiences at advanced level.',
-      mid:  'Comfortable with most basics. Review fronted adverbials, passive voice, relative clauses, and apostrophe rules through targeted exercises.',
-      low:  'Focus on core punctuation (commas, apostrophes, speech marks) and word classes (noun, verb, adjective, adverb) with plenty of practice sentences and games.'
-    },
-    questions:[
-      {t:"Which sentence uses a comma correctly after a fronted adverbial?", o:["After the match, we went home.","After, the match we went home.","After the match we, went home.","After the match we went, home."], a:0},
-      {t:"'She quickly ran to the door.' — What word class is 'quickly'?", o:["Adjective","Noun","Adverb","Verb"], a:2},
-      {t:"Which sentence is written in the passive voice?", o:["The dog chased the cat.","The cat was chased by the dog.","The cat ran away quickly.","The dog barked loudly."], a:1},
-      {t:"Choose the correct word: 'Neither the teacher nor the students _____ ready.'", o:["was","were","is","are"], a:1},
-      {t:"Which sentence uses an apostrophe correctly for multiple boys?", o:["The boys' coats were wet.","The boys's coats were wet.","The boys coats' were wet.","The boy's coats were wet."], a:0},
-      {t:"Which option correctly uses a semicolon?", o:["She was tired; but she kept going.","She was tired; she kept going.","She; was tired but kept going.","She was; tired but kept going."], a:1},
-      {t:"What word class is 'beneath' in: 'She hid the letter beneath the floorboard'?", o:["Adverb","Conjunction","Preposition","Determiner"], a:2},
-      {t:"Which sentence contains a relative clause?", o:["The book was long and difficult.","She read it carefully.","The book, which was very old, told of ancient times.","She put the book on the shelf."], a:2},
-      {t:"Choose the correct form: 'If I _____ you, I would apologise.'", o:["am","was","were","be"], a:2},
-      {t:"What is the function of the dashes in: 'My sister — the one in London — called yesterday'?", o:["To show a list","To add parenthetical information","To show a pause at the end","To show direct speech"], a:1},
-      {t:"Which sentence uses a fronted adverbial?", o:["She walked slowly through the park.","Through the park, she walked slowly.","She slowly walked through the park.","Walking quickly through the park."], a:1},
-      {t:"Which word is a modal verb?", o:["run","could","happy","quickly"], a:1},
-      {t:"Which spelling is correct?", o:["Accomodation","Accommadation","Accommodation","Accomodation"], a:2},
-      {t:"Which sentence correctly uses a colon to introduce a list?", o:["She had many hobbies: reading, painting, and singing.","She had many hobbies, reading: painting and singing.","She had: many hobbies reading painting and singing.","She had many hobbies reading, painting: and singing."], a:0},
-      {t:"Which sentence uses an ellipsis to build suspense correctly?", o:["She opened the door...and screamed.","She...opened the door and screamed.","She opened...the door and screamed.","She opened the door and...screamed."], a:0},
-    ]}
+  {
+    id: 'reading',
+    name: 'Reading Comprehension',
+    shortName: 'Reading',
+    icon: '📖',
+    color: '#3B82F6',
+    stripe: 'linear-gradient(90deg,#3B82F6,#60A5FA)',
+    desc: 'Read the passage carefully, then answer the questions.',
+    timeSec: 25 * 60,
+    hasPassage: true,
+    questions: [
+      {
+        q: 'What was Maya\'s reaction to storms as a child?',
+        opts: ['She watched them from the window excitedly','She hid under her duvet and covered her ears','She tried to photograph them','She went outside to study them'],
+        ans: 1
+      },
+      {
+        q: 'What does the phrase "the horizon turn the colour of a bruise" suggest?',
+        opts: ['It was a beautiful, colourful sunset','Dark, threatening storm clouds were forming','The sky was completely clear','It was very early in the morning'],
+        ans: 1
+      },
+      {
+        q: 'In paragraph 2, what does "ETA" most likely mean?',
+        opts: ['Extreme Thunder Alert','Eastern Temperature Average','Estimated Time of Arrival','Emergency Team Action'],
+        ans: 2
+      },
+      {
+        q: 'How many years had Maya spent studying meteorology at university?',
+        opts: ['Three years','Four years','Six years','Fifteen years'],
+        ans: 2
+      },
+      {
+        q: 'Which word best describes Dr Okonkwo\'s attitude towards the approaching storm?',
+        opts: ['Fearful','Indifferent','Enthusiastic','Angry'],
+        ans: 2
+      },
+      {
+        q: 'What does an "anemometer" measure?',
+        opts: ['Rainfall','Temperature','Wind speed','Air pressure'],
+        ans: 2
+      },
+      {
+        q: 'What wind speed did Maya record?',
+        opts: ['34 knots','43 knots','53 knots','48 knots'],
+        ans: 1
+      },
+      {
+        q: 'What colour do experienced storm chasers call "tornado sky"?',
+        opts: ['Dark grey','Deep purple','Yellow-green','Orange-red'],
+        ans: 2
+      },
+      {
+        q: '"The shelf cloud rolled in like a grey curtain being drawn across a stage."\nWhat literary device is used in this sentence?',
+        opts: ['Metaphor','Simile','Personification','Alliteration'],
+        ans: 1
+      },
+      {
+        q: 'What does Dr Okonkwo\'s use of the word "magnificent" reveal about him?',
+        opts: ['He is frightened by the storm','He finds the storm beautiful and impressive','He thinks the storm is too dangerous','He has never seen a storm before'],
+        ans: 1
+      },
+      {
+        q: 'Which word from the passage is closest in meaning to "awe-inspiring"?',
+        opts: ['Overwhelming','Elegant','Magnificent','Humbling'],
+        ans: 2
+      },
+      {
+        q: 'What is the main message conveyed at the end of the passage?',
+        opts: ['Scientists should avoid dangerous fieldwork','Storms are always too dangerous to study','Fear and courage can exist at the same time','Maya wishes she had never become a storm chaser'],
+        ans: 2
+      },
+      {
+        q: '"The theory was clean and elegant; the truth was mud-splashed and terrifying." What does this contrast suggest?',
+        opts: ['Maya preferred studying in a library','Practical fieldwork is very different from academic study','Meteorology is not a real science','Dr Okonkwo was incorrect about storms'],
+        ans: 1
+      },
+      {
+        q: 'What does the word "ultimately" mean as it is used in the passage?',
+        opts: ['At first','Quickly','In the end / at the most basic level','Scientifically'],
+        ans: 2
+      },
+      {
+        q: 'What animal is briefly mentioned in the passage?',
+        opts: ['An eagle','A crow','A sparrow','A hawk'],
+        ans: 1
+      },
+      {
+        q: 'What does "the air tasted of electricity" most likely suggest?',
+        opts: ['Maya was tasting something strange','There was a strong static charge in the atmosphere','The van had an electrical fault','The air smelled of petrol'],
+        ans: 1
+      },
+      {
+        q: 'How long ago did Maya\'s childhood fear of storms begin, relative to the events in the passage?',
+        opts: ['Six years ago','Ten years ago','Fifteen years ago','Twenty years ago'],
+        ans: 2
+      },
+      {
+        q: 'Which word best describes how Maya feels at the very end of the passage?',
+        opts: ['Completely fearless','Regretful and sorry','Courageous despite her fear','Ready to quit her job'],
+        ans: 2
+      },
+      {
+        q: 'What is the genre of this passage?',
+        opts: ['Science fiction','Historical fiction','Contemporary fiction / drama','Horror'],
+        ans: 2
+      },
+      {
+        q: 'Which statement best summarises the whole passage?',
+        opts: ['A scientist explains how to measure storms','A woman overcomes her childhood fear to do her job bravely','A researcher argues that storms are misunderstood','Two scientists disagree about how to study a storm'],
+        ans: 1
+      }
+    ]
+  },
+  {
+    id: 'grammar',
+    name: 'Grammar & Punctuation',
+    shortName: 'Grammar',
+    icon: '✏️',
+    color: '#8B5CF6',
+    stripe: 'linear-gradient(90deg,#8B5CF6,#A78BFA)',
+    desc: 'Answer questions about grammar, punctuation and language.',
+    timeSec: 20 * 60,
+    hasPassage: false,
+    questions: [
+      {
+        q: 'Which sentence uses a comma correctly?',
+        opts: ['Maya studied, meteorology at university.','The storm was approaching, and Maya felt afraid.','She pressed the shutter, carefully.','Dr Okonkwo, smiled at the approaching storm.'],
+        ans: 1
+      },
+      {
+        q: 'Identify the verb in this sentence:\n"The crow called once and fell silent."',
+        opts: ['crow','called','once','silent'],
+        ans: 1
+      },
+      {
+        q: 'Which sentence is written in the past tense?',
+        opts: ['The shelf cloud rolls in slowly.','Maya will check the wind speed.','Dr Okonkwo looked at his laptop.','They are standing in the doorway.'],
+        ans: 2
+      },
+      {
+        q: 'Which of the following is a complex sentence?',
+        opts: ['Maya ran.','The storm was fierce and the wind was strong.','Although she was afraid, Maya pressed the shutter.','Dr Okonkwo smiled.'],
+        ans: 2
+      },
+      {
+        q: '"Maya raised her camera, steadied her breathing, and pressed the shutter."\nHow many verbs are in this sentence?',
+        opts: ['One','Two','Three','Four'],
+        ans: 2
+      },
+      {
+        q: 'Which word is an adverb in this sentence?\n"She carefully checked the readings."',
+        opts: ['She','carefully','checked','readings'],
+        ans: 1
+      },
+      {
+        q: 'Which sentence uses an apostrophe correctly?',
+        opts: ["The storms fury was incredible.","The storm's fury was incredible.","The storms' fury was incredible.","The Storm's Fury was incredible."],
+        ans: 1
+      },
+      {
+        q: 'Identify the preposition in:\n"She stood in the open doorway."',
+        opts: ['She','stood','in','open'],
+        ans: 2
+      },
+      {
+        q: 'Which sentence is written in the passive voice?',
+        opts: ['Maya took the photograph.','The wind lifted the van.','The photograph was taken by Maya.','She checked the anemometer.'],
+        ans: 2
+      },
+      {
+        q: 'Which sentence correctly uses a colon?',
+        opts: ['She packed: her camera into the bag.','She needed three things: courage, skill, and patience.','The storm: was approaching quickly.','Maya: pressed the shutter.'],
+        ans: 1
+      },
+      {
+        q: '"Dr Okonkwo said, \'This one is going to be magnificent.\'"  \nWhat punctuation marks the spoken words?',
+        opts: ['Commas','Brackets','Inverted commas / speech marks','Dashes'],
+        ans: 2
+      },
+      {
+        q: 'Which word is an adjective in:\n"The violent storm approached."',
+        opts: ['The','violent','storm','approached'],
+        ans: 1
+      },
+      {
+        q: 'Which coordinating conjunction makes this a compound sentence?\n"Maya was afraid ___ she continued working."',
+        opts: ['although','because','but','since'],
+        ans: 2
+      },
+      {
+        q: 'Choose the grammatically correct word to complete this sentence:\n"There were ___ students absent today."',
+        opts: ['less','fewer','lesser','lessen'],
+        ans: 1
+      },
+      {
+        q: 'Which sentence uses the correct form of their / there / they\'re?',
+        opts: ["Their going to the library.","The books are over their.","They're studying for the test.","There coats are on the chairs."],
+        ans: 2
+      },
+      {
+        q: 'What does the prefix "mis-" mean in the word "misunderstand"?',
+        opts: ['Again','Not / wrongly','Before','After'],
+        ans: 1
+      },
+      {
+        q: 'Which sentence contains a relative clause?',
+        opts: ['Maya ran to the van.','The storm was enormous.','Dr Okonkwo, who was experienced, smiled calmly.','She pressed the button.'],
+        ans: 2
+      },
+      {
+        q: 'Identify the subject in:\n"The heavy rain battered the windows."',
+        opts: ['heavy','rain','The heavy rain','battered'],
+        ans: 2
+      },
+      {
+        q: 'Which sentence is punctuated correctly?',
+        opts: ['"What is the wind speed?" asked Maya.','"What is the wind speed"? asked Maya.','"What is the wind speed?" Asked Maya.','"What is the wind speed" asked Maya.'],
+        ans: 0
+      },
+      {
+        q: 'What type of word is "however" in this sentence?\n"She was afraid; however, she pressed the shutter."',
+        opts: ['Conjunction','Preposition','Connective / adverb','Pronoun'],
+        ans: 2
+      }
+    ]
+  },
+  {
+    id: 'spelling',
+    name: 'Spelling',
+    shortName: 'Spelling',
+    icon: '🔤',
+    color: '#10B981',
+    stripe: 'linear-gradient(90deg,#10B981,#34D399)',
+    desc: 'Choose the correctly spelled word from each set of four options.',
+    timeSec: 15 * 60,
+    hasPassage: false,
+    questions: [
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['recieve','receeve','receive','receieve'],
+        ans: 2
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['beleive','believve','belive','believe'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['necesary','neccessary','necessary','neccesary'],
+        ans: 2
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['occurance','occurence','occurrance','occurrence'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['definately','definitly','defenitely','definitely'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['seperate','separrate','sepperate','separate'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['accomodate','acommodate','accommodate','accommmodate'],
+        ans: 2
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['embarass','embaras','embarrass','embarrase'],
+        ans: 2
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['grammer','grammarr','gramar','grammar'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['wierd','weerd','weird','weard'],
+        ans: 2
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['mispell','misspel','mis-spell','misspell'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['priviledge','privelege','privilige','privilege'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['enviroment','enviornment','environment','enviorment'],
+        ans: 2
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['knowlege','knowledg','knowlegde','knowledge'],
+        ans: 3
+      },
+      {
+        q: 'Which word is spelled correctly?',
+        opts: ['Febuary','Febrary','Feburary','February'],
+        ans: 3
+      }
+    ]
+  }
 ];
 
-// ── STATE ──────────────────────────────────────────────────────────────────
-const S = {
-  student: { name:'' },
-  subjectIdx: 0, qIdx: 0,
-  prog: SUBJECTS.map((_,i)=>({ status:i===0?'available':'locked', ans:{}, score:null, timeUsed:0 })),
-  timer: null, timeLeft: 0, totalTime: 0,
-};
+/* =============================================
+   STATE
+   ============================================= */
+let studentName = '';
+let currentSubjectIdx = -1;
+let currentQIdx = 0;
+let answers = [];
+let timerInterval = null;
+let timerSec = 0;
+let timerTotal = 0;
+let sectionResults = {}; // { subjectId: { score, total, answers[] } }
 
-// ── SCREENS ────────────────────────────────────────────────────────────────
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+id).classList.add('active');
-  window.scrollTo(0,0);
+/* =============================================
+   SCREEN HELPERS
+   ============================================= */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
 }
 
-// ── WELCOME ────────────────────────────────────────────────────────────────
+/* =============================================
+   WELCOME
+   ============================================= */
 function startJourney() {
-  const name = document.getElementById('inp-name').value.trim();
-  if (!name) { document.getElementById('inp-name').focus(); return; }
-  S.student.name = name;
-  document.getElementById('hub-student-name').textContent = name;
-  show('hub'); renderHub();
+  const inp = document.getElementById('inp-name');
+  const name = inp.value.trim();
+  if (!name) { inp.focus(); inp.style.borderColor = '#FF4B4B'; setTimeout(() => inp.style.borderColor = '', 1200); return; }
+  studentName = name;
+  renderHub();
+  showScreen('hub');
 }
 
-// ── HUB ────────────────────────────────────────────────────────────────────
+/* =============================================
+   HUB
+   ============================================= */
 function renderHub() {
-  const done = S.prog.filter(p=>p.status==='completed').length;
-  document.getElementById('hub-progress-text').textContent = done + ' of 4 complete';
-  document.getElementById('hub-progress-bar').style.width = (done/4*100)+'%';
+  document.getElementById('hub-student-name').textContent = studentName;
+  const completed = Object.keys(sectionResults).length;
+  document.getElementById('hub-progress-text').textContent = `${completed} of 3 complete`;
+  document.getElementById('hub-progress-bar').style.width = `${Math.round(completed / 3 * 100)}%`;
+
   const grid = document.getElementById('hub-grid');
   grid.innerHTML = '';
-  SUBJECTS.forEach((subj,i)=>{
-    const sp = S.prog[i];
+  SUBJECTS.forEach((subj, i) => {
+    const done = sectionResults[subj.id];
+    const locked = i > 0 && !sectionResults[SUBJECTS[i - 1].id];
     const card = document.createElement('div');
-    card.className = 'subj-card rounded-2xl overflow-hidden '+sp.status;
-    const statusMap = { available:'Ready to Start', locked:'🔒 Locked', completed:'✓ Complete', 'in-progress':'▶ In Progress' };
-    const scoreHTML = sp.score!==null
-      ? `<div class="mt-2 text-xs text-Whyte/40">Score: <span class="text-gold-400 font-bold">${sp.score}/${subj.questions.length}</span></div>` : '';
+    card.className = `subj-card rounded-2xl overflow-hidden ${locked ? 'locked' : ''} ${done ? 'completed' : ''}`;
+
+    const pct = done ? Math.round(done.score / done.total * 100) : null;
     card.innerHTML = `
-      <div class="top-stripe" style="background:${subj.color}"></div>
+      <div class="top-stripe" style="background:${subj.stripe}"></div>
       <div class="p-5">
-        <div class="text-3xl mb-3">${subj.icon}</div>
-        <div class="text-Whyte font-bold text-sm mb-0.5">${subj.name}</div>
-        <div class="text-Whyte/35 text-xs mb-3">${subj.paper}</div>
-        <div class="flex gap-1.5 flex-wrap mb-3">
-          <span class="glass rounded-full px-2 py-0.5 text-xs text-Whyte/50 font-semibold">⏱ ${Math.floor(subj.time/60)}min</span>
-          <span class="glass rounded-full px-2 py-0.5 text-xs text-Whyte/50 font-semibold">${subj.questions.length}Q</span>
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-3xl">${subj.icon}</span>
+          ${locked ? '<span class="text-xs glass rounded-full px-2 py-1 text-white/40">🔒 Locked</span>'
+            : done ? `<span class="text-xs glass rounded-full px-2 py-1 text-green-400">✓ Done · ${pct}%</span>`
+            : '<span class="text-xs glass rounded-full px-2 py-1 text-gold-400">Available</span>'}
         </div>
-        ${scoreHTML}
-        <div class="flex items-center gap-1.5 mt-3">
-          <div class="w-2 h-2 rounded-full" style="background:${sp.status==='completed'?'#4ADE80':sp.status==='available'?subj.color:'#555'}"></div>
-          <span class="text-xs font-bold" style="color:${sp.status==='completed'?'#4ADE80':sp.status==='available'?subj.color:'rgba(255,255,255,.3)'}">${statusMap[sp.status]}</span>
-        </div>
+        <h3 class="text-white font-bold text-base mb-1">${subj.name}</h3>
+        <p class="text-white/40 text-xs mb-4">${subj.questions.length} questions · ${Math.round(subj.timeSec / 60)} min</p>
+        ${!locked ? `<button class="btn-gold w-full rounded-xl py-2.5 text-xs font-black" onclick="openBriefing(${i})">
+          ${done ? 'View Results' : 'Begin Section →'}
+        </button>` : '<div class="h-9"></div>'}
       </div>`;
-    if (sp.status==='available'||sp.status==='in-progress') card.onclick=()=>openBriefing(i);
     grid.appendChild(card);
   });
-  if (S.prog.every(p=>p.status==='completed')) {
-    const btn = document.createElement('button');
-    btn.className = 'btn-gold col-span-1 sm:col-span-2 rounded-2xl py-4 text-base font-black';
-    btn.style.cssText = 'grid-column:1/-1;';
-    btn.textContent = '🏆 View Full Results';
-    btn.onclick = ()=>{ launchConfetti(); showResults(); };
-    grid.appendChild(btn);
-  }
 }
 
-// ── BRIEFING ───────────────────────────────────────────────────────────────
-function openBriefing(idx) {
-  S.subjectIdx = idx;
-  const s = SUBJECTS[idx];
-  const badge = document.getElementById('brief-badge');
-  badge.textContent = s.icon+' '+s.name;
-  badge.style.cssText = `color:${s.color};border:1px solid ${s.color}33;background:${s.color}15;`;
-  document.getElementById('brief-title').textContent = 'Ready for '+s.name+'?';
-  document.getElementById('brief-meta').innerHTML = `
-    <span class="glass rounded-full px-3 py-1 text-xs text-Whyte/60 font-semibold">⏱ ${Math.floor(s.time/60)} minutes</span>
-    <span class="glass rounded-full px-3 py-1 text-xs text-Whyte/60 font-semibold">${s.questions.length} questions</span>
-    <span class="glass rounded-full px-3 py-1 text-xs text-Whyte/60 font-semibold">${s.paper}</span>`;
-  document.getElementById('btn-begin-section').style.background = `linear-gradient(135deg,${s.color}cc,${s.color})`;
-  show('briefing');
-}
-function goToHub() { clearTimer(); show('hub'); renderHub(); }
-
-// ── TEST ───────────────────────────────────────────────────────────────────
-function beginSection() {
-  const subj = SUBJECTS[S.subjectIdx];
-  S.qIdx = 0;
-  S.timeLeft = subj.time;
-  S.totalTime = subj.time;
-  S.prog[S.subjectIdx].status = 'in-progress';
-  document.getElementById('test-subject-label').textContent = subj.name;
-  document.getElementById('test-paper-label').textContent   = subj.paper;
-  const passPanel = document.getElementById('passage-panel');
-  const testBody  = document.getElementById('test-body');
-  if (subj.hasPassage) {
-    passPanel.classList.remove('hidden');
-    testBody.classList.add('md:grid','md:grid-cols-2');
-    document.getElementById('passage-title-el').textContent = subj.passage.title;
-    document.getElementById('passage-content-el').innerHTML  = subj.passage.html;
-  } else {
-    passPanel.classList.add('hidden');
-    testBody.classList.remove('md:grid','md:grid-cols-2');
-  }
-  renderQ(); renderDots(); startTimer();
-  show('test');
-}
-
-function renderQ() {
-  const subj = SUBJECTS[S.subjectIdx];
-  const q    = subj.questions[S.qIdx];
-  const ans  = S.prog[S.subjectIdx].ans;
-  const answered = Object.keys(ans).length;
-  document.getElementById('q-num').textContent   = S.qIdx+1;
-  document.getElementById('q-total').textContent = subj.questions.length;
-  document.getElementById('q-text').textContent  = q.t;
-  document.getElementById('q-answered-badge').textContent = answered+'/'+subj.questions.length+' answered';
-  document.getElementById('test-progress-bar').style.width = ((S.qIdx+1)/subj.questions.length*100)+'%';
-  document.getElementById('btn-prev').disabled = S.qIdx===0;
-  document.getElementById('btn-next').disabled = S.qIdx===subj.questions.length-1;
-  const grid = document.getElementById('options-grid');
-  grid.innerHTML = '';
-  ['A','B','C','D'].forEach((ltr,i)=>{
-    const btn = document.createElement('button');
-    btn.className = 'glass-option rounded-xl p-3.5 sm:p-4 flex items-center gap-3 text-left w-full'+(ans[S.qIdx]===i?' selected':'');
-    btn.innerHTML = `<span class="opt-letter w-7 h-7 rounded-lg glass text-xs font-black flex items-center justify-center flex-shrink-0 ${ans[S.qIdx]===i?'bg-gold-500 text-navy-800':'text-Whyte/40'}">${ltr}</span>
-      <span class="text-Whyte/80 text-sm font-medium leading-snug">${q.o[i]}</span>`;
-    btn.onclick=()=>pick(i);
-    grid.appendChild(btn);
-  });
-  renderDots();
-}
-
-function pick(i) {
-  S.prog[S.subjectIdx].ans[S.qIdx] = i;
-  renderQ();
-  const subj = SUBJECTS[S.subjectIdx];
-  if (S.qIdx < subj.questions.length-1) {
-    setTimeout(()=>{ if(S.prog[S.subjectIdx].ans[S.qIdx]===i){ S.qIdx++; renderQ(); }}, 400);
-  }
-}
-function prevQ() { if(S.qIdx>0){ S.qIdx--; renderQ(); } }
-function nextQ() { const n=SUBJECTS[S.subjectIdx].questions.length; if(S.qIdx<n-1){ S.qIdx++; renderQ(); } }
-
-function renderDots() {
-  const ans = S.prog[S.subjectIdx].ans;
-  const wrap = document.getElementById('q-nav-dots');
-  wrap.innerHTML = '';
-  SUBJECTS[S.subjectIdx].questions.forEach((_,i)=>{
-    const d = document.createElement('button');
-    d.className = 'nav-dot'+(i===S.qIdx?' current':ans[i]!==undefined?' answered':'');
-    d.textContent = i+1;
-    d.onclick=()=>{ S.qIdx=i; renderQ(); };
-    wrap.appendChild(d);
-  });
-}
-
-// ── TIMER ──────────────────────────────────────────────────────────────────
-function startTimer() {
-  clearTimer(); updateTimer();
-  S.timer = setInterval(()=>{
-    S.timeLeft--;
-    if (S.timeLeft<=0){ S.timeLeft=0; updateTimer(); clearTimer(); autoSubmit(); }
-    else updateTimer();
-  },1000);
-}
-function clearTimer() { if(S.timer){ clearInterval(S.timer); S.timer=null; } }
-function updateTimer() {
-  const m = Math.floor(S.timeLeft/60), s = S.timeLeft%60;
-  document.getElementById('timer-num').textContent = m+':'+String(s).padStart(2,'0');
-  const pct = S.timeLeft/S.totalTime;
-  document.getElementById('timer-ring-fg').style.strokeDashoffset = 125.6*(1-pct);
-  const wrap = document.getElementById('timer-wrap');
-  wrap.className = 'flex items-center gap-2.5 flex-shrink-0'+(S.timeLeft<=60?' timer-danger':S.timeLeft<=300?' timer-warn':'');
-  const rb = document.getElementById('review-timer-badge');
-  if (rb) rb.textContent = '⏱ '+m+':'+String(s).padStart(2,'0')+' left';
-}
-
-// ── REVIEW ─────────────────────────────────────────────────────────────────
-function openReview() {
-  const subj = SUBJECTS[S.subjectIdx];
-  const ans  = S.prog[S.subjectIdx].ans;
-  const answered = Object.keys(ans).length;
-  const unanswered = subj.questions.length - answered;
-  document.getElementById('review-subject-name').textContent = subj.name;
-  document.getElementById('review-timer-badge').textContent  = '⏱ '+Math.floor(S.timeLeft/60)+':'+String(S.timeLeft%60).padStart(2,'0')+' left';
-  document.getElementById('review-summary').innerHTML =
-    `<span class="text-green-400 font-bold">${answered} answered</span> &nbsp;·&nbsp; `+
-    `<span class="${unanswered>0?'text-orange-400 font-bold':'text-Whyte/40'}">${unanswered} unanswered</span>`;
-  const list = document.getElementById('review-list');
-  list.innerHTML = '';
-  subj.questions.forEach((q,i)=>{
-    const isAns = ans[i]!==undefined;
-    const item = document.createElement('div');
-    item.className = 'review-item rounded-xl p-3.5 flex items-center gap-3 cursor-pointer transition-all hover:border-gold-500/40'+(isAns?' answered':'');
-    item.innerHTML = `
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black flex-shrink-0 ${isAns?'bg-gold-500/20 text-gold-400':'glass text-Whyte/30'}">${i+1}</div>
-      <div class="flex-1 min-w-0">
-        <div class="text-Whyte/70 text-xs font-medium truncate">${q.t.substring(0,60)}${q.t.length>60?'…':''}</div>
-        <div class="text-xs mt-0.5 ${isAns?'text-gold-400':'text-Whyte/25'}">${isAns?'Selected: '+['A','B','C','D'][ans[i]]:'Not answered'}</div>
-      </div>
-      <div class="text-Whyte/20 text-xs">→</div>`;
-    item.onclick=()=>{ closeReview(); S.qIdx=i; renderQ(); };
-    list.appendChild(item);
-  });
-  show('review');
-}
-function closeReview() { show('test'); }
-
-// ── SUBMIT ─────────────────────────────────────────────────────────────────
-function confirmSubmit() {
-  const subj = SUBJECTS[S.subjectIdx];
-  const unanswered = subj.questions.length - Object.keys(S.prog[S.subjectIdx].ans).length;
-  if (unanswered>0 && !confirm(`${unanswered} question${unanswered>1?'s are':' is'} unanswered. Submit anyway?`)) return;
-  submitSection();
-}
-function autoSubmit() { submitSection(); }
-
-function submitSection() {
+function goToHub() {
   clearTimer();
-  const idx  = S.subjectIdx;
+  renderHub();
+  showScreen('hub');
+}
+
+/* =============================================
+   BRIEFING
+   ============================================= */
+function openBriefing(idx) {
+  if (sectionResults[SUBJECTS[idx].id]) return; // already done
+  currentSubjectIdx = idx;
   const subj = SUBJECTS[idx];
-  const ans  = S.prog[idx].ans;
-  let score = 0;
-  subj.questions.forEach((q,i)=>{ if(ans[i]===q.a) score++; });
-  S.prog[idx].score    = score;
-  S.prog[idx].status   = 'completed';
-  S.prog[idx].timeUsed = S.totalTime - S.timeLeft;
-  if (idx+1<SUBJECTS.length) S.prog[idx+1].status = 'available';
-
-  const pct = Math.round(score/subj.questions.length*100);
-  const [emoji,msg] = pct>=75 ? ['🌟','Outstanding performance!'] : pct>=55 ? ['✅','Good effort!'] : ['💪','Keep going — every question is a lesson.'];
-  document.getElementById('done-emoji').textContent = emoji;
-  document.getElementById('done-title').textContent = subj.name+' Complete!';
-  document.getElementById('done-msg').textContent   = msg;
-  document.getElementById('done-score').textContent = score+'/'+subj.questions.length;
-  document.getElementById('done-pct').textContent   = pct+'%';
-  const circ = 376.8;
-  setTimeout(()=>{ document.getElementById('done-ring').style.strokeDashoffset = circ*(1-pct/100); },100);
-  const bandEl = document.getElementById('done-band');
-  if (pct>=75)      { bandEl.textContent='⭐ Greater Depth';       bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-gold-500/20 text-gold-400'; }
-  else if (pct>=55) { bandEl.textContent='✓ Expected Standard';    bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-green-500/20 text-green-400'; }
-  else              { bandEl.textContent='📚 Working Towards';     bandEl.className='inline-block rounded-full px-4 py-1.5 text-sm font-black bg-orange-500/20 text-orange-400'; }
-  const allDone = S.prog.every(p=>p.status==='completed');
-  const btn = document.getElementById('btn-continue');
-  if (allDone){ btn.textContent='🏆 View Full Results'; btn.onclick=()=>{ launchConfetti(); showResults(); }; }
-  else        { btn.textContent='Return to Hub →'; btn.onclick=goToHub; }
-  show('section-done');
+  document.getElementById('brief-badge').textContent = `${subj.icon} Section ${idx + 1} of 3`;
+  document.getElementById('brief-badge').style.color = subj.color;
+  document.getElementById('brief-title').textContent = subj.name;
+  document.getElementById('brief-meta').innerHTML = `
+    <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold" style="color:${subj.color}">📋 ${subj.questions.length} questions</span>
+    <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-gold-400">⏱ ${Math.round(subj.timeSec / 60)} minutes</span>
+    <span class="glass rounded-full px-3 py-1.5 text-xs font-semibold text-white/50">${subj.desc}</span>`;
+  showScreen('briefing');
 }
 
-// ── RESULTS ────────────────────────────────────────────────────────────────
-function showResults() {
-  let total=0, possible=0;
-  SUBJECTS.forEach((s,i)=>{ total+=S.prog[i].score||0; possible+=s.questions.length; });
-  const pct = Math.round(total/possible*100);
-  document.getElementById('ov-pct').textContent = pct+'%';
-  document.getElementById('ov-raw').textContent = total+' / '+possible;
-  document.getElementById('results-student-info').textContent = S.student.name+' · '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
-  const band = document.getElementById('ov-band');
-  if (pct>=75)      { band.textContent='⭐ Greater Depth';            band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-gold-500/25 text-gold-400'; }
-  else if (pct>=55) { band.textContent='✓ Expected Standard';         band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-green-500/20 text-green-400'; }
-  else              { band.textContent='📚 Working Towards Expected'; band.className='inline-block rounded-full px-5 py-2 text-sm font-black bg-orange-500/20 text-orange-400'; }
+/* =============================================
+   TEST
+   ============================================= */
+function beginSection() {
+  const subj = SUBJECTS[currentSubjectIdx];
+  currentQIdx = 0;
+  answers = new Array(subj.questions.length).fill(null);
 
-  const grid = document.getElementById('results-grid');
-  grid.innerHTML = '';
-  SUBJECTS.forEach((s,i)=>{
-    const sc = S.prog[i].score||0, p = Math.round(sc/s.questions.length*100);
-    const card = document.createElement('div');
-    card.className = 'glass-card rounded-2xl p-4 text-center';
-    card.innerHTML = `<div class="text-2xl mb-2">${s.icon}</div>
-      <div class="text-Whyte/50 text-xs font-semibold mb-1 truncate">${s.name}</div>
-      <div class="font-display text-2xl font-black text-Whyte">${sc}<span class="text-sm text-Whyte/30">/${s.questions.length}</span></div>
-      <div class="text-xs font-bold mt-1" style="color:${p>=75?'#F0CB5A':p>=55?'#4ADE80':'#FCA5A5'}">${p}%</div>`;
-    grid.appendChild(card);
-  });
+  // Header labels
+  document.getElementById('test-subject-label').textContent = subj.name;
+  document.getElementById('test-paper-label').textContent = `WPA · Year 7 English Baseline`;
 
-  const bars = document.getElementById('results-bars');
-  bars.innerHTML = '';
-  SUBJECTS.forEach((s,i)=>{
-    const sc = S.prog[i].score||0, p = Math.round(sc/s.questions.length*100);
-    const color = p>=75?'#C9A227':p>=55?'#4ADE80':'#F87171';
-    bars.innerHTML += `<div>
-      <div class="flex justify-between text-xs font-semibold text-Whyte/50 mb-1.5">
-        <span>${s.icon} ${s.name}</span>
-        <span style="color:${color}">${sc}/${s.questions.length} &nbsp; ${p}%</span>
-      </div>
-      <div class="h-2 rounded-full bg-Whyte/10 overflow-hidden">
-        <div class="progress-bar-fill h-full rounded-full" style="width:${p}%;background:${color}"></div>
-      </div></div>`;
-  });
-
-  // Hide sheets button if no URL configured
-  if (!CONFIG.GAS_URL) {
-    document.getElementById('btn-save-sheets').style.display = 'none';
+  // Passage
+  const pp = document.getElementById('passage-panel');
+  const tm = document.getElementById('test-main');
+  if (subj.hasPassage) {
+    pp.classList.remove('hidden');
+    tm.classList.add('has-passage');
+    document.getElementById('passage-title-el').textContent = PASSAGE.title;
+    document.getElementById('passage-content-el').innerHTML = PASSAGE.content.map(p => `<p>${p}</p>`).join('');
+  } else {
+    pp.classList.add('hidden');
+    tm.classList.remove('has-passage');
   }
 
-  show('results');
+  renderQuestion();
+  startTimer(subj.timeSec);
+  showScreen('test');
 }
 
-// ── SHEETS SUBMIT ──────────────────────────────────────────────────────────
-async function submitToSheets() {
-  const url = CONFIG.GAS_URL;
-  const el  = document.getElementById('submit-status');
-  if (!url) {
-    el.textContent='⚠ No Google Apps Script URL configured. Set CONFIG.GAS_URL in the script section.';
-    el.className='mt-2.5 text-sm font-semibold text-orange-400';
-    el.classList.remove('hidden'); return;
-  }
-  el.textContent='⏳ Submitting…'; el.className='text-sm font-semibold text-Whyte/60'; el.classList.remove('hidden');
-  const payload = {
-    timestamp: new Date().toISOString(),
-    studentName: S.student.name,
-    studentClass: 'N/A',
-    subjects: SUBJECTS.map((s,i)=>({
-      name:s.name, paper:s.paper,
-      score:S.prog[i].score, total:s.questions.length,
-      pct:Math.round((S.prog[i].score/s.questions.length)*100),
-      timeUsed:S.prog[i].timeUsed, answers:S.prog[i].ans,
-    }))
-  };
-  try {
-    const res  = await fetch(url,{ method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(payload) });
-    const data = await res.json();
-    if (data.success){ el.textContent='✅ Saved to Google Sheets!'; el.className='text-sm font-semibold text-green-400'; }
-    else throw new Error(data.error||'Server error');
-  } catch(err) {
-    el.textContent='❌ '+err.message; el.className='text-sm font-semibold text-red-400';
-  }
-}
+function renderQuestion() {
+  const subj = SUBJECTS[currentSubjectIdx];
+  const qs = subj.questions;
+  const q = qs[currentQIdx];
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ★  DOWNLOAD REPORT
-// ═══════════════════════════════════════════════════════════════════════════
-function getBand(pct) {
-  if (pct>=75) return { label:'Greater Depth', color:'#A8841F', bg:'#FEF3C7', icon:'⭐' };
-  if (pct>=55) return { label:'Expected Standard', color:'#065F46', bg:'#D1FAE5', icon:'✓' };
-  return { label:'Working Towards Expected', color:'#92400E', bg:'#FEF3C7', icon:'📚' };
-}
+  document.getElementById('q-num').textContent = currentQIdx + 1;
+  document.getElementById('q-total').textContent = qs.length;
+  document.getElementById('test-progress-bar').style.width = `${Math.round((currentQIdx + 1) / qs.length * 100)}%`;
+  document.getElementById('q-text').textContent = q.q;
 
-function getMissedQuestions(subjectIdx) {
-  const subj = SUBJECTS[subjectIdx];
-  const ans  = S.prog[subjectIdx].ans;
-  const missed = [];
-  subj.questions.forEach((q,i)=>{
-    const given   = ans[i];
-    const correct = q.a;
-    if (given === undefined || given !== correct) {
-      missed.push({
-        num: i+1,
-        question: q.t,
-        options: q.o,
-        correctIdx: correct,
-        givenIdx: given,
-        correctAns: q.o[correct],
-        givenAns: given !== undefined ? q.o[given] : '(not answered)',
-      });
-    }
-  });
-  return missed;
-}
+  const answered = answers.filter(a => a !== null).length;
+  document.getElementById('q-answered-badge').textContent = `${answered}/${qs.length} answered`;
 
-function downloadReport() {
-  let total=0, possible=0;
-  SUBJECTS.forEach((s,i)=>{ total+=S.prog[i].score||0; possible+=s.questions.length; });
-  const overallPct = Math.round(total/possible*100);
-  const overallBand = getBand(overallPct);
-  const dateStr = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-
-  // ── Build subject sections ────────────────────────────────────────────────
-  let subjectSections = '';
-  SUBJECTS.forEach((subj,i)=>{
-    const sc   = S.prog[i].score||0;
-    const pct  = Math.round(sc/subj.questions.length*100);
-    const band = getBand(pct);
-    const rec  = pct>=75 ? subj.recommendations.high : pct>=55 ? subj.recommendations.mid : subj.recommendations.low;
-    const missed = getMissedQuestions(i);
-
-    let missedRows = '';
-    if (missed.length===0) {
-      missedRows = `<tr><td colspan="4" style="text-align:center;color:#065F46;font-weight:700;padding:14px;background:#D1FAE5;">🎉 All questions answered correctly!</td></tr>`;
-    } else {
-      missed.forEach(m=>{
-        const letters = ['A','B','C','D'];
-        missedRows += `
-          <tr>
-            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;font-weight:700;color:#374151;width:36px;text-align:center;">${m.num}</td>
-            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;color:#1F2937;font-size:13px;line-height:1.55;">${m.question}</td>
-            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;text-align:center;">
-              ${m.givenIdx!==undefined
-                ? `<span style="display:inline-block;background:#FEE2E2;color:#991B1B;border-radius:6px;padding:3px 10px;font-weight:700;font-size:12px;">${letters[m.givenIdx]}: ${m.givenAns}</span>`
-                : `<span style="display:inline-block;background:#F3F4F6;color:#9CA3AF;border-radius:6px;padding:3px 10px;font-weight:700;font-size:12px;">Not answered</span>`}
-            </td>
-            <td style="padding:10px 12px;vertical-align:top;border-bottom:1px solid #F3F4F6;text-align:center;">
-              <span style="display:inline-block;background:#D1FAE5;color:#065F46;border-radius:6px;padding:3px 10px;font-weight:700;font-size:12px;">${letters[m.correctIdx]}: ${m.correctAns}</span>
-            </td>
-          </tr>`;
-      });
-    }
-
-    subjectSections += `
-    <!-- Subject: ${subj.name} -->
-    <div style="margin-bottom:32px;border:1.5px solid #E5E7EB;border-radius:14px;overflow:hidden;page-break-inside:avoid;">
-      <div style="background:${subj.color}18;border-bottom:3px solid ${subj.color};padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:24px;">${subj.icon}</span>
-          <div>
-            <div style="font-weight:800;font-size:16px;color:#1F2937;">${subj.name}</div>
-            <div style="font-size:12px;color:#6B7280;">${subj.paper}</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-          <div style="text-align:center;">
-            <div style="font-size:26px;font-weight:900;color:${subj.color};">${sc}/${subj.questions.length}</div>
-            <div style="font-size:11px;color:#9CA3AF;font-weight:600;">SCORE</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-size:26px;font-weight:900;color:${subj.color};">${pct}%</div>
-            <div style="font-size:11px;color:#9CA3AF;font-weight:600;">PERCENTAGE</div>
-          </div>
-          <span style="background:${band.bg};color:${band.color};border-radius:20px;padding:5px 14px;font-size:12px;font-weight:800;">${band.icon} ${band.label}</span>
-        </div>
-      </div>
-
-      <!-- Progress bar -->
-      <div style="padding:0 20px;background:#fff;">
-        <div style="height:8px;background:#F3F4F6;border-radius:4px;overflow:hidden;margin:12px 0;">
-          <div style="height:100%;width:${pct}%;background:${subj.color};border-radius:4px;"></div>
-        </div>
-      </div>
-
-      <!-- Recommendation -->
-      <div style="margin:0 20px 16px;background:#F9FAFB;border-left:4px solid ${subj.color};border-radius:0 8px 8px 0;padding:12px 16px;">
-        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:${subj.color};margin-bottom:5px;">📌 Recommendation</div>
-        <div style="font-size:13px;color:#374151;line-height:1.6;">${rec}</div>
-      </div>
-
-      <!-- Missed questions table -->
-      <div style="padding:0 20px 20px;">
-        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#6B7280;margin-bottom:10px;">
-          Questions Missed or Incorrect — ${missed.length} of ${subj.questions.length}
-        </div>
-        <table style="width:100%;border-collapse:collapse;font-family:'DM Sans',sans-serif;border:1px solid #E5E7EB;border-radius:8px;overflow:hidden;">
-          <thead>
-            <tr style="background:#F9FAFB;">
-              <th style="padding:9px 12px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Q#</th>
-              <th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Question</th>
-              <th style="padding:9px 12px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Pupil's Answer</th>
-              <th style="padding:9px 12px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:1px solid #E5E7EB;">Correct Answer</th>
-            </tr>
-          </thead>
-          <tbody>${missedRows}</tbody>
-        </table>
-      </div>
-    </div>`;
+  // Options
+  const og = document.getElementById('options-grid');
+  og.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = `glass-option w-full rounded-xl px-4 py-3.5 flex items-center gap-3 text-left ${answers[currentQIdx] === i ? 'selected' : ''}`;
+    btn.innerHTML = `
+      <span class="opt-letter w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black flex-shrink-0
+        ${answers[currentQIdx] === i ? 'bg-gold-500 text-navy-800' : 'bg-white/10 text-white/50'}">${letters[i]}</span>
+      <span class="text-white/80 text-sm font-medium leading-snug">${opt}</span>`;
+    btn.onclick = () => selectAnswer(i);
+    og.appendChild(btn);
   });
 
-  // ── Summary for parent ────────────────────────────────────────────────────
-  const parentBand = overallBand;
-  const weakSubjects  = SUBJECTS.filter((_,i)=>Math.round((S.prog[i].score||0)/_.questions.length*100)<55).map(s=>s.name);
-  const strongSubjects= SUBJECTS.filter((_,i)=>Math.round((S.prog[i].score||0)/_.questions.length*100)>=75).map(s=>s.name);
-  let parentSummary = `${S.student.name} completed the ${CONFIG.ACADEMY_NAME} KS2 Diagnostic Assessment on ${dateStr}, achieving an overall score of <strong>${total}/${possible} (${overallPct}%)</strong>, which places them in the <strong>${parentBand.label}</strong> band. `;
-  if (strongSubjects.length>0) parentSummary += `They showed particular strength in <strong>${strongSubjects.join(' and ')}</strong>. `;
-  if (weakSubjects.length>0)   parentSummary += `Additional support is recommended in <strong>${weakSubjects.join(' and ')}</strong>, where focused revision will help consolidate key skills. `;
-  else parentSummary += `${S.student.name} demonstrated competency across all four subject areas. `;
-  parentSummary += `Please review the detailed subject sections below for specific question feedback and personalised recommendations. If you have any questions about these results, please contact the academy directly.`;
-
-  // ── Admin summary table ───────────────────────────────────────────────────
-  let adminRows = '';
-  SUBJECTS.forEach((s,i)=>{
-    const sc = S.prog[i].score||0;
-    const p  = Math.round(sc/s.questions.length*100);
-    const b  = getBand(p);
-    const mins = Math.floor((S.prog[i].timeUsed||0)/60);
-    const secs = String((S.prog[i].timeUsed||0)%60).padStart(2,'0');
-    adminRows += `<tr>
-      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;">${s.icon} ${s.name}</td>
-      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:700;">${sc}/${s.questions.length}</td>
-      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;font-weight:800;color:${s.color};">${p}%</td>
-      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;"><span style="background:${b.bg};color:${b.color};border-radius:12px;padding:3px 10px;font-size:12px;font-weight:700;">${b.label}</span></td>
-      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;color:#6B7280;font-size:13px;">${mins}m ${secs}s</td>
-      <td style="padding:10px 14px;border-bottom:1px solid #F3F4F6;text-align:center;color:#6B7280;font-size:12px;">${Object.keys(S.prog[i].ans).length}/${s.questions.length}</td>
-    </tr>`;
+  // Nav dots
+  const nd = document.getElementById('q-nav-dots');
+  nd.innerHTML = '';
+  qs.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = `nav-dot ${i === currentQIdx ? 'current' : answers[i] !== null ? 'answered' : ''}`;
+    dot.textContent = i + 1;
+    dot.title = `Q${i + 1}`;
+    dot.onclick = () => { currentQIdx = i; renderQuestion(); };
+    nd.appendChild(dot);
   });
 
-  // ── Assemble full HTML document ───────────────────────────────────────────
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Assessment Report — ${S.student.name}</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:'DM Sans',sans-serif; background:#F9FAFB; color:#1F2937; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  @media print {
-    body { background:#fff; }
-    .no-print { display:none !important; }
-    .page-break { page-break-before:always; }
-    @page { margin:15mm; }
-  }
-  h1,h2,h3 { font-family:'Playfair Display',serif; }
-</style>
-</head>
-<body>
-<div style="max-width:820px;margin:0 auto;padding:24px 16px;">
-
-  <!-- ── PRINT BUTTON ── -->
-  <div class="no-print" style="position:sticky;top:0;background:#F9FAFB;z-index:10;padding:10px 0 14px;display:flex;gap:10px;justify-content:flex-end;border-bottom:1px solid #E5E7EB;margin-bottom:24px;">
-    <button onclick="window.print()" style="background:#0B2545;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-weight:800;font-size:14px;cursor:pointer;">🖨 Print / Save as PDF</button>
-    <button onclick="window.close()" style="background:#E5E7EB;color:#374151;border:none;border-radius:10px;padding:10px 16px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">✕ Close</button>
-  </div>
-
-  <!-- ── COVER HEADER ── -->
-  <div style="background:linear-gradient(135deg,#0B2545 0%,#0D3060 60%,#1B4080 100%);border-radius:18px;padding:36px 36px 28px;margin-bottom:24px;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:-30px;right:-20px;opacity:.06;">
-      <svg width="220" height="200" viewBox="0 0 200 180"><polygon points="100,10 190,170 10,170" fill="Whyte"/></svg>
-    </div>
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
-      <svg width="48" height="48" viewBox="0 0 52 52">
-        <polygon points="26,4 50,48 2,48" fill="#C9A227"/>
-        <polygon points="26,14 42,44 10,44" fill="#F0CB5A" opacity=".45"/>
-      </svg>
-      <div>
-        <div style="color:#fff;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;">${CONFIG.ACADEMY_NAME}</div>
-        <div style="color:#C9A227;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">${CONFIG.ACADEMY_SUBTITLE}</div>
-      </div>
-    </div>
-    <div style="color:rgba(255,255,255,.5);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Diagnostic Assessment Report</div>
-    <div style="color:#fff;font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:4px;">${S.student.name}</div>
-    <div style="color:rgba(255,255,255,.55);font-size:13px;">${dateStr}</div>
-
-    <!-- Score chips -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
-      <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 18px;text-align:center;">
-        <div style="color:#C9A227;font-size:28px;font-weight:900;font-family:'Playfair Display',serif;">${total}/${possible}</div>
-        <div style="color:rgba(255,255,255,.5);font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px;">Total Score</div>
-      </div>
-      <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 18px;text-align:center;">
-        <div style="color:#C9A227;font-size:28px;font-weight:900;font-family:'Playfair Display',serif;">${overallPct}%</div>
-        <div style="color:rgba(255,255,255,.5);font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px;">Overall %</div>
-      </div>
-      <div style="background:${overallBand.bg};border-radius:10px;padding:10px 18px;align-self:center;">
-        <div style="color:${overallBand.color};font-size:14px;font-weight:800;">${overallBand.icon} ${overallBand.label}</div>
-        <div style="color:${overallBand.color};font-size:11px;font-weight:600;opacity:.7;margin-top:2px;">Attainment Band</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── SECTION 1: SUMMARY FOR PARENT ── -->
-  <div style="border:1.5px solid #E5E7EB;border-radius:14px;overflow:hidden;margin-bottom:24px;">
-    <div style="background:#EFF6FF;border-bottom:3px solid #3B82F6;padding:14px 20px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:20px;">👨‍👩‍👧</span>
-      <div>
-        <div style="font-weight:800;font-size:15px;color:#1E3A8A;">For the Parent / Guardian</div>
-        <div style="font-size:12px;color:#3B82F6;">Plain-English summary of your child's performance</div>
-      </div>
-    </div>
-    <div style="padding:18px 20px;background:#fff;">
-      <p style="font-size:14px;line-height:1.75;color:#374151;">${parentSummary}</p>
-    </div>
-  </div>
-
-  <!-- ── SECTION 2: ADMIN SUMMARY ── -->
-  <div style="border:1.5px solid #E5E7EB;border-radius:14px;overflow:hidden;margin-bottom:24px;">
-    <div style="background:#FDF4FF;border-bottom:3px solid #8B5CF6;padding:14px 20px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:20px;">📊</span>
-      <div>
-        <div style="font-weight:800;font-size:15px;color:#4C1D95;">For the Academy / Administrator</div>
-        <div style="font-size:12px;color:#8B5CF6;">Detailed performance data for records</div>
-      </div>
-    </div>
-    <div style="padding:18px 20px;background:#fff;">
-      <table style="width:100%;border-collapse:collapse;font-size:13px;">
-        <thead>
-          <tr style="background:#F9FAFB;">
-            <th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Subject</th>
-            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Score</th>
-            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">%</th>
-            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Band</th>
-            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Time Used</th>
-            <th style="padding:10px 14px;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;color:#9CA3AF;border-bottom:2px solid #E5E7EB;">Attempted</th>
-          </tr>
-        </thead>
-        <tbody>${adminRows}</tbody>
-        <tfoot>
-          <tr style="background:#F9FAFB;">
-            <td style="padding:12px 14px;font-weight:800;font-size:14px;color:#1F2937;">OVERALL TOTAL</td>
-            <td style="padding:12px 14px;text-align:center;font-weight:900;font-size:16px;color:#0B2545;">${total}/${possible}</td>
-            <td style="padding:12px 14px;text-align:center;font-weight:900;font-size:16px;color:${overallBand.color};">${overallPct}%</td>
-            <td style="padding:12px 14px;text-align:center;" colspan="3"><span style="background:${overallBand.bg};color:${overallBand.color};border-radius:12px;padding:4px 14px;font-size:12px;font-weight:800;">${overallBand.icon} ${overallBand.label}</span></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-
-  <!-- ── SECTION 3: SUBJECT-BY-SUBJECT DETAIL ── -->
-  <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:#0B2545;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #E5E7EB;">
-    📋 Subject-by-Subject Analysis
-  </h2>
-  ${subjectSections}
-
-  <!-- ── FOOTER ── -->
-  <div style="border-top:1px solid #E5E7EB;padding-top:16px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-    <div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <svg width="20" height="20" viewBox="0 0 52 52"><polygon points="26,4 50,48 2,48" fill="#C9A227"/></svg>
-        <span style="font-weight:700;font-size:13px;color:#0B2545;">${CONFIG.ACADEMY_NAME}</span>
-      </div>
-      <div style="font-size:11px;color:#9CA3AF;margin-top:3px;">${CONFIG.REPORT_FOOTER}</div>
-    </div>
-    <div style="font-size:11px;color:#9CA3AF;text-align:right;">
-      Generated: ${dateStr}<br/>
-      Student: ${S.student.name}
-    </div>
-  </div>
-
-</div>
-</body>
-</html>`;
-
-  // ── Trigger download ──────────────────────────────────────────────────────
-  const blob = new Blob([html], { type:'text/html;charset=utf-8' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = `WPA_Report_${S.student.name.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.html`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  document.getElementById('btn-prev').disabled = currentQIdx === 0;
+  document.getElementById('btn-next').disabled = currentQIdx === qs.length - 1;
 }
 
-// ── CONFETTI ───────────────────────────────────────────────────────────────
-function launchConfetti() {
-  const colors=['#C9A227','#F0CB5A','#FFFFFF','#3B82F6','#10B981','#8B5CF6'];
-  for(let i=0;i<80;i++){
-    setTimeout(()=>{
-      const el = document.createElement('div');
-      el.className = 'confetti-piece';
-      el.style.cssText = `left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};
-        width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};
-        animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;
-        transform:rotate(${Math.random()*360}deg)`;
-      document.body.appendChild(el);
-      setTimeout(()=>el.remove(),3000);
-    },i*25);
-  }
+function selectAnswer(idx) {
+  answers[currentQIdx] = idx;
+  renderQuestion();
 }
 
-// ── KEYBOARD ───────────────────────────────────────────────────────────────
-document.addEventListener('keydown',e=>{
-  const active = document.querySelector('.screen.active')?.id;
-  if (active==='screen-welcome' && e.key==='Enter'){ startJourney(); return; }
-  if (active!=='screen-test') return;
-  if (e.key==='ArrowLeft'||e.key==='ArrowUp')       prevQ();
-  else if (e.key==='ArrowRight'||e.key==='ArrowDown') nextQ();
-  else if (['1','2','3','4'].includes(e.key))         pick(parseInt(e.key)-1);
+function prevQ() { if (currentQIdx > 0) { currentQIdx--; renderQuestion(); } }
+function nextQ() { if (currentQIdx < SUBJECTS[currentSubjectIdx].questions.length - 1) { currentQIdx++; renderQuestion(); } }
+
+/* keyboard shortcuts */
+document.addEventListener('keydown', e => {
+  const screen = document.querySelector('.screen.active');
+  if (!screen) return;
+  const id = screen.id;
+  if (id === 'screen-test') {
+    if (['1','2','3','4'].includes(e.key)) selectAnswer(parseInt(e.key) - 1);
+    if (e.key === 'ArrowLeft') prevQ();
+    if (e.key === 'ArrowRight') nextQ();
+  }
 });
+
+/* =============================================
+   TIMER
+   ============================================= */
+function startTimer(seconds) {
+  clearTimer();
+  timerSec = seconds;
+  timerTotal = seconds;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSec--;
+    updateTimerDisplay();
+    if (timerSec <= 0) { clearTimer(); confirmSubmit(); }
+  }, 1000);
+}
+
+function clearTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function updateTimerDisplay() {
+  const wrap = document.getElementById('timer-wrap');
+  const ring = document.getElementById('timer-ring-fg');
+  const num = document.getElementById('timer-num');
+  const pct = timerSec / timerTotal;
+  const dashLen = 125.6;
+  ring.style.strokeDashoffset = dashLen - dashLen * pct;
+  wrap.classList.remove('timer-warn', 'timer-danger');
+  if (pct < 0.2) { ring.style.stroke = '#FF4B4B'; wrap.classList.add('timer-danger'); }
+  else if (pct < 0.4) { ring.style.stroke = '#F5A623'; wrap.classList.add('timer-warn'); }
+  else ring.style.stroke = '#C9A227';
+
+  const mins = Math.floor(timerSec / 60);
+  const secs = timerSec % 60;
+  num.textContent = mins > 0 ? `${mins}m` : `${secs}s`;
+
+  // sync review badge
+  const rb = document.getElementById('review-timer-badge');
+  if (rb) rb.textContent = `⏱ ${mins}:${String(secs).padStart(2, '0')} left`;
+}
+
+/* =============================================
+   REVIEW
+   ============================================= */
+function openReview() {
+  const subj = SUBJECTS[currentSubjectIdx];
+  document.getElementById('review-subject-name').textContent = subj.name;
+  const answered = answers.filter(a => a !== null).length;
+  const total = subj.questions.length;
+  document.getElementById('review-summary').innerHTML =
+    `<span class="text-white/80 font-bold">${answered}</span> of <span class="text-white/80 font-bold">${total}</span> questions answered.
+    ${total - answered > 0 ? `<span class="text-amber-400 ml-2">${total - answered} unanswered.</span>` : '<span class="text-green-400 ml-2">All answered! ✓</span>'}`;
+
+  const rl = document.getElementById('review-list');
+  rl.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  subj.questions.forEach((q, i) => {
+    const item = document.createElement('div');
+    item.className = `review-item rounded-xl p-3.5 flex items-center gap-3 cursor-pointer hover:bg-white/10 transition-colors ${answers[i] !== null ? 'answered' : ''}`;
+    item.onclick = () => { closeReview(); currentQIdx = i; renderQuestion(); };
+    item.innerHTML = `
+      <div class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black flex-shrink-0
+        ${answers[i] !== null ? 'bg-gold-500/30 text-gold-400' : 'bg-white/10 text-white/30'}">${i + 1}</div>
+      <div class="flex-1 min-w-0">
+        <div class="text-white/60 text-xs truncate">${q.q.split('\n')[0].substring(0, 60)}${q.q.length > 60 ? '…' : ''}</div>
+        ${answers[i] !== null ? `<div class="text-gold-400 text-xs font-semibold mt-0.5">${letters[answers[i]]}. ${q.opts[answers[i]].substring(0, 35)}…</div>` : '<div class="text-white/25 text-xs mt-0.5">Not answered</div>'}
+      </div>
+      <span class="text-white/25 text-xs">→</span>`;
+    rl.appendChild(item);
+  });
+
+  showScreen('review');
+}
+
+function closeReview() { showScreen('test'); }
+
+/* =============================================
+   SUBMIT SECTION
+   ============================================= */
+function confirmSubmit() {
+  clearTimer();
+  const subj = SUBJECTS[currentSubjectIdx];
+  let score = 0;
+  subj.questions.forEach((q, i) => { if (answers[i] === q.ans) score++; });
+  sectionResults[subj.id] = { score, total: subj.questions.length, answers: [...answers] };
+
+  const pct = Math.round(score / subj.questions.length * 100);
+  const isLast = currentSubjectIdx === SUBJECTS.length - 1;
+
+  document.getElementById('done-emoji').textContent = pct >= 70 ? '🌟' : pct >= 50 ? '👍' : '💪';
+  document.getElementById('done-title').textContent = subj.name + ' Complete!';
+  document.getElementById('done-msg').textContent =
+    `You scored ${score} out of ${subj.questions.length}. ${pct >= 70 ? 'Excellent work!' : pct >= 50 ? 'Good effort!' : 'Keep practising — you\'ll improve!'}`;
+
+  const ring = document.getElementById('done-score-ring');
+  const dashLen = 376.99;
+  document.getElementById('done-score-pct').textContent = pct + '%';
+  setTimeout(() => { ring.style.strokeDashoffset = dashLen - dashLen * (pct / 100); }, 200);
+
+  const nextBtn = document.getElementById('done-next-btn');
+  if (isLast) {
+    nextBtn.textContent = '🎉 See Full Results';
+  } else {
+    const nextSubj = SUBJECTS[currentSubjectIdx + 1];
+    nextBtn.textContent = `Continue to ${nextSubj.shortName} →`;
+  }
+
+  launchConfetti();
+  showScreen('section-done');
+}
+
+function afterSectionDone() {
+  const isLast = currentSubjectIdx === SUBJECTS.length - 1;
+  if (isLast) {
+    renderResults();
+    showScreen('results');
+  } else {
+    renderHub();
+    showScreen('hub');
+  }
+}
+
+/* =============================================
+   RESULTS
+   ============================================= */
+function renderResults() {
+  document.getElementById('res-student-name').textContent = studentName;
+  document.getElementById('res-date').textContent = new Date().toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  let totalScore = 0, totalQ = 0;
+  SUBJECTS.forEach(s => {
+    const r = sectionResults[s.id];
+    if (r) { totalScore += r.score; totalQ += r.total; }
+  });
+  const overallPct = totalQ ? Math.round(totalScore / totalQ * 100) : 0;
+
+  document.getElementById('res-overall-pct').textContent = overallPct + '%';
+  const dashLen = 464.96;
+  setTimeout(() => {
+    document.getElementById('res-overall-ring').style.strokeDashoffset = dashLen - dashLen * (overallPct / 100);
+  }, 300);
+
+  const band = overallPct >= 80 ? '🥇 High Achiever' : overallPct >= 65 ? '🥈 Secure' : overallPct >= 45 ? '🥉 Developing' : '📘 Emerging';
+  document.getElementById('res-band').textContent = band;
+
+  // Breakdown cards
+  const bd = document.getElementById('res-breakdown');
+  bd.innerHTML = '';
+  SUBJECTS.forEach(s => {
+    const r = sectionResults[s.id];
+    if (!r) return;
+    const p = Math.round(r.score / r.total * 100);
+    const card = document.createElement('div');
+    card.className = 'glass rounded-2xl p-4 text-center';
+    card.innerHTML = `
+      <div class="text-2xl mb-2">${s.icon}</div>
+      <div class="text-white font-bold text-sm mb-1">${s.shortName}</div>
+      <div class="font-display text-3xl font-bold mb-1" style="color:${s.color}">${p}%</div>
+      <div class="text-white/40 text-xs">${r.score} / ${r.total}</div>`;
+    bd.appendChild(card);
+  });
+
+  // Diagnostics
+  const diag = document.getElementById('res-diagnostics');
+  diag.innerHTML = '<div class="text-xs font-bold text-white/40 uppercase tracking-widest mb-3">📊 Diagnostic Summary</div>';
+  SUBJECTS.forEach(s => {
+    const r = sectionResults[s.id];
+    if (!r) return;
+    const p = Math.round(r.score / r.total * 100);
+    const comment = p >= 80 ? `Strong performance in ${s.shortName}. Shows solid foundations.`
+      : p >= 60 ? `${s.shortName}: Good overall with some areas to revisit.`
+      : p >= 40 ? `${s.shortName}: Key gaps identified — targeted support recommended.`
+      : `${s.shortName}: Significant gaps. Priority area for intervention.`;
+    const row = document.createElement('div');
+    row.className = 'flex items-center gap-3';
+    row.innerHTML = `
+      <span style="color:${s.color}" class="text-lg flex-shrink-0">${s.icon}</span>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-white/70 text-xs font-bold">${s.shortName}</span>
+          <span class="text-xs font-black" style="color:${s.color}">${p}%</span>
+        </div>
+        <div class="h-1.5 rounded-full bg-white/10 overflow-hidden">
+          <div class="h-full rounded-full" style="width:${p}%;background:${s.color};transition:width 1.2s ease"></div>
+        </div>
+        <div class="text-white/35 text-xs mt-1">${comment}</div>
+      </div>`;
+    diag.appendChild(row);
+  });
+
+  setTimeout(() => {
+    diag.querySelectorAll('[style*="width:"]').forEach(el => {
+      const w = el.style.width; el.style.width = '0'; setTimeout(() => el.style.width = w, 100);
+    });
+  }, 500);
+}
+
+function printReport() { window.print(); }
+
+/* =============================================
+   CONFETTI
+   ============================================= */
+function launchConfetti() {
+  const colors = ['#F0CB5A','#C9A227','#3B82F6','#8B5CF6','#10B981','#F87171'];
+  for (let i = 0; i < 40; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left:${Math.random() * 100}vw;
+      background:${colors[Math.floor(Math.random() * colors.length)]};
+      width:${6 + Math.random() * 8}px;
+      height:${6 + Math.random() * 8}px;
+      border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-duration:${2.5 + Math.random() * 2}s;
+      animation-delay:${Math.random() * 0.8}s;`;
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
 </script>
 </body>
 </html>
